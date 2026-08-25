@@ -31,7 +31,12 @@ export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-export type CtaLocation = "header" | "hero" | "pricing" | "momo" | "footer";
+export type CtaLocation =
+  | "header"
+  | "hero"
+  | "pricing"
+  | "booking"
+  | "footer";
 
 /**
  * Each CTA pre-fills a slightly different message so the founder can tell
@@ -41,6 +46,7 @@ export const WA_MESSAGES: Record<CtaLocation, string> = {
   header: "Hi Veltan, can you tell me more about the missed-call service?",
   hero: "Hi Veltan, I'd like to know more about the missed-call service.",
   pricing: "Hi Veltan, I'd like to claim a founding spot.",
-  momo: "Hi Veltan, I've just sent the Founding 12 payment by Mobile Money — here's my confirmation.",
+  // The booking wizard composes its own structured message from form fields.
+  booking: "",
   footer: "Hi Veltan, I have a few questions about the missed-call service.",
 };

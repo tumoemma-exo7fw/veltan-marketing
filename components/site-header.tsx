@@ -15,6 +15,7 @@ export function SiteHeader({ industry }: { industry: string }) {
           message={WA_MESSAGES.header}
           industry={industry}
           size="sm"
+          variant="whatsapp"
         >
           WhatsApp us
         </WhatsAppCta>

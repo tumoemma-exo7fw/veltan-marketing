@@ -9,6 +9,9 @@ export const analytics = {
   ctaClicked(location: CtaLocation, industry: string) {
     track("cta_click", { location, industry });
   },
+  bookingStarted(industry: string) {
+    track("booking_started", { industry });
+  },
   faqOpened(question: string) {
     track("faq_open", { question });
   },
