@@ -36,7 +36,7 @@ export function DemoFrame({
       role="img"
       aria-label={ariaLabel}
       className={cn(
-        "relative overflow-hidden rounded-card border border-line bg-surface shadow-[0_30px_60px_-35px_rgb(18_41_43/0.4)]",
+        "relative overflow-hidden rounded-card border border-line bg-surface shadow-[0_22px_44px_-30px_rgb(18_41_43/0.22)]",
         className,
       )}
     >

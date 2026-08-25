@@ -29,22 +29,22 @@ export function MissedCallDemo({ content }: { content: IndustryContent }) {
       className="mx-auto w-full max-w-[350px]"
     >
       <div className="bg-surface-2/40 px-6 py-7 sm:px-8">
-        {/* Phone mockup */}
-        <div className="mx-auto w-[240px] rounded-[2.2rem] bg-text p-[7px] shadow-[0_24px_48px_-24px_rgb(18_41_43/0.55)] sm:w-[260px]">
-          <div className="relative h-[430px] overflow-hidden rounded-[1.8rem] bg-surface">
+        {/* Phone mockup — light "aluminum" bezel, kept deliberately low-contrast */}
+        <div className="mx-auto w-[240px] rounded-[2.4rem] border border-line bg-[#e7ebe8] p-[6px] shadow-[0_16px_36px_-22px_rgb(18_41_43/0.28)] sm:w-[260px]">
+          <div className="relative h-[430px] overflow-hidden rounded-[2rem] bg-surface">
             {/* Notch */}
-            <div className="absolute left-1/2 top-2 z-10 h-[17px] w-20 -translate-x-1/2 rounded-full bg-text" />
+            <div className="absolute left-1/2 top-2 z-10 h-4 w-16 -translate-x-1/2 rounded-full bg-[#dbe1dd]" />
 
             {phase !== "sms" ? (
               <div className="flex h-full flex-col items-center justify-center gap-5 px-6 pb-12">
                 <div className="relative">
                   {phase === "ringing" && (
                     <>
-                      <span className="absolute inset-0 animate-ring-ping rounded-full bg-secondary/30" />
-                      <span className="absolute inset-0 animate-ring-ping rounded-full bg-secondary/30 [animation-delay:0.55s]" />
+                      <span className="absolute inset-0 animate-ring-ping rounded-full bg-secondary/15" />
+                      <span className="absolute inset-0 animate-ring-ping rounded-full bg-secondary/15 [animation-delay:0.55s]" />
                     </>
                   )}
-                  <div className="relative flex size-16 items-center justify-center rounded-full bg-secondary text-white">
+                  <div className="relative flex size-16 items-center justify-center rounded-full bg-surface-2 text-secondary">
                     {phase === "ringing" ? (
                       <Phone className="size-7" />
                     ) : (
@@ -68,10 +68,10 @@ export function MissedCallDemo({ content }: { content: IndustryContent }) {
                 </div>
                 {phase === "ringing" && (
                   <div className="mt-4 flex items-center gap-14">
-                    <span className="flex size-12 items-center justify-center rounded-full bg-[#c0685e] text-white">
+                    <span className="flex size-11 items-center justify-center rounded-full bg-[#e3948b] text-white">
                       <PhoneOff className="size-5" />
                     </span>
-                    <span className="flex size-12 items-center justify-center rounded-full bg-[#4f8a63] text-white">
+                    <span className="flex size-11 items-center justify-center rounded-full bg-[#8ab795] text-white">
                       <Phone className="size-5" />
                     </span>
                   </div>

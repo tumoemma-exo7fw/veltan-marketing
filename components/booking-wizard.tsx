@@ -9,9 +9,18 @@ import {
   MOMO_ACCOUNT_NAME,
   MOMO_NUMBER_DISPLAY,
   PRICE_FOUNDING,
+  STRIPE_PAYMENT_LINK,
   whatsappLink,
 } from "@/lib/site";
 import { cn } from "@/lib/utils";
+
+type PayMethod = "card" | "momo" | "later";
+
+const PAYMENT_LINES: Record<PayMethod, string | null> = {
+  card: "Payment: I'm paying by card via Stripe.",
+  momo: `Payment: I'm sending ${PRICE_FOUNDING} upfront by Mobile Money to lock my seat.`,
+  later: "Payment: I'll pay after setup.",
+};
 
 const BUSINESS_TYPES = [
   "Dental clinic",
@@ -44,7 +53,9 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
   const [chosenType, setChosenType] = useState<string | null>(null);
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [payUpfront, setPayUpfront] = useState(false);
+  const [payMethod, setPayMethod] = useState<PayMethod>(
+    STRIPE_PAYMENT_LINK ? "card" : "momo",
+  );
   const [error, setError] = useState<string | null>(null);
 
   const businessType = chosenType ?? INDUSTRY_TO_TYPE[industry];
@@ -87,9 +98,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
     `Business: ${business.trim()} (${businessType})`,
     `Phone: ${phone.trim()}`,
     email.trim() ? `Email: ${email.trim()}` : null,
-    payUpfront
-      ? `Payment: I'm sending ${PRICE_FOUNDING} upfront by Mobile Money to lock my seat.`
-      : null,
+    PAYMENT_LINES[payMethod],
   ]
     .filter(Boolean)
     .join("\n");
@@ -254,29 +263,82 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             )}
           </dl>
 
-          <div className="rounded-bubble bg-surface-2/60 p-4">
-            <p className="text-[13.5px] font-semibold">
-              Optional — pay now to lock your seat instantly
-            </p>
-            <p className="mt-1 text-[13px] leading-[1.55] text-muted">
-              Send {PRICE_FOUNDING} by Mobile Money to{" "}
-              <strong className="whitespace-nowrap text-text">
-                {MOMO_NUMBER_DISPLAY}
-              </strong>
-              . Check the registered name shows{" "}
-              <strong className="text-text">{MOMO_ACCOUNT_NAME}</strong> before
-              you confirm.
-            </p>
-            <label className="mt-3 flex items-start gap-2.5 text-[13.5px] font-medium">
-              <input
-                type="checkbox"
-                checked={payUpfront}
-                onChange={(e) => setPayUpfront(e.target.checked)}
-                className="mt-0.5 size-4 accent-[#1a4645]"
-              />
-              I&apos;m paying upfront by Mobile Money
-            </label>
-          </div>
+          <fieldset className="rounded-bubble bg-surface-2/60 p-4">
+            <legend className="float-left mb-2 text-[13.5px] font-semibold">
+              How would you like to pay?
+            </legend>
+            <div className="clear-both space-y-2.5">
+              {STRIPE_PAYMENT_LINK && (
+                <label className="flex items-start gap-2.5 text-[13.5px] font-medium">
+                  <input
+                    type="radio"
+                    name="bk-pay"
+                    checked={payMethod === "card"}
+                    onChange={() => setPayMethod("card")}
+                    className="mt-0.5 size-4 accent-[#1a4645]"
+                  />
+                  <span>
+                    Pay {PRICE_FOUNDING} now by card
+                    <span className="block text-[12.5px] font-normal text-muted">
+                      Secure checkout powered by Stripe.
+                    </span>
+                  </span>
+                </label>
+              )}
+              {STRIPE_PAYMENT_LINK && payMethod === "card" && (
+                <a
+                  href={STRIPE_PAYMENT_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => analytics.stripeOpened(industry)}
+                  className="ml-6 inline-flex items-center justify-center rounded-full bg-text px-4 py-2 text-[13.5px] font-bold text-bg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                >
+                  Open secure card payment
+                </a>
+              )}
+              <label className="flex items-start gap-2.5 text-[13.5px] font-medium">
+                <input
+                  type="radio"
+                  name="bk-pay"
+                  checked={payMethod === "momo"}
+                  onChange={() => setPayMethod("momo")}
+                  className="mt-0.5 size-4 accent-[#1a4645]"
+                />
+                <span>
+                  Pay {PRICE_FOUNDING} now by Mobile Money
+                  {payMethod === "momo" && (
+                    <span className="block text-[12.5px] font-normal leading-[1.55] text-muted">
+                      Send to{" "}
+                      <strong className="whitespace-nowrap text-text">
+                        {MOMO_NUMBER_DISPLAY}
+                      </strong>{" "}
+                      — check the registered name shows{" "}
+                      <strong className="text-text">{MOMO_ACCOUNT_NAME}</strong>{" "}
+                      before you confirm.
+                    </span>
+                  )}
+                </span>
+              </label>
+              <label className="flex items-start gap-2.5 text-[13.5px] font-medium">
+                <input
+                  type="radio"
+                  name="bk-pay"
+                  checked={payMethod === "later"}
+                  onChange={() => setPayMethod("later")}
+                  className="mt-0.5 size-4 accent-[#1a4645]"
+                />
+                <span>
+                  I&apos;ll pay after setup
+                  {payMethod === "later" && (
+                    <span className="block text-[12.5px] font-normal text-muted">
+                      No problem — we&apos;ll sort payment together during your
+                      setup call.
+                    </span>
+                  )}
+                </span>
+              </label>
+            </div>
+          </fieldset>
         </div>
       )}
 

@@ -27,6 +27,14 @@ export const DISCOUNT_LABEL = "30% off";
 export const MOMO_NUMBER_DISPLAY = "0777 968 947";
 export const MOMO_ACCOUNT_NAME = "MARTIN EMMANUEL HEGENY";
 
+/**
+ * Stripe Payment Link (https://buy.stripe.com/...) for the Founding 12
+ * first-month payment. Create it in the Stripe dashboard under
+ * Payment Links, then paste the URL here. While empty, the card option is
+ * hidden in the booking wizard and Mobile Money is offered instead.
+ */
+export const STRIPE_PAYMENT_LINK = "";
+
 export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
