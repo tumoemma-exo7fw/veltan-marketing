@@ -7,8 +7,14 @@
 export const WHATSAPP_NUMBER = "256777968947";
 export const WHATSAPP_DISPLAY = "+256 777 968 947";
 
-/** §15.2 — assumed site root; confirm with founder. */
-export const SITE_URL = "https://captbdger.website";
+/** Canonical origin (www is the primary domain on Vercel; apex redirects). */
+export const SITE_URL = "https://www.captbdger.website";
+
+/**
+ * Google Search Console verification code — the content value of the
+ * <meta name="google-site-verification"> tag. Empty = tag not rendered.
+ */
+export const GOOGLE_SITE_VERIFICATION = "";
 
 /**
  * §15.1 — launch + offer deadline: September 1, 2026, 00:00:00 East Africa

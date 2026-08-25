@@ -2,7 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Genos, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
-import { SITE_URL } from "@/lib/site";
+import {
+  GOOGLE_SITE_VERIFICATION,
+  PRICE_FOUNDING,
+  SITE_URL,
+  WHATSAPP_DISPLAY,
+} from "@/lib/site";
 
 import "./globals.css";
 
@@ -27,6 +32,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
   description: DESCRIPTION,
+  applicationName: "Veltan",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
@@ -39,6 +46,55 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
+};
+
+/**
+ * Structured data so search engines associate the "Veltan" brand with this
+ * domain: who Veltan is, where it operates, and what the product costs.
+ */
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Veltan",
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon.svg`,
+      description:
+        "Veltan builds operational software for local businesses. Its Client Follow-Up System automatically texts back missed callers within seconds, in the business's name.",
+      areaServed: "Kampala, Uganda",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        telephone: WHATSAPP_DISPLAY.replace(/\s/g, ""),
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "Veltan",
+      url: SITE_URL,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+    {
+      "@type": "Service",
+      name: "Veltan Client Follow-Up System",
+      serviceType: "Missed-call text-back service",
+      provider: { "@id": `${SITE_URL}/#organization` },
+      areaServed: "Kampala, Uganda",
+      description:
+        "When a business misses an incoming phone call, Veltan automatically texts the caller back within seconds so the lead is not lost to a competitor.",
+      offers: {
+        "@type": "Offer",
+        price: PRICE_FOUNDING.replace(/[^\d]/g, ""),
+        priceCurrency: "UGX",
+      },
+    },
+  ],
 };
 
 export const viewport: Viewport = {
@@ -52,6 +108,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${genos.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
         {children}
         <Analytics />
       </body>
