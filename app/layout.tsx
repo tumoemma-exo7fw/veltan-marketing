@@ -22,11 +22,11 @@ const genos = Genos({
   variable: "--font-genos",
 });
 
-const TITLE = "Veltan — Never lose a client to a missed call";
+const TITLE = "Veltan — Never lose a client to a missed call | Kampala";
 // Industry-neutral on purpose: an OG preview can't know which pill the
 // recipient will land on.
 const DESCRIPTION =
-  "When you can't answer the phone, Veltan texts the caller back within seconds — in your business's name — so the lead doesn't move on to the next number on the list.";
+  "Veltan is a missed-call text-back service for Kampala businesses — dental clinics, trades, and real estate agents. When you can't answer, Veltan texts the caller back within seconds, in your business's name.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Veltan",
+    locale: "en_UG",
     title: TITLE,
     description: DESCRIPTION,
   },
@@ -72,6 +73,8 @@ const JSON_LD = {
         contactType: "sales",
         telephone: WHATSAPP_DISPLAY.replace(/\s/g, ""),
       },
+      // Add real profiles here as they exist (LinkedIn, Facebook, etc.).
+      sameAs: [`https://wa.me/${WHATSAPP_DISPLAY.replace(/[^\d]/g, "")}`],
     },
     {
       "@type": "WebSite",
