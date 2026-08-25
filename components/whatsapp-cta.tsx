@@ -49,10 +49,10 @@ export function WhatsAppCta({
       aria-label="Message Veltan on WhatsApp"
       onClick={() => analytics.ctaClicked(location, industry)}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full font-bold text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+        "inline-flex items-center justify-center gap-2 rounded-full font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
         variant === "whatsapp"
-          ? "bg-[#25d366] hover:bg-[#1da851]"
-          : "bg-accent hover:bg-[#b56f18]",
+          ? "bg-[#25d366] text-text hover:bg-[#1da851]"
+          : "bg-accent text-white hover:bg-[#b56f18]",
         size === "lg" ? "px-6 py-3.5 text-[15px]" : "px-4 py-2 text-[13.5px]",
         className,
       )}
