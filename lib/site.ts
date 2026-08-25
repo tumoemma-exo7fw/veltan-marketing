@@ -23,11 +23,15 @@ export const PRICE_ORIGINAL = "UGX 89,000";
 export const PRICE_FOUNDING = "UGX 62,300";
 export const DISCOUNT_LABEL = "30% off";
 
+/** Mobile Money details for paying a founding spot upfront. */
+export const MOMO_NUMBER_DISPLAY = "0777 968 947";
+export const MOMO_ACCOUNT_NAME = "MARTIN EMMANUEL HEGENY";
+
 export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-export type CtaLocation = "header" | "hero" | "pricing" | "footer";
+export type CtaLocation = "header" | "hero" | "pricing" | "momo" | "footer";
 
 /**
  * Each CTA pre-fills a slightly different message so the founder can tell
@@ -37,5 +41,6 @@ export const WA_MESSAGES: Record<CtaLocation, string> = {
   header: "Hi Veltan, can you tell me more about the missed-call service?",
   hero: "Hi Veltan, I'd like to know more about the missed-call service.",
   pricing: "Hi Veltan, I'd like to claim a founding spot.",
+  momo: "Hi Veltan, I've just sent the Founding 12 payment by Mobile Money — here's my confirmation.",
   footer: "Hi Veltan, I have a few questions about the missed-call service.",
 };

@@ -52,7 +52,7 @@ Tracked via Vercel Analytics (enable Analytics for the project in the Vercel
 dashboard after deploying):
 
 - `industry_selected` — `{ industry }`
-- `cta_click` — `{ location: header | hero | pricing | footer, industry }`
+- `cta_click` — `{ location: header | hero | pricing | momo | footer, industry }`
 - `faq_open` — `{ question }`
 
 ## Open assumptions to confirm before launch (spec §15)
