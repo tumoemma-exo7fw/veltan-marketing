@@ -16,7 +16,7 @@ export function Wordmark({
     <span
       aria-label="Veltan"
       className={cn(
-        "inline-flex items-center gap-1.5",
+        "inline-flex items-center gap-0",
         className,
       )}
     >
@@ -35,7 +35,7 @@ export function Wordmark({
       <span
         aria-hidden="true"
         className={cn(
-          "font-wordmark text-[20px] font-bold uppercase leading-none tracking-[0.16em] sm:text-[24px] sm:tracking-[0.2em]",
+          "-ml-0.5 font-wordmark text-[20px] font-bold uppercase leading-none tracking-[0.16em] sm:text-[24px] sm:tracking-[0.2em]",
           variant === "dark" ? "text-bg" : "text-text",
         )}
       >
