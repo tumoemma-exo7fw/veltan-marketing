@@ -16,7 +16,7 @@ export function Wordmark({
     <span
       aria-label="Veltan"
       className={cn(
-        "inline-flex items-center gap-2.5",
+        "inline-flex items-center gap-1.5",
         className,
       )}
     >
