@@ -14,7 +14,8 @@ export const SITE_URL = "https://www.captbdger.website";
  * Google Search Console verification code — the content value of the
  * <meta name="google-site-verification"> tag. Empty = tag not rendered.
  */
-export const GOOGLE_SITE_VERIFICATION = "";
+export const GOOGLE_SITE_VERIFICATION =
+  "KuULV7rI7HRtB_4X4nqKyT-KNKbDLva666mHVy6mhNA";
 
 /**
  * §15.1 — launch + offer deadline: September 1, 2026, 00:00:00 East Africa
