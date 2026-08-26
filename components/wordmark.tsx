@@ -23,7 +23,7 @@ export function Wordmark({
       <Image
         src={
           variant === "dark"
-            ? "/brand/veltan-mark-dark.png"
+            ? "/brand/veltan-mark-dark-color.png"
             : "/brand/veltan-mark-light.png"
         }
         alt=""

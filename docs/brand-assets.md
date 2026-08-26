@@ -9,7 +9,7 @@ The original supplied artwork is archived at
 | Asset | Use |
 | --- | --- |
 | `veltan-mark-light.png` | Full-color transparent mark for white and light surfaces |
-| `veltan-mark-dark.png` | Lifted teal/sage transparent mark for dark teal/black surfaces |
+| `veltan-mark-dark-color.png` | Lifted teal/sage transparent mark for dark teal/black surfaces |
 | `veltan-mark-mono-dark.png` | One-color dark mark for print or limited-color use |
 | `veltan-mark-mono-light.png` | One-color light mark for dark backgrounds |
 
