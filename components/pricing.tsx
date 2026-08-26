@@ -1,19 +1,19 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
 
+import { analytics } from "@/lib/analytics";
 import type { IndustryId } from "@/lib/content";
 import {
   DISCOUNT_LABEL,
   LAUNCH_DATE_LABEL,
   PRICE_FOUNDING,
   PRICE_ORIGINAL,
-  WA_MESSAGES,
 } from "@/lib/site";
 
 import { BookingWizard } from "@/components/booking-wizard";
 import { Countdown } from "@/components/countdown";
-import { WhatsAppCta } from "@/components/whatsapp-cta";
 
 const PERKS = [
   "No setup fee",
@@ -22,37 +22,54 @@ const PERKS = [
 ];
 
 export function Pricing({ industry }: { industry: IndustryId }) {
+  const [showBooking, setShowBooking] = useState(false);
+  const bookingRef = useRef<HTMLDivElement>(null);
+
+  const startBooking = () => {
+    setShowBooking(true);
+    analytics.ctaClicked("pricing", industry);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() =>
+        bookingRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        }),
+      );
+    });
+  };
+
   return (
     <section
       id="pricing"
-      className="border-t border-line bg-surface-2/40 px-5 py-14 sm:px-8 lg:py-20"
+      className="scroll-mt-16 border-y border-line bg-surface px-5 py-14 sm:px-8 lg:py-20"
     >
-      <div className="mx-auto max-w-md text-center">
-        <h2 className="text-[22px] font-extrabold sm:text-[26px]">
+      <div className="mx-auto max-w-xl text-center">
+        <p className="text-[12px] font-semibold tracking-[0.08em] text-secondary">
+          Now onboarding 12 founding businesses in Kampala
+        </p>
+        <h2 className="mt-2 text-[24px] font-extrabold tracking-[-0.01em] sm:text-[29px]">
           Founding 12 pricing
         </h2>
-        <p className="mt-2 text-[15px] leading-[1.55] text-muted">
-          Twelve founding spots at 30% off, locked in for as long as you stay.
-          The offer closes at launch on {LAUNCH_DATE_LABEL}.
+        <p className="mt-2 text-[15px] leading-[1.6] text-muted">
+          A 30% rate locked in for as long as you stay. The offer closes on{" "}
+          {LAUNCH_DATE_LABEL}.
         </p>
       </div>
-      <div className="mx-auto mt-8 max-w-md rounded-card border border-line bg-surface p-6 shadow-[0_30px_60px_-40px_rgb(18_41_43/0.35)] sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full bg-accent/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.12em] text-accent">
-            Founding 12 · ends Sept 1
+      <div className="mx-auto mt-8 max-w-lg rounded-card border border-line bg-bg p-6 sm:p-8">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-4">
+          <span className="text-[12px] font-bold tracking-[0.08em] text-secondary">
+            Founding 12
           </span>
-          <span className="text-xs font-semibold text-muted">
+          <span className="text-[12px] font-medium text-muted">
             Client Follow-Up System
           </span>
         </div>
-        <p className="mt-6 text-[38px] font-extrabold leading-none text-accent">
+        <p className="mt-6 text-[40px] font-extrabold leading-none tracking-[-0.02em] text-accent">
           {PRICE_FOUNDING}
         </p>
         <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px]">
           <span className="text-muted line-through">{PRICE_ORIGINAL}</span>
-          <span className="rounded-full bg-surface-2 px-2 py-0.5 font-bold text-secondary">
-            {DISCOUNT_LABEL}
-          </span>
+          <span className="font-bold text-secondary">{DISCOUNT_LABEL}</span>
           <span className="text-muted">per month</span>
         </p>
         <ul className="mt-6 space-y-2.5 border-t border-line pt-5 text-left">
@@ -63,23 +80,32 @@ export function Pricing({ industry }: { industry: IndustryId }) {
             </li>
           ))}
         </ul>
-        <WhatsAppCta
-          location="pricing"
-          message={WA_MESSAGES.pricing}
-          industry={industry}
-          className="mt-6 w-full"
+        <button
+          type="button"
+          aria-expanded={showBooking}
+          aria-controls="booking-flow"
+          onClick={startBooking}
+          className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-bubble bg-accent px-6 py-3 text-[15px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
         >
-          Claim your founding spot
-        </WhatsAppCta>
+          {showBooking ? "Continue booking" : "Start booking"}
+          <ArrowRight aria-hidden="true" className="size-4" />
+        </button>
         <Countdown
           label="Offer ends in"
           align="center"
-          className="mt-6 border-t border-line pt-5"
+          className="mt-6"
         />
       </div>
 
-      {/* Guided booking: collects details and delivers them via WhatsApp. */}
-      <BookingWizard industry={industry} />
+      {showBooking && (
+        <div
+          id="booking-flow"
+          ref={bookingRef}
+          className="scroll-mt-20 animate-fade-in"
+        >
+          <BookingWizard industry={industry} />
+        </div>
+      )}
     </section>
   );
 }

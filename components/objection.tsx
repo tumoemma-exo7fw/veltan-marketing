@@ -2,12 +2,15 @@ import type { IndustryContent } from "@/lib/content";
 
 export function Objection({ content }: { content: IndustryContent }) {
   return (
-    <section className="mx-auto w-full max-w-3xl px-5 pt-14 sm:px-8 lg:pt-20">
-      <div className="rounded-card border border-line border-l-4 border-l-secondary bg-surface p-6 sm:p-8">
-        <h2 className="text-[19px] font-extrabold leading-snug sm:text-[22px]">
-          &ldquo;Doesn&apos;t my missed-call alert already do this?&rdquo;
+    <section className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <div className="max-w-3xl border-y border-line py-8 sm:py-10">
+        <p className="text-[12px] font-semibold tracking-[0.08em] text-secondary">
+          The difference
+        </p>
+        <h2 className="mt-2 text-[21px] font-extrabold leading-snug sm:text-[25px]">
+          A missed-call alert only tells you who called.
         </h2>
-        <p className="mt-3 text-[15px] leading-[1.6] text-muted">
+        <p className="mt-3 max-w-[62ch] text-[15px] leading-[1.65] text-muted sm:text-[16px]">
           {content.objection}
         </p>
       </div>

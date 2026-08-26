@@ -29,19 +29,26 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="mx-auto w-full max-w-3xl px-5 pb-14 sm:px-8 lg:pb-20"
+      className="mx-auto w-full max-w-3xl px-5 py-14 sm:px-8 lg:py-20"
     >
-      <h2 className="text-center text-[22px] font-extrabold sm:text-[26px]">
-        Questions, answered
+      <h2 className="text-[24px] font-extrabold tracking-[-0.01em] sm:text-[29px]">
+        Common questions
       </h2>
+      <p className="mt-2 text-[15px] leading-[1.6] text-muted">
+        The practical details before you decide.
+      </p>
       <Accordion
         multiple={false}
         onValueChange={handleValueChange}
-        className="mt-8 rounded-card border border-line bg-surface px-5 sm:px-6"
+        className="mt-7 border-t border-line"
       >
         {FAQS.map((faq) => (
-          <AccordionItem key={faq.question} value={faq.question}>
-            <AccordionTrigger className="py-4 text-[15px] font-semibold">
+          <AccordionItem
+            key={faq.question}
+            value={faq.question}
+            className="border-b border-line"
+          >
+            <AccordionTrigger className="rounded-none py-4 text-[15px] font-semibold hover:no-underline">
               {faq.question}
             </AccordionTrigger>
             <AccordionContent className="pb-4 text-[14.5px] leading-[1.6] text-muted">

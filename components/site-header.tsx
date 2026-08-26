@@ -9,8 +9,8 @@ import { Wordmark } from "@/components/wordmark";
 
 export function SiteHeader({ industry }: { industry: string }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
+    <header className="sticky top-0 z-40 border-b border-line bg-bg">
+      <div className="mx-auto flex min-h-16 w-full max-w-6xl items-center justify-between gap-3 px-5 py-2.5 sm:px-8">
         <Link
           href="/"
           aria-label="Veltan home"
@@ -25,7 +25,7 @@ export function SiteHeader({ industry }: { industry: string }) {
           size="sm"
           variant="whatsapp"
         >
-          WhatsApp us
+          WhatsApp
         </WhatsAppCta>
       </div>
     </header>

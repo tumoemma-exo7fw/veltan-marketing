@@ -13,7 +13,6 @@ import { Objection } from "@/components/objection";
 import { Pricing } from "@/components/pricing";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SocialProof } from "@/components/social-proof";
 
 export default function Home() {
   const [industry, setIndustry] = useState<IndustryId>("dental");
@@ -36,9 +35,8 @@ export default function Home() {
         <Objection content={content} />
         <HowItWorks content={content} />
         <AiAssistantSection content={content} />
-        <SocialProof />
-        <FaqSection />
         <Pricing industry={industry} />
+        <FaqSection />
       </main>
       <SiteFooter industry={industry} />
     </>

@@ -46,6 +46,12 @@ export function Countdown({
   className,
 }: CountdownProps) {
   const left = useTimeLeft();
+  const expired =
+    left !== null &&
+    left.days === 0 &&
+    left.hours === 0 &&
+    left.mins === 0 &&
+    left.secs === 0;
   const cells: { value: number | undefined; unit: string }[] = [
     { value: left?.days, unit: "days" },
     { value: left?.hours, unit: "hours" },
@@ -53,29 +59,43 @@ export function Countdown({
     { value: left?.secs, unit: "sec" },
   ];
 
+  if (expired) {
+    return (
+      <p
+        role="status"
+        className={cn("text-[13px] font-semibold text-muted", className)}
+      >
+        The Founding 12 offer has ended.
+      </p>
+    );
+  }
+
   return (
     <div
       role="timer"
       aria-label={`${label} — offer closes ${LAUNCH_DATE_LABEL}, midnight East Africa Time`}
       className={cn(
-        "flex flex-col gap-2",
+        "flex flex-col gap-2.5",
         align === "center" && "items-center",
         className,
       )}
     >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+      <p className="text-[11px] font-semibold tracking-[0.08em] text-muted">
         {label}
       </p>
-      <div className="flex gap-2">
-        {cells.map(({ value, unit }) => (
+      <div className="flex border-y border-line py-2.5">
+        {cells.map(({ value, unit }, index) => (
           <div
             key={unit}
-            className="min-w-14 rounded-bubble border border-line bg-surface px-2 py-1.5 text-center"
+            className={cn(
+              "min-w-14 px-3 text-left first:pl-0 last:pr-0",
+              index > 0 && "border-l border-line",
+            )}
           >
-            <div className="text-lg font-extrabold tabular-nums leading-tight text-accent">
+            <div className="text-[19px] font-bold tabular-nums leading-tight text-accent">
               {value === undefined ? "––" : String(value).padStart(2, "0")}
             </div>
-            <div className="text-[10px] font-medium uppercase tracking-wider text-muted">
+            <div className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-muted">
               {unit}
             </div>
           </div>

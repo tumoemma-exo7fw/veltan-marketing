@@ -38,7 +38,7 @@ const INDUSTRY_TO_TYPE: Record<IndustryId, (typeof BUSINESS_TYPES)[number]> = {
 const STEP_TITLES = ["About your business", "How we reach you", "Check & send"];
 
 const inputClass =
-  "w-full rounded-bubble border border-line bg-surface px-3.5 py-2.5 text-[16px] text-text outline-none transition-colors placeholder:text-muted/60 focus:border-secondary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-secondary";
+  "w-full rounded-bubble border border-line bg-bg px-3.5 py-3 text-[16px] text-text outline-none transition-colors placeholder:text-muted/60 focus:border-secondary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-secondary";
 
 /**
  * Guided three-step booking for a Founding 12 seat. No backend: the answers
@@ -104,11 +104,13 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
     .join("\n");
 
   return (
-    <div className="mx-auto mt-4 max-w-md rounded-card border border-line bg-surface p-6 text-left sm:p-8">
-      <h3 className="text-[16px] font-bold">Book your founding spot</h3>
+    <div className="mx-auto mt-6 max-w-lg rounded-card border border-line bg-surface p-6 text-left sm:p-8">
+      <h3 className="text-[20px] font-extrabold tracking-[-0.01em]">
+        Reserve your spot
+      </h3>
       <p className="mt-1.5 text-[14px] leading-[1.55] text-muted">
-        Three quick steps. Your details arrive as a WhatsApp message and we
-        take it from there — most businesses are live the same day.
+        Three short steps. Your answers arrive in our WhatsApp and we take it
+        from there.
       </p>
 
       <div className="mt-5 flex gap-1.5" aria-hidden="true">
@@ -235,7 +237,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
 
       {step === 2 && (
         <div className="mt-4 space-y-4">
-          <dl className="space-y-2 rounded-bubble border border-line p-4 text-[14px]">
+          <dl className="space-y-2 border-y border-line py-4 text-[14px]">
             <div className="flex justify-between gap-4">
               <dt className="shrink-0 text-muted">Name</dt>
               <dd className="text-right font-semibold">{name.trim()}</dd>
@@ -263,7 +265,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             )}
           </dl>
 
-          <fieldset className="rounded-bubble bg-surface-2/60 p-4">
+          <fieldset className="border-b border-line pb-4">
             <legend className="float-left mb-2 text-[13.5px] font-semibold">
               How would you like to pay?
             </legend>
@@ -291,7 +293,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => analytics.stripeOpened(industry)}
-                  className="ml-6 inline-flex items-center justify-center rounded-full bg-text px-4 py-2 text-[13.5px] font-bold text-bg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                  className="ml-6 inline-flex items-center justify-center rounded-bubble bg-text px-4 py-2 text-[13.5px] font-bold text-bg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
                 >
                   Open secure card payment
                 </a>
@@ -366,7 +368,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
           <button
             type="button"
             onClick={next}
-            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-bubble bg-accent px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
           >
             Next
             <ArrowRight aria-hidden="true" className="size-4" />
@@ -378,7 +380,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             rel="noopener noreferrer"
             aria-label="Send your booking details to Veltan on WhatsApp"
             onClick={() => analytics.ctaClicked("booking", industry)}
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            className="inline-flex min-h-11 items-center gap-2 rounded-bubble bg-accent px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
           >
             <Check aria-hidden="true" className="size-4" />
             Send booking on WhatsApp

@@ -8,25 +8,31 @@ import { Wordmark } from "@/components/wordmark";
 export function SiteFooter({ industry }: { industry: string }) {
   return (
     <footer className="bg-text text-bg">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-5 py-14 text-center sm:px-8">
-        <Wordmark variant="dark" />
-        <p className="max-w-md text-[14.5px] leading-[1.6] text-bg/70">
-          Don&apos;t lose the client because you were busy doing the actual
-          work. Veltan follows up the moment you can&apos;t.
-        </p>
-        <WhatsAppCta
-          location="footer"
-          message={WA_MESSAGES.footer}
-          industry={industry}
-        >
-          Message Veltan on WhatsApp
-        </WhatsAppCta>
-        <p className="text-[12.5px] text-bg/60">
-          Prefer to save the number first? {WHATSAPP_DISPLAY}
-        </p>
-        <p className="mt-4 w-full border-t border-white/10 pt-6 text-xs text-bg/50">
-          © 2026 Veltan · Kampala, Uganda · Built to answer when you can&apos;t.
-        </p>
+      <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+          <div>
+            <Wordmark variant="dark" />
+            <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-bg/65">
+              Missed-call follow-up for Kampala businesses.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-2 sm:items-end">
+            <WhatsAppCta
+              location="footer"
+              message={WA_MESSAGES.footer}
+              industry={industry}
+              variant="whatsapp"
+              size="sm"
+            >
+              Chat on WhatsApp
+            </WhatsAppCta>
+            <p className="text-[12px] text-bg/55">{WHATSAPP_DISPLAY}</p>
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col gap-1 border-t border-white/10 pt-5 text-[12px] text-bg/45 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Veltan · Kampala, Uganda</p>
+          <p>Built to answer when you can&apos;t.</p>
+        </div>
       </div>
     </footer>
   );
