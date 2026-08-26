@@ -9,7 +9,7 @@ export function SiteFooter({ industry }: { industry: string }) {
   return (
     <footer className="bg-text text-bg">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-5 py-14 text-center sm:px-8">
-        <Wordmark variant="dark" className="w-24" />
+        <Wordmark variant="dark" />
         <p className="max-w-md text-[14.5px] leading-[1.6] text-bg/70">
           Don&apos;t lose the client because you were busy doing the actual
           work. Veltan follows up the moment you can&apos;t.
