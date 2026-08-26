@@ -8,7 +8,7 @@ export function Objection({ content }: { content: IndustryContent }) {
           The difference
         </p>
         <h2 className="mt-2 text-[21px] font-extrabold leading-snug sm:text-[25px]">
-          A missed-call alert only tells you who called.
+          Knowing who called isn&apos;t the same as keeping the lead.
         </h2>
         <p className="mt-3 max-w-[62ch] text-[15px] leading-[1.65] text-muted sm:text-[16px]">
           {content.objection}
