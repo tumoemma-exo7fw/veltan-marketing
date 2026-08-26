@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 
+import { BRAND_MARK_DATA_URI } from "@/lib/brand-og";
+
 /*
  * Static preview image for link shares — critical for WhatsApp, where this
  * page will mostly be shared. A hand-built still of the phone-demo mockup
@@ -38,22 +40,15 @@ export default function OgImage() {
       >
         <div style={{ display: "flex", flexDirection: "column", width: 600 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div
+            <img
+              src={BRAND_MARK_DATA_URI}
+              alt=""
+              width={78}
+              height={53}
               style={{
-                display: "flex",
-                width: 46,
-                height: 46,
-                borderRadius: 12,
-                background: COLORS.text,
-                color: COLORS.accent,
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 26,
-                fontWeight: 700,
+                objectFit: "contain",
               }}
-            >
-              V
-            </div>
+            />
             <div
               style={{
                 display: "flex",

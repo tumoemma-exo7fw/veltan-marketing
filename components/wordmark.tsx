@@ -1,14 +1,32 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
-export function Wordmark({ className }: { className?: string }) {
+interface WordmarkProps {
+  className?: string;
+  /** Full-color mark for light surfaces, reversed mark for dark surfaces. */
+  variant?: "light" | "dark";
+}
+
+export function Wordmark({
+  className,
+  variant = "light",
+}: WordmarkProps) {
   return (
-    <span
+    <Image
+      src={
+        variant === "dark"
+          ? "/brand/veltan-mark-dark.png"
+          : "/brand/veltan-mark-light.png"
+      }
+      alt="Veltan"
+      width={735}
+      height={500}
+      priority
       className={cn(
-        "font-wordmark text-[26px] font-bold uppercase leading-none tracking-[0.24em]",
+        "h-auto w-[74px] object-contain sm:w-[82px]",
         className,
       )}
-    >
-      Veltan
-    </span>
+    />
   );
 }

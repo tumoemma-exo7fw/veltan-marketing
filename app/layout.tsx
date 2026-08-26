@@ -64,7 +64,7 @@ const JSON_LD = {
       "@id": `${SITE_URL}/#organization`,
       name: "Veltan",
       url: SITE_URL,
-      logo: `${SITE_URL}/icon.svg`,
+      logo: `${SITE_URL}/brand/veltan-app-icon-512.png`,
       description:
         "Veltan builds operational software for local businesses. Its Client Follow-Up System automatically texts back missed callers within seconds, in the business's name.",
       areaServed: "Kampala, Uganda",

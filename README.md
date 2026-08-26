@@ -35,6 +35,7 @@ build Vercel deploys.
 | WhatsApp number, launch date, prices, per-CTA messages | `lib/site.ts` |
 | Industry copy (Dental / Trades / Real Estate), FAQ, testimonials | `lib/content.ts` |
 | Design tokens (colors, radii, animations) | `app/globals.css` |
+| Logo exports and usage guide | `public/brand/`, `docs/brand-assets.md` |
 | Recorded-demo chrome + the two demo animations | `components/demo-frame.tsx`, `components/missed-call-demo.tsx`, `components/ai-demo.tsx` |
 | Page assembly + industry switching | `app/page.tsx` |
 | Open Graph share image | `app/opengraph-image.tsx` |
