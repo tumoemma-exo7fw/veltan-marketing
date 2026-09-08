@@ -1,7 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarCheck,
+  MessagesSquare,
+  PhoneCall,
+  RefreshCw,
+  Users,
+} from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryId } from "@/lib/content";
@@ -9,7 +16,29 @@ import { amberCta } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 const HERO_BLUR =
-  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDBhjJG0RMx9QK2dMWW1cSlNgCkYcEAmrkf+rX6Ckl/1X/A6sxtZn//2Q==";
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgIE/8QAIBAAAgECBwEAAAAAAAAAAAAAAQMABBECBRIyNEFxUv/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQARMf/aAAwDAQACEQMRAD8AMJp2fBt5EGThlLiDdNgB3KRsE1t4w9i9pwxv/9k=";
+
+const FEATURES = [
+  { icon: PhoneCall, lines: ["Missed Call", "Follow-Ups"] },
+  { icon: MessagesSquare, lines: ["Intelligent", "Conversations"] },
+  { icon: CalendarCheck, lines: ["Automatic", "Bookings"] },
+] as const;
+
+function AlwaysOnIcon({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "relative inline-flex items-center justify-center text-hero-cyan",
+        className,
+      )}
+    >
+      <RefreshCw aria-hidden="true" className="size-full" strokeWidth={1.75} />
+      <span className="absolute text-[0.38em] font-bold leading-none tracking-tight">
+        24/7
+      </span>
+    </span>
+  );
+}
 
 function GetStarted({
   industry,
@@ -30,26 +59,153 @@ function GetStarted({
   );
 }
 
+function FeatureGrid({ overlay }: { overlay: boolean }) {
+  const itemClass = overlay
+    ? "flex min-w-0 flex-col items-start gap-1.5 text-[11px] font-medium leading-[1.25] text-white xl:text-[12px]"
+    : "flex min-w-0 flex-col items-start gap-1.5 text-[12px] font-medium leading-[1.25] text-white";
+  const iconClass = overlay
+    ? "size-[1.35rem] text-hero-cyan xl:size-7"
+    : "size-7 text-hero-cyan";
+
+  return (
+    <ul
+      className={cn(
+        "grid grid-cols-4",
+        overlay ? "gap-x-2 xl:gap-x-3" : "gap-x-3",
+      )}
+    >
+      {FEATURES.map(({ icon: Icon, lines }, i) => (
+        <li
+          key={lines.join(" ")}
+          className={cn(itemClass, i > 0 && "border-l border-white/20 pl-2.5 xl:pl-3")}
+        >
+          <Icon aria-hidden="true" className={iconClass} strokeWidth={1.75} />
+          <span>
+            {lines[0]}
+            <br />
+            {lines[1]}
+          </span>
+        </li>
+      ))}
+      <li className={cn(itemClass, "border-l border-white/20 pl-2.5 xl:pl-3")}>
+        <AlwaysOnIcon className={iconClass} />
+        <span>
+          Works While
+          <br />
+          You Rest
+        </span>
+      </li>
+    </ul>
+  );
+}
+
+function HeroCopy({
+  industry,
+  overlay,
+}: {
+  industry: IndustryId;
+  overlay: boolean;
+}) {
+  return (
+    <div className={cn("text-left", overlay ? "w-full" : "max-w-xl")}>
+      <p
+        className={cn(
+          "font-normal uppercase text-white/70",
+          overlay
+            ? "text-[9.5px] tracking-[0.16em] xl:text-[11px] xl:tracking-[0.2em]"
+            : "text-[10px] tracking-[0.16em] sm:text-[11px] sm:tracking-[0.2em]",
+        )}
+      >
+        Smarter Follow-Ups / More Appointments / Less Missed Opportunities
+      </p>
+      <p
+        className={cn(
+          "font-extrabold tracking-[-0.02em] text-white",
+          overlay
+            ? "mt-2.5 text-[clamp(1.7rem,3.6vw,3.05rem)] leading-[1.08] xl:mt-3"
+            : "mt-3 text-[32px] leading-[1.1] sm:text-[40px]",
+        )}
+      >
+        <span className="block">Let Your Clinic</span>
+        <span className="block text-hero-cyan [text-shadow:0_0_28px_rgb(46_230_224/0.35)]">
+          Never Miss a Lead
+        </span>
+      </p>
+      <p
+        className={cn(
+          "max-w-[46ch] text-white",
+          overlay
+            ? "mt-3 text-[13px] leading-[1.5] xl:mt-3.5 xl:text-[15.5px] xl:leading-[1.55]"
+            : "mt-4 text-[15px] leading-[1.55] sm:text-[16.5px]",
+        )}
+      >
+        An intelligent follow-up system that calls back, chats with potential
+        clients, handles missed calls and books appointments — even when
+        you&apos;re busy or off duty.
+      </p>
+      <div className={overlay ? "mt-4 xl:mt-5" : "mt-6"}>
+        <FeatureGrid overlay={overlay} />
+      </div>
+      <div
+        className={cn(
+          "flex items-start gap-2.5",
+          overlay ? "mt-4 xl:mt-5" : "mt-6",
+        )}
+      >
+        <Users
+          aria-hidden="true"
+          className={cn(
+            "shrink-0 text-hero-cyan",
+            overlay ? "mt-0.5 size-5 xl:size-6" : "mt-0.5 size-6",
+          )}
+          strokeWidth={1.75}
+        />
+        <p
+          className={cn(
+            "text-white",
+            overlay
+              ? "text-[12.5px] leading-[1.45] xl:text-[14.5px]"
+              : "text-[14.5px] leading-[1.5]",
+          )}
+        >
+          We&apos;re looking for{" "}
+          <span className="font-bold text-hero-cyan">12 clinics</span> to try it
+          out and validate it.
+          <span
+            className={cn(
+              "mt-0.5 block text-white/70",
+              overlay ? "text-[11.5px] xl:text-[13px]" : "text-[13px]",
+            )}
+          >
+            No charge. Just your feedback.
+          </span>
+        </p>
+      </div>
+      <GetStarted
+        industry={industry}
+        className={overlay ? "mt-4 xl:mt-5" : "mt-6 min-h-11"}
+      />
+    </div>
+  );
+}
+
 export function HomeHero({ industry }: { industry: IndustryId }) {
   return (
     <section
       id="home"
       className="relative isolate overflow-x-clip bg-[#071c1e] text-white"
     >
-      <h1 className="sr-only">
-        Let Your Clinic Never Miss a Lead — Veltan clinic follow-up
-      </h1>
-
+      <h1 className="sr-only">Let Your Clinic Never Miss a Lead</h1>
       {/*
-        Mobile: sit the 16:9 still below the two-row header so baked copy
-        stays visible. Desktop: full-bleed 16:9 with the site header overlaid
-        on the empty teal at the top of the plate.
+        Mobile: 16:9 clinic plate under the two-row header, then the same
+        HTML stack (kicker through Get Started). Desktop: full-bleed 16:9
+        with live copy on the teal wall.
       */}
       <div className="pt-[7.75rem] lg:pt-0">
         <div className="relative aspect-[16/9] w-full bg-[#071c1e]">
           <Image
-            src="/brand/hero-dental-clinic.png"
-            alt="Modern dental clinic treatment room. Headline: Let Your Clinic Never Miss a Lead."
+            src="/brand/hero-dental-clinic.jpg"
+            alt="Modern dental clinic treatment room with a teal chair, panoramic X-ray, and city skyline"
             fill
             preload
             quality={90}
@@ -58,14 +214,15 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
             sizes="100vw"
             className="object-contain object-center"
           />
-          <GetStarted
-            industry={industry}
-            className="absolute top-[74%] left-[10.8%] z-10 hidden lg:inline-flex"
-          />
+          <div className="absolute inset-0 z-10 hidden lg:flex">
+            <div className="flex h-full w-[52%] flex-col justify-start pl-[5.8%] pr-5 pt-[16.5%] pb-[10%]">
+              <HeroCopy industry={industry} overlay />
+            </div>
+          </div>
         </div>
 
-        <div className="flex justify-start px-5 py-5 sm:px-8 lg:hidden">
-          <GetStarted industry={industry} />
+        <div className="px-5 py-6 sm:px-8 lg:hidden">
+          <HeroCopy industry={industry} overlay={false} />
         </div>
       </div>
     </section>
