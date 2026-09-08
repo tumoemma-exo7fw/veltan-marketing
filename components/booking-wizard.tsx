@@ -584,7 +584,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
               requestAnimationFrame(() => {
                 helpRef.current?.scrollIntoView({
                   behavior: reduced ? "auto" : "smooth",
-                  block: "nearest",
+                  block: "center",
                 });
               });
               cancelWhatsAppRef.current?.();
@@ -602,7 +602,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
       </div>
 
       {step === 2 && showWhatsAppHelp ? (
-        <div ref={helpRef} className="mt-5" aria-live="polite">
+        <div ref={helpRef} className="mt-5 scroll-mt-32" aria-live="polite">
           <WhatsAppNextSteps message={message} />
         </div>
       ) : null}
