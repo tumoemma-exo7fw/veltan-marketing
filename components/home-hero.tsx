@@ -1,151 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import {
-  ArrowRight,
-  CalendarCheck,
-  CalendarDays,
-  Check,
-  Shield,
-  TrendingUp,
-  User,
-  Users,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryId } from "@/lib/content";
 import { amberCta } from "@/lib/ui";
-
-const TIMELINE = [
-  { title: "Appointment Completed", day: "Day 0" },
-  { title: "Reminder Sent", day: "Day 1" },
-  { title: "Follow Up Message", day: "Day 3" },
-  { title: "Next Visit Scheduled", day: "Day 7" },
-] as const;
-
-const heroGlass =
-  "rounded-2xl border border-white/15 bg-[rgb(12_42_45/0.9)] shadow-[0_16px_48px_rgb(0_0_0/0.4)] backdrop-blur-md";
+import { cn } from "@/lib/utils";
 
 const HERO_BLUR =
-  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDnYoJC2ApNa2lLNbymRhgD1ptp96rzf6k/WtOhhbU//9k=";
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAJABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDmYIiw2rbuzeoBroNGWWzkE5QIFUqRIrAE1oxf8e4/3R/KmXH/AB7f9tR/KtN0c9rM/9k=";
 
-const HIGHLIGHTS = [
-  { icon: CalendarCheck, label: "Automated Follow-Ups" },
-  { icon: Users, label: "Better Patient Retention" },
-  { icon: TrendingUp, label: "More Appointments" },
-  { icon: Shield, label: "Healthier Practices" },
-] as const;
-
-function DemoTag() {
+function GetStarted({
+  industry,
+  className,
+}: {
+  industry: IndustryId;
+  className?: string;
+}) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-0.5">
-      <span className="size-1.5 animate-pulse-dot rounded-full bg-hero-cyan" />
-      <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/80">
-        Demo
-      </span>
-    </span>
-  );
-}
-
-function FollowUpTimeline() {
-  return (
-    <div className={`${heroGlass} p-4 sm:p-5`}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-hero-cyan/15 text-hero-cyan">
-            <User className="size-4" aria-hidden="true" />
-          </span>
-          <div>
-            <p className="text-[14px] font-semibold text-white">
-              Patient Follow Up
-            </p>
-            <p className="text-[11px] text-white/70">
-              Automated • On Time • Every Time
-            </p>
-          </div>
-        </div>
-        <DemoTag />
-      </div>
-      <ol className="relative mt-4 space-y-3 border-l border-hero-cyan/35 pl-4">
-        {TIMELINE.map((item) => (
-          <li key={item.title} className="relative">
-            <span className="absolute -left-[1.4rem] top-0.5 flex size-4 items-center justify-center rounded-full bg-hero-cyan text-[#0b2426] shadow-[0_0_10px_rgb(46_230_224/0.55)]">
-              <Check className="size-2.5" strokeWidth={3} aria-hidden="true" />
-            </span>
-            <p className="text-[13px] font-medium text-white">{item.title}</p>
-            <p className="text-[11px] text-white/55">{item.day}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-function RetentionWidget() {
-  const value = 92;
-  const radius = 26;
-  const circ = 2 * Math.PI * radius;
-  const offset = circ * (1 - value / 100);
-
-  return (
-    <div className={`${heroGlass} px-4 py-3`}>
-      <div className="mb-1 flex items-center justify-between gap-2">
-        <p className="text-[12px] font-medium text-white/80">Patient Retention</p>
-        <DemoTag />
-      </div>
-      <div className="flex items-center gap-3">
-        <div className="relative size-[72px] shrink-0">
-          <svg viewBox="0 0 72 72" className="size-full -rotate-90" aria-hidden="true">
-            <circle
-              cx="36"
-              cy="36"
-              r={radius}
-              fill="none"
-              stroke="rgb(255 255 255 / 0.14)"
-              strokeWidth="6"
-            />
-            <circle
-              cx="36"
-              cy="36"
-              r={radius}
-              fill="none"
-              stroke="currentColor"
-              className="text-hero-cyan"
-              strokeWidth="6"
-              strokeLinecap="round"
-              strokeDasharray={circ}
-              strokeDashoffset={offset}
-            />
-          </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-[15px] font-extrabold text-white">
-            {value}%
-          </span>
-        </div>
-        <span className="text-sm text-emerald-300" aria-hidden="true">
-          ↑
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function FollowUpsWidget() {
-  return (
-    <div className={`${heroGlass} px-4 py-3`}>
-      <div className="mb-1 flex items-center justify-between gap-2">
-        <p className="flex items-center gap-1.5 text-[12px] font-medium text-white/80">
-          <CalendarDays className="size-3.5 text-hero-cyan" aria-hidden="true" />
-          Follow Ups Today
-        </p>
-        <DemoTag />
-      </div>
-      <p className="flex items-baseline gap-2 text-[28px] font-extrabold leading-none text-white">
-        48
-        <span className="text-sm font-medium text-emerald-300" aria-hidden="true">
-          ↑
-        </span>
-      </p>
-    </div>
+    <a
+      href="#pricing"
+      onClick={() => analytics.ctaClicked("hero", industry)}
+      className={cn(amberCta, className)}
+    >
+      Get Started
+      <ArrowRight aria-hidden="true" className="size-4" />
+    </a>
   );
 }
 
@@ -153,102 +34,39 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
   return (
     <section
       id="home"
-      className="relative isolate min-h-[100svh] overflow-x-clip text-white"
+      className="relative isolate overflow-x-clip bg-[#071c1e] text-white"
     >
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/brand/hero-dental-clinic.jpg"
-          alt="Modern dental clinic treatment room with a teal chair and city skyline"
-          fill
-          preload
-          quality={90}
-          placeholder="blur"
-          blurDataURL={HERO_BLUR}
-          sizes="100vw"
-          className="object-cover object-[72%_center] lg:object-[center_45%]"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgb(8_28_30)_0%,rgb(8_28_30/0.97)_28%,rgb(8_28_30/0.9)_42%,rgb(8_28_30/0.7)_54%,rgb(8_28_30/0.36)_66%,rgb(8_28_30/0.14)_78%,rgb(8_28_30/0.08)_100%)] max-lg:bg-[linear-gradient(180deg,rgb(8_28_30/0.94)_0%,rgb(8_28_30/0.88)_36%,rgb(8_28_30/0.72)_62%,rgb(8_28_30/0.9)_100%)]"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgb(8_28_30/0.5)_0%,transparent_20%,transparent_72%,rgb(8_28_30/0.78)_100%)] max-lg:hidden"
-        />
-      </div>
+      <h1 className="sr-only">
+        Let Your Clinic Never Miss a Lead — Veltan clinic follow-up
+      </h1>
 
-      <div className="mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col px-5 pb-6 pt-[7.75rem] sm:px-8 lg:pt-24">
-        <div className="grid flex-1 items-center gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-10">
-          <div className="max-w-xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
-              Automate&nbsp;&nbsp;/&nbsp;&nbsp;Engage&nbsp;&nbsp;/&nbsp;&nbsp;Grow
-            </p>
-            <h1 className="mt-4 text-[32px] font-extrabold leading-[1.12] tracking-[-0.02em] sm:text-[40px] lg:text-[46px]">
-              Now building{" "}
-              <span className="text-hero-cyan [text-shadow:0_0_28px_rgb(46_230_224/0.35)]">
-                Client Follow Up System
-              </span>{" "}
-              for Dental Clinics
-            </h1>
-            <p className="mt-4 max-w-[46ch] text-[15px] leading-[1.55] text-white/80 sm:text-[16.5px]">
-              Keep your patients engaged, improve retention, and grow your
-              practice — all in one intelligent system.
-            </p>
-            <a
-              href="#pricing"
-              onClick={() => analytics.ctaClicked("hero", industry)}
-              className={`${amberCta} mt-7`}
-            >
-              Get Started
-              <ArrowRight aria-hidden="true" className="size-4" />
-            </a>
-          </div>
-
-          <aside
-            className="relative"
-            aria-label="Product preview of automated patient follow-up. Figures are illustrative demo chrome, not published Veltan metrics."
-          >
-            <div className="lg:hidden">
-              <FollowUpTimeline />
-              <div className="mt-3 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2">
-                <RetentionWidget />
-                <FollowUpsWidget />
-              </div>
-            </div>
-
-            <div className="relative hidden min-h-[420px] lg:block">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-8 rounded-[2.5rem] bg-[radial-gradient(ellipse_at_center,rgb(8_28_30/0.5)_0%,rgb(8_28_30/0.18)_58%,transparent_76%)]"
-              />
-              <div className="absolute left-0 top-10 z-10 w-[min(100%,20rem)]">
-                <FollowUpTimeline />
-              </div>
-              <div className="absolute right-0 top-0 z-20 w-[11.5rem]">
-                <RetentionWidget />
-              </div>
-              <div className="absolute bottom-6 right-0 z-20 w-52">
-                <FollowUpsWidget />
-              </div>
-            </div>
-            <p className="mt-3 text-[11px] leading-snug text-white/55 lg:mt-0 lg:sr-only">
-              Demo preview — sample figures that illustrate the system, not
-              live Veltan metrics.
-            </p>
-          </aside>
+      {/*
+        Mobile: sit the 16:9 still below the two-row header so baked copy
+        stays visible. Desktop: full-bleed 16:9 with the site header overlaid
+        on the empty teal at the top of the plate.
+      */}
+      <div className="pt-[7.75rem] lg:pt-0">
+        <div className="relative aspect-[16/9] w-full bg-[#071c1e]">
+          <Image
+            src="/brand/hero-dental-clinic.jpg"
+            alt="Modern dental clinic treatment room with a teal wall, dental chair, and city skyline"
+            fill
+            preload
+            quality={90}
+            placeholder="blur"
+            blurDataURL={HERO_BLUR}
+            sizes="100vw"
+            className="object-contain object-center"
+          />
+          <GetStarted
+            industry={industry}
+            className="absolute top-[74%] left-[10.8%] z-10 hidden lg:inline-flex"
+          />
         </div>
 
-        <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-white/15 py-5 sm:grid-cols-4 lg:mt-4">
-          {HIGHLIGHTS.map(({ icon: Icon, label }) => (
-            <li
-              key={label}
-              className="flex items-center gap-2.5 text-[12px] font-medium text-white/80 sm:justify-center sm:text-[13px]"
-            >
-              <Icon className="size-4 shrink-0 text-white" aria-hidden="true" />
-              {label}
-            </li>
-          ))}
-        </ul>
+        <div className="flex justify-start px-5 py-5 sm:px-8 lg:hidden">
+          <GetStarted industry={industry} />
+        </div>
       </div>
     </section>
   );
