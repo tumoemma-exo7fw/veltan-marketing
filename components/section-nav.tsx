@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -12,20 +12,30 @@ export const SECTION_NAV = [
   { href: "#contact", label: "Contact" },
 ] as const;
 
+function subscribeHash(onStoreChange: () => void) {
+  window.addEventListener("hashchange", onStoreChange);
+  window.addEventListener("popstate", onStoreChange);
+  return () => {
+    window.removeEventListener("hashchange", onStoreChange);
+    window.removeEventListener("popstate", onStoreChange);
+  };
+}
+
+function getHashSnapshot() {
+  const next = window.location.hash;
+  return next && next !== "#" ? next : "#home";
+}
+
+function getHashServerSnapshot() {
+  return "#home";
+}
+
 export function useSectionHash() {
-  const [hash, setHash] = useState("#home");
-
-  useEffect(() => {
-    const sync = () => {
-      const next = window.location.hash;
-      setHash(next && next !== "#" ? next : "#home");
-    };
-    sync();
-    window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
-  }, []);
-
-  return hash;
+  return useSyncExternalStore(
+    subscribeHash,
+    getHashSnapshot,
+    getHashServerSnapshot,
+  );
 }
 
 export function SectionNav({
@@ -49,7 +59,7 @@ export function SectionNav({
             className={cn(
               "group inline-flex min-h-11 shrink-0 items-center px-2.5 text-[13px] font-medium text-white/90 lg:text-[13.5px]",
               "transition-colors duration-200 ease-out hover:text-white hover:delay-[50ms]",
-              "active:opacity-80 active:delay-0",
+              "active:text-white active:opacity-80 active:delay-0",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
             )}
           >
@@ -61,7 +71,7 @@ export function SectionNav({
                   "pointer-events-none absolute inset-x-0 -bottom-px h-0.5 origin-center bg-hero-cyan transition-transform duration-200 ease-out",
                   current
                     ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100 group-hover:delay-[50ms] group-focus-visible:scale-x-100",
+                    : "scale-x-0 group-hover:scale-x-100 group-hover:delay-[50ms] group-active:scale-x-100 group-active:delay-0 group-focus-visible:scale-x-100",
                 )}
               />
             </span>
