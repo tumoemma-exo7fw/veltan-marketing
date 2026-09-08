@@ -14,6 +14,7 @@ import {
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryId } from "@/lib/content";
+import { amberCta } from "@/lib/ui";
 
 const TIMELINE = [
   { title: "Appointment Completed", day: "Day 0" },
@@ -187,7 +188,7 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
             <a
               href="#pricing"
               onClick={() => analytics.ctaClicked("hero", industry)}
-              className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-7 py-3 text-[15px] font-bold text-text transition-colors hover:bg-[#b56f18] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+              className={`${amberCta} mt-7`}
             >
               Get Started
               <ArrowRight aria-hidden="true" className="size-4" />

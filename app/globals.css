@@ -4,27 +4,27 @@
 
 /*
  * shadcn / Base UI compatibility variables, resolved to Veltan's
- * light-mode palette so the accordion & co. inherit the brand look.
+ * cinematic dark palette so the accordion & co. inherit the brand look.
  */
 :root {
-  --background: #f5f7f4;
-  --foreground: #12292b;
-  --card: #ffffff;
-  --card-foreground: #12292b;
-  --popover: #ffffff;
-  --popover-foreground: #12292b;
-  --primary: #12292b;
-  --primary-foreground: #f5f7f4;
-  --secondary: #e9eee9;
-  --secondary-foreground: #12292b;
-  --muted: #e9eee9;
-  --muted-foreground: #4f6b63;
-  --accent: #eaf0ef;
-  --accent-foreground: #12292b;
-  --destructive: #b3261e;
-  --border: rgb(18 41 43 / 0.1);
-  --input: rgb(18 41 43 / 0.16);
-  --ring: #1a4645;
+  --background: #071c1e;
+  --foreground: #f3f6f4;
+  --card: #0c2a2d;
+  --card-foreground: #f3f6f4;
+  --popover: #0c2a2d;
+  --popover-foreground: #f3f6f4;
+  --primary: #f3f6f4;
+  --primary-foreground: #071c1e;
+  --secondary: #123438;
+  --secondary-foreground: #f3f6f4;
+  --muted: #123438;
+  --muted-foreground: #9db5af;
+  --accent: #123438;
+  --accent-foreground: #f3f6f4;
+  --destructive: #f07167;
+  --border: rgb(243 246 244 / 0.12);
+  --input: rgb(243 246 244 / 0.18);
+  --ring: #2ee6e0;
   --radius: 0.75rem;
 }
 
@@ -48,20 +48,19 @@
 
 /*
  * Veltan design tokens — Primitive → Semantic → Mode → Component.
- * These are the light-mode resolutions from the build spec (docs/build-spec.md §2).
- * Values were deepened for AA contrast on white — do not lighten them.
+ * Cinematic dark surface — matches the homepage hero. Amber stays reserved
+ * for conversion; cyan for structure and highlights only.
  */
 @theme {
-  --color-bg: #f5f7f4; /* page background, off-white (Mist White derived) */
-  --color-surface: #ffffff; /* cards, phone frame, primary containers */
-  --color-surface-2: #e9eee9; /* secondary surface — message bubbles, subtle fills */
-  --color-surface-teal: #eaf0ef; /* light teal tint — AI/"coming soon" section only */
-  --color-muted: #4f6b63; /* secondary text — deepened Slate Sage */
-  --color-text: #12292b; /* primary text — Deep Slate Teal */
-  --color-accent: #c97c1e; /* deepened Amber Glow — RESERVED for conversion actions */
-  --color-secondary: #1a4645; /* Deep Teal — AI badge & non-CTA emphasis */
-  --color-line: rgb(18 41 43 / 0.1); /* hairline borders/dividers */
-  /* Hero-only cyan highlight (cinematic homepage band). Do not use on CTAs. */
+  --color-bg: #071c1e;
+  --color-surface: #0c2a2d;
+  --color-surface-2: #123438;
+  --color-surface-teal: #0a2428;
+  --color-muted: #9db5af;
+  --color-text: #f3f6f4;
+  --color-accent: #c97c1e; /* RESERVED for conversion actions */
+  --color-secondary: #2ee6e0; /* cyan — labels, checks, selected structure */
+  --color-line: rgb(243 246 244 / 0.12);
   --color-hero-cyan: #2ee6e0;
 
   --radius-card: 18px; /* spec --radius */
@@ -139,12 +138,14 @@
   }
   html {
     @apply scroll-smooth;
+    color-scheme: dark;
   }
   body {
     @apply bg-bg font-sans text-text antialiased;
   }
   ::selection {
-    background: rgb(201 124 30 / 0.22);
+    background: rgb(46 230 224 / 0.22);
+    color: #071c1e;
   }
 }
 

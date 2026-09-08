@@ -29,8 +29,8 @@ export function AiDemo({ content }: { content: IndustryContent }) {
       className="w-full max-w-sm"
     >
       <div className="flex min-h-[240px] flex-col p-4">
-        <div className="flex items-center gap-2 border-b border-line pb-2.5 text-[11px] font-semibold text-muted">
-          <span className="flex size-5 items-center justify-center rounded-full bg-secondary text-white">
+        <div className="flex items-center gap-2 border-b border-white/10 pb-2.5 text-[11px] font-semibold text-white/60">
+          <span className="flex size-5 items-center justify-center rounded-full bg-hero-cyan/15 text-hero-cyan">
             <Sparkles className="size-3" />
           </span>
           Veltan AI Assistant · preview
@@ -42,16 +42,16 @@ export function AiDemo({ content }: { content: IndustryContent }) {
             </div>
           )}
           {showTyping && (
-            <div className="animate-fade-in self-end rounded-bubble rounded-br-[4px] bg-secondary/10 px-3.5 py-3">
+            <div className="animate-fade-in self-end rounded-bubble rounded-br-[4px] bg-hero-cyan/10 px-3.5 py-3">
               <span className="flex gap-1">
-                <span className="size-1.5 animate-typing-dot rounded-full bg-secondary" />
-                <span className="size-1.5 animate-typing-dot rounded-full bg-secondary [animation-delay:0.15s]" />
-                <span className="size-1.5 animate-typing-dot rounded-full bg-secondary [animation-delay:0.3s]" />
+                <span className="size-1.5 animate-typing-dot rounded-full bg-hero-cyan" />
+                <span className="size-1.5 animate-typing-dot rounded-full bg-hero-cyan [animation-delay:0.15s]" />
+                <span className="size-1.5 animate-typing-dot rounded-full bg-hero-cyan [animation-delay:0.3s]" />
               </span>
             </div>
           )}
           {showReply && (
-            <div className="max-w-[85%] animate-rise-in self-end rounded-bubble rounded-br-[4px] bg-secondary px-3.5 py-2.5 text-[13px] leading-snug text-white">
+            <div className="max-w-[85%] animate-rise-in self-end rounded-bubble rounded-br-[4px] bg-hero-cyan px-3.5 py-2.5 text-[13px] leading-snug text-[#071c1e]">
               {content.ai.reply}
             </div>
           )}

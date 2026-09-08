@@ -1,3 +1,4 @@
+import { glassPanel } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 interface DemoFrameProps {
@@ -36,19 +37,20 @@ export function DemoFrame({
       role="img"
       aria-label={ariaLabel}
       className={cn(
-        "relative overflow-hidden rounded-card border border-line bg-surface shadow-[0_22px_44px_-30px_rgb(18_41_43/0.22)]",
+        "relative overflow-hidden",
+        glassPanel,
         className,
       )}
     >
       <div aria-hidden="true">
-        <div className="flex items-center gap-1.5 border-b border-line px-4 py-2.5">
+        <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
           {/* Muted, on-brand takes on recording-window dots. */}
           <span className="size-2.5 rounded-full bg-[#cfa46b]" />
           <span className="size-2.5 rounded-full bg-[#6e8f8b]" />
           <span className="size-2.5 rounded-full bg-[#9fb4a5]" />
-          <span className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-2.5 py-1">
-            <span className="size-1.5 animate-pulse-dot rounded-full bg-accent/80" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted">
+          <span className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1">
+            <span className="size-1.5 animate-pulse-dot rounded-full bg-hero-cyan" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/80">
               Demo
             </span>
           </span>

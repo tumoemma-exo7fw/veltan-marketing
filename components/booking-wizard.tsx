@@ -12,6 +12,7 @@ import {
   STRIPE_PAYMENT_LINK,
   whatsappLink,
 } from "@/lib/site";
+import { amberCta, glassPanel } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 type PayMethod = "card" | "momo" | "later";
@@ -38,7 +39,7 @@ const INDUSTRY_TO_TYPE: Record<IndustryId, (typeof BUSINESS_TYPES)[number]> = {
 const STEP_TITLES = ["About your business", "How we reach you", "Check & send"];
 
 const inputClass =
-  "w-full rounded-bubble border border-line bg-bg px-3.5 py-3 text-[16px] text-text outline-none transition-colors placeholder:text-muted/60 focus:border-secondary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-secondary";
+  "w-full rounded-xl border border-white/12 bg-[#071c1e]/70 px-3.5 py-3 text-[16px] text-text outline-none transition-colors placeholder:text-white/40 focus:border-hero-cyan focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-hero-cyan";
 
 /**
  * Guided three-step booking for a Founding 12 seat. No backend: the answers
@@ -104,7 +105,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
     .join("\n");
 
   return (
-    <div className="mx-auto mt-6 max-w-lg rounded-card border border-line bg-surface p-6 text-left sm:p-8">
+    <div className={cn(glassPanel, "mx-auto mt-8 max-w-lg p-6 text-left sm:p-8")}>
       <h3 className="text-[20px] font-extrabold tracking-[-0.01em]">
         Reserve your spot
       </h3>
@@ -179,10 +180,10 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                     aria-pressed={active}
                     onClick={() => setChosenType(type)}
                     className={cn(
-                      "rounded-full border px-3 py-1.5 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+                      "rounded-full border px-3 py-1.5 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
                       active
-                        ? "border-text bg-text text-bg"
-                        : "border-line text-muted hover:bg-surface-2 hover:text-text",
+                        ? "border-hero-cyan/40 bg-hero-cyan/15 text-hero-cyan"
+                        : "border-white/12 text-white/70 hover:bg-white/5 hover:text-white",
                     )}
                   >
                     {type}
@@ -237,7 +238,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
 
       {step === 2 && (
         <div className="mt-4 space-y-4">
-          <dl className="space-y-2 border-y border-line py-4 text-[14px]">
+          <dl className="space-y-2 border-y border-white/10 py-4 text-[14px]">
             <div className="flex justify-between gap-4">
               <dt className="shrink-0 text-muted">Name</dt>
               <dd className="text-right font-semibold">{name.trim()}</dd>
@@ -265,7 +266,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             )}
           </dl>
 
-          <fieldset className="border-b border-line pb-4">
+          <fieldset className="border-b border-white/10 pb-4">
             <legend className="float-left mb-2 text-[13.5px] font-semibold">
               How would you like to pay?
             </legend>
@@ -277,7 +278,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                     name="bk-pay"
                     checked={payMethod === "card"}
                     onChange={() => setPayMethod("card")}
-                    className="mt-0.5 size-4 accent-[#1a4645]"
+                    className="mt-0.5 size-4 accent-[#2ee6e0]"
                   />
                   <span>
                     Pay {PRICE_FOUNDING} now by card
@@ -293,7 +294,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => analytics.stripeOpened(industry)}
-                  className="ml-6 inline-flex items-center justify-center rounded-bubble bg-text px-4 py-2 text-[13.5px] font-bold text-bg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                  className="ml-6 inline-flex items-center justify-center rounded-full border border-hero-cyan px-4 py-2 text-[13.5px] font-bold text-white transition-colors hover:bg-hero-cyan/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
                 >
                   Open secure card payment
                 </a>
@@ -304,7 +305,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   name="bk-pay"
                   checked={payMethod === "momo"}
                   onChange={() => setPayMethod("momo")}
-                  className="mt-0.5 size-4 accent-[#1a4645]"
+                  className="mt-0.5 size-4 accent-[#2ee6e0]"
                 />
                 <span>
                   Pay {PRICE_FOUNDING} now by Mobile Money
@@ -327,7 +328,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   name="bk-pay"
                   checked={payMethod === "later"}
                   onChange={() => setPayMethod("later")}
-                  className="mt-0.5 size-4 accent-[#1a4645]"
+                  className="mt-0.5 size-4 accent-[#2ee6e0]"
                 />
                 <span>
                   I&apos;ll pay after setup
@@ -345,7 +346,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
       )}
 
       {error && (
-        <p aria-live="polite" className="mt-3 text-[13px] font-semibold text-[#b3261e]">
+        <p aria-live="polite" className="mt-3 text-[13px] font-semibold text-destructive">
           {error}
         </p>
       )}
@@ -355,7 +356,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
           <button
             type="button"
             onClick={back}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-semibold text-muted transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
           >
             <ArrowLeft aria-hidden="true" className="size-4" />
             Back
@@ -368,7 +369,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
           <button
             type="button"
             onClick={next}
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-bubble bg-accent px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            className={cn(amberCta, "min-h-11 px-5 py-2.5 text-[14px]")}
           >
             Next
             <ArrowRight aria-hidden="true" className="size-4" />
@@ -380,7 +381,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             rel="noopener noreferrer"
             aria-label="Send your booking details to Veltan on WhatsApp"
             onClick={() => analytics.ctaClicked("booking", industry)}
-            className="inline-flex min-h-11 items-center gap-2 rounded-bubble bg-accent px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            className={cn(amberCta, "min-h-11 px-5 py-2.5 text-[14px]")}
           >
             <Check aria-hidden="true" className="size-4" />
             Send booking on WhatsApp

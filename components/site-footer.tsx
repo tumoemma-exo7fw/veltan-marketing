@@ -7,13 +7,13 @@ import { Wordmark } from "@/components/wordmark";
 
 export function SiteFooter({ industry }: { industry: string }) {
   return (
-    <footer id="contact" className="scroll-mt-32 bg-text text-bg lg:scroll-mt-20">
+    <footer id="contact" className="scroll-mt-32 border-t border-white/10 bg-bg lg:scroll-mt-20">
       <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
             <h2 className="sr-only">Contact</h2>
             <Wordmark variant="dark" />
-            <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-bg/65">
+            <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-white/70">
               Missed-call follow-up for Kampala businesses.
             </p>
           </div>
@@ -27,10 +27,10 @@ export function SiteFooter({ industry }: { industry: string }) {
             >
               Chat on WhatsApp
             </WhatsAppCta>
-            <p className="text-[12px] text-bg/55">{WHATSAPP_DISPLAY}</p>
+            <p className="text-[12px] text-white/55">{WHATSAPP_DISPLAY}</p>
           </div>
         </div>
-        <div className="mt-8 flex flex-col gap-1 border-t border-white/10 pt-5 text-[12px] text-bg/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-1 border-t border-white/10 pt-5 text-[12px] text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Veltan · Kampala, Uganda</p>
           <p>Built to answer when you can&apos;t.</p>
         </div>

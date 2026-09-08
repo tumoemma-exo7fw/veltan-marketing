@@ -11,9 +11,12 @@ import {
   PRICE_FOUNDING,
   PRICE_ORIGINAL,
 } from "@/lib/site";
+import { amberCta, glassPanel } from "@/lib/ui";
+import { cn } from "@/lib/utils";
 
 import { BookingWizard } from "@/components/booking-wizard";
 import { Countdown } from "@/components/countdown";
+import { SectionHeading } from "@/components/section-heading";
 
 const PERKS = [
   "No setup fee",
@@ -41,26 +44,21 @@ export function Pricing({ industry }: { industry: IndustryId }) {
   return (
     <section
       id="pricing"
-      className="scroll-mt-32 border-y border-line bg-surface px-5 py-14 sm:px-8 lg:scroll-mt-20 lg:py-20"
+      className="scroll-mt-32 px-5 py-20 sm:px-8 lg:scroll-mt-20 lg:py-24"
     >
-      <div className="mx-auto max-w-xl text-center">
-        <p className="text-[12px] font-semibold tracking-[0.08em] text-secondary">
-          Now onboarding 12 founding businesses in Kampala
-        </p>
-        <h2 className="mt-2 text-[24px] font-extrabold tracking-[-0.01em] sm:text-[29px]">
-          Founding 12 pricing
-        </h2>
-        <p className="mt-2 text-[15px] leading-[1.6] text-muted">
-          A 30% rate locked in for as long as you stay. The offer closes on{" "}
-          {LAUNCH_DATE_LABEL}.
-        </p>
-      </div>
-      <div className="mx-auto mt-8 max-w-lg rounded-card border border-line bg-bg p-6 sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-4">
-          <span className="text-[12px] font-bold tracking-[0.08em] text-secondary">
+      <SectionHeading
+        align="center"
+        kicker="Now onboarding 12 founding businesses in Kampala"
+        kickerClassName="tracking-[0.16em]"
+        title="Founding 12 pricing"
+        subtitle={`A 30% rate locked in for as long as you stay. The offer closes on ${LAUNCH_DATE_LABEL}.`}
+      />
+      <div className={cn(glassPanel, "mx-auto mt-10 max-w-lg p-6 sm:p-8")}>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-hero-cyan">
             Founding 12
           </span>
-          <span className="text-[12px] font-medium text-muted">
+          <span className="text-[12px] font-medium text-white/55">
             Client Follow-Up System
           </span>
         </div>
@@ -68,14 +66,14 @@ export function Pricing({ industry }: { industry: IndustryId }) {
           {PRICE_FOUNDING}
         </p>
         <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px]">
-          <span className="text-muted line-through">{PRICE_ORIGINAL}</span>
-          <span className="font-bold text-secondary">{DISCOUNT_LABEL}</span>
-          <span className="text-muted">per month</span>
+          <span className="text-white/45 line-through">{PRICE_ORIGINAL}</span>
+          <span className="font-bold text-hero-cyan">{DISCOUNT_LABEL}</span>
+          <span className="text-white/55">per month</span>
         </p>
-        <ul className="mt-6 space-y-2.5 border-t border-line pt-5 text-left">
+        <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-5 text-left">
           {PERKS.map((perk) => (
             <li key={perk} className="flex items-center gap-2.5 text-[14.5px]">
-              <Check aria-hidden="true" className="size-4 shrink-0 text-secondary" />
+              <Check aria-hidden="true" className="size-4 shrink-0 text-hero-cyan" />
               {perk}
             </li>
           ))}
@@ -85,7 +83,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
           aria-expanded={showBooking}
           aria-controls="booking-flow"
           onClick={startBooking}
-          className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-bubble bg-accent px-6 py-3 text-[15px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+          className={cn(amberCta, "mt-7 w-full")}
         >
           {showBooking ? "Continue booking" : "Start booking"}
           <ArrowRight aria-hidden="true" className="size-4" />
@@ -93,7 +91,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
         <Countdown
           label="Offer ends in"
           align="center"
-          className="mt-6"
+          className="mt-7"
         />
       </div>
 

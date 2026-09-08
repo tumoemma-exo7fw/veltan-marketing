@@ -28,12 +28,10 @@ export function MissedCallDemo({ content }: { content: IndustryContent }) {
       ariaLabel="Recorded demo: a phone call is missed, and within seconds Veltan automatically texts the caller back in the business's name."
       className="mx-auto w-full max-w-[350px]"
     >
-      <div className="bg-surface-2/40 px-6 py-7 sm:px-8">
-        {/* Phone mockup — light "aluminum" bezel, kept deliberately low-contrast */}
-        <div className="mx-auto w-[240px] rounded-[2.4rem] border border-line bg-[#e7ebe8] p-[6px] shadow-[0_16px_36px_-22px_rgb(18_41_43/0.28)] sm:w-[260px]">
-          <div className="relative h-[430px] overflow-hidden rounded-[2rem] bg-surface">
-            {/* Notch */}
-            <div className="absolute left-1/2 top-2 z-10 h-4 w-16 -translate-x-1/2 rounded-full bg-[#dbe1dd]" />
+      <div className="px-6 py-7 sm:px-8">
+        <div className="mx-auto w-[240px] rounded-[2.4rem] border border-white/12 bg-[#102628] p-[6px] sm:w-[260px]">
+          <div className="relative h-[430px] overflow-hidden rounded-[2rem] bg-[#0a1f21]">
+            <div className="absolute left-1/2 top-2 z-10 h-4 w-16 -translate-x-1/2 rounded-full bg-[#071416]" />
 
             {phase !== "sms" ? (
               <div className="flex h-full flex-col items-center justify-center gap-5 px-6 pb-12">
@@ -44,7 +42,7 @@ export function MissedCallDemo({ content }: { content: IndustryContent }) {
                       <span className="absolute inset-0 animate-ring-ping rounded-full bg-secondary/15 [animation-delay:0.55s]" />
                     </>
                   )}
-                  <div className="relative flex size-16 items-center justify-center rounded-full bg-surface-2 text-secondary">
+                  <div className="relative flex size-16 items-center justify-center rounded-full bg-hero-cyan/15 text-hero-cyan">
                     {phase === "ringing" ? (
                       <Phone className="size-7" />
                     ) : (
@@ -84,7 +82,7 @@ export function MissedCallDemo({ content }: { content: IndustryContent }) {
                   Missed call · just now
                 </div>
                 <div className="mt-auto flex flex-col items-end gap-2">
-                  <div className="max-w-[88%] animate-rise-in rounded-bubble rounded-br-[4px] bg-surface-2 px-3.5 py-2.5 text-left text-[13px] leading-snug text-text">
+                  <div className="max-w-[88%] animate-rise-in rounded-bubble rounded-br-[4px] bg-[#123438] px-3.5 py-2.5 text-left text-[13px] leading-snug text-text">
                     {sms}
                   </div>
                   <p className="flex animate-fade-in items-center gap-1 text-right text-[10.5px] font-medium text-muted [animation-delay:0.45s]">

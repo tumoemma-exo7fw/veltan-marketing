@@ -13,14 +13,14 @@ export const contentType = "image/png";
 export const alt = "Veltan — Never lose a client to a missed call";
 
 const COLORS = {
-  bg: "#f5f7f4",
-  surface: "#ffffff",
-  surface2: "#e9eee9",
-  muted: "#4f6b63",
-  text: "#12292b",
+  bg: "#071c1e",
+  surface: "rgba(12,42,45,0.92)",
+  surface2: "#123438",
+  muted: "rgba(243,246,244,0.7)",
+  text: "#f3f6f4",
   accent: "#c97c1e",
-  secondary: "#1a4645",
-  line: "rgba(18,41,43,0.1)",
+  cyan: "#2ee6e0",
+  line: "rgba(243,246,244,0.14)",
 };
 
 export default function OgImage() {
@@ -64,6 +64,7 @@ export default function OgImage() {
           <div
             style={{
               display: "flex",
+              flexWrap: "wrap",
               marginTop: 44,
               fontSize: 58,
               lineHeight: 1.1,
@@ -72,7 +73,10 @@ export default function OgImage() {
               letterSpacing: -1,
             }}
           >
-            Never lose a client to a missed call.
+            Never lose a client to a&nbsp;
+            <span style={{ display: "flex", color: COLORS.cyan }}>
+              missed call.
+            </span>
           </div>
           <div
             style={{

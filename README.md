@@ -12,8 +12,7 @@ Built from the full spec in [`docs/build-spec.md`](docs/build-spec.md).
 ## Stack
 
 - [Next.js](https://nextjs.org) (App Router) + TypeScript — Vercel-deploy-ready
-- Tailwind CSS v4 — Veltan's token system implemented as theme extensions in
-  `app/globals.css`
+- Tailwind CSS v4 — cinematic dark tokens in `app/globals.css` (teal surfaces, cyan highlights, amber reserved for conversion)
 - shadcn/ui (Base UI) for the FAQ accordion
 - Vercel Analytics with custom conversion events
 - Fonts: Inter (everything) and Genos (wordmark only), via `next/font`

@@ -59,7 +59,7 @@ export function SiteHeader({ industry }: { industry: string }) {
           <Link
             href="/#home"
             aria-label="Veltan home"
-            className="min-w-0 justify-self-start rounded-md text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+            className="min-w-0 justify-self-start rounded-md text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
           >
             <Wordmark variant="dark" preload compact />
           </Link>

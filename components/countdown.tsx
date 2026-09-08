@@ -63,7 +63,7 @@ export function Countdown({
     return (
       <p
         role="status"
-        className={cn("text-[13px] font-semibold text-muted", className)}
+        className={cn("text-[13px] font-semibold text-white/70", className)}
       >
         The Founding 12 offer has ended.
       </p>
@@ -80,22 +80,22 @@ export function Countdown({
         className,
       )}
     >
-      <p className="text-[11px] font-semibold tracking-[0.08em] text-muted">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55">
         {label}
       </p>
-      <div className="flex border-y border-line py-2.5">
+      <div className="flex border-y border-white/10 py-2.5">
         {cells.map(({ value, unit }, index) => (
           <div
             key={unit}
             className={cn(
               "min-w-14 px-3 text-left first:pl-0 last:pr-0",
-              index > 0 && "border-l border-line",
+              index > 0 && "border-l border-white/10",
             )}
           >
             <div className="text-[19px] font-bold tabular-nums leading-tight text-accent">
               {value === undefined ? "––" : String(value).padStart(2, "0")}
             </div>
-            <div className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-muted">
+            <div className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-white/45">
               {unit}
             </div>
           </div>

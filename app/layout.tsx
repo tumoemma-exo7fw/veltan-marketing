@@ -101,14 +101,14 @@ const JSON_LD = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f7f4",
+  themeColor: "#071c1e",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${genos.variable} h-full antialiased`}
+      className={`${inter.variable} ${genos.variable} dark h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <script
