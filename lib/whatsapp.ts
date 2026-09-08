@@ -15,13 +15,29 @@ export function whatsappApiUrl(message: string): string {
   return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
 }
 
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = window.setTimeout(() => reject(new Error("timeout")), ms);
+    promise.then(
+      (value) => {
+        window.clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        window.clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
+}
+
 export async function copyText(value: string): Promise<boolean> {
   if (navigator.clipboard?.writeText) {
     try {
-      await navigator.clipboard.writeText(value);
+      await withTimeout(navigator.clipboard.writeText(value), 800);
       return true;
     } catch {
-      // Secure-context clipboard can still fail (permissions, HTTP iframe).
+      // Permissions, insecure context, or a clipboard API that never settles.
     }
   }
 
