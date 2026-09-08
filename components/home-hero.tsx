@@ -33,7 +33,7 @@ function AlwaysOnIcon({ className }: { className?: string }) {
       )}
     >
       <RefreshCw aria-hidden="true" className="size-full" strokeWidth={1.75} />
-      <span className="absolute text-[0.38em] font-bold leading-none tracking-tight">
+      <span className="absolute text-[7px] font-bold leading-none tracking-tight xl:text-[8px]">
         24/7
       </span>
     </span>
@@ -112,8 +112,8 @@ function HeroCopy({
         className={cn(
           "font-normal uppercase text-white/70",
           overlay
-            ? "text-[9.5px] tracking-[0.16em] xl:text-[11px] xl:tracking-[0.2em]"
-            : "text-[10px] tracking-[0.16em] sm:text-[11px] sm:tracking-[0.2em]",
+            ? "text-[10px] tracking-[0.12em] xl:text-[10.5px] xl:tracking-[0.14em]"
+            : "text-[10px] tracking-[0.14em] sm:text-[11px] sm:tracking-[0.18em]",
         )}
       >
         Smarter Follow-Ups / More Appointments / Less Missed Opportunities
@@ -121,8 +121,8 @@ function HeroCopy({
       <p
         className={cn(
           "font-extrabold tracking-[-0.02em] text-white",
-          overlay
-            ? "mt-2.5 text-[clamp(1.7rem,3.6vw,3.05rem)] leading-[1.08] xl:mt-3"
+            overlay
+            ? "mt-2 text-[clamp(1.65rem,3.4vw,2.85rem)] leading-[1.08] xl:mt-2.5"
             : "mt-3 text-[32px] leading-[1.1] sm:text-[40px]",
         )}
       >
@@ -134,8 +134,8 @@ function HeroCopy({
       <p
         className={cn(
           "max-w-[46ch] text-white",
-          overlay
-            ? "mt-3 text-[13px] leading-[1.5] xl:mt-3.5 xl:text-[15.5px] xl:leading-[1.55]"
+            overlay
+            ? "mt-2.5 text-[13px] leading-[1.45] xl:mt-3 xl:text-[15px] xl:leading-[1.5]"
             : "mt-4 text-[15px] leading-[1.55] sm:text-[16.5px]",
         )}
       >
@@ -143,13 +143,13 @@ function HeroCopy({
         clients, handles missed calls and books appointments — even when
         you&apos;re busy or off duty.
       </p>
-      <div className={overlay ? "mt-4 xl:mt-5" : "mt-6"}>
+      <div className={overlay ? "mt-3.5 xl:mt-4" : "mt-6"}>
         <FeatureGrid overlay={overlay} />
       </div>
       <div
         className={cn(
           "flex items-start gap-2.5",
-          overlay ? "mt-4 xl:mt-5" : "mt-6",
+          overlay ? "mt-3.5 xl:mt-4" : "mt-6",
         )}
       >
         <Users
@@ -183,7 +183,7 @@ function HeroCopy({
       </div>
       <GetStarted
         industry={industry}
-        className={overlay ? "mt-4 xl:mt-5" : "mt-6 min-h-11"}
+        className={overlay ? "mt-3.5 xl:mt-4" : "mt-6 min-h-11"}
       />
     </div>
   );
@@ -215,7 +215,7 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
             className="object-contain object-center"
           />
           <div className="absolute inset-0 z-10 hidden lg:flex">
-            <div className="flex h-full w-[52%] flex-col justify-start pl-[5.8%] pr-5 pt-[16.5%] pb-[10%]">
+            <div className="flex h-full w-[54%] flex-col justify-start pl-[5.8%] pr-6 pt-[7.25rem] pb-8">
               <HeroCopy industry={industry} overlay />
             </div>
           </div>
