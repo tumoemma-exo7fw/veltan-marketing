@@ -44,14 +44,14 @@ export function Wordmark({
       <span
         aria-hidden="true"
         className={cn(
-          "-ml-0.5 font-wordmark font-bold leading-none",
+          "-ml-0.5 font-wordmark font-bold uppercase leading-none",
           compact
             ? "text-[16px] tracking-[0.12em] sm:text-[20px] sm:tracking-[0.16em] lg:text-[24px] lg:tracking-[0.2em]"
             : "text-[20px] tracking-[0.16em] sm:text-[24px] sm:tracking-[0.2em]",
           variant === "dark" ? "text-white" : "text-[#12292b]",
         )}
       >
-        Veltan
+        VELTAN
       </span>
     </span>
   );
