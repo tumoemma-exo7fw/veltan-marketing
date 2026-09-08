@@ -71,6 +71,19 @@ export function Pricing({ industry }: { industry: IndustryId }) {
           Then {PRICE_ORIGINAL} / month. Six months only — not a lifetime lock.
           Pay {PRICE_FOUNDING} to lock the first month.
         </p>
+        <button
+          type="button"
+          aria-expanded={showBooking}
+          aria-controls="booking-flow"
+          onClick={startBooking}
+          className={cn(amberCta, "mt-6 w-full")}
+        >
+          {showBooking ? "Continue booking" : "Reserve a founding seat"}
+          <ArrowRight aria-hidden="true" className="size-4" />
+        </button>
+        <p className="mt-3 text-center text-[13px] text-white/60">
+          Pay {PRICE_FOUNDING} to lock it · cancel anytime · we set it up
+        </p>
         <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-5 text-left">
           {FOUNDING_PERKS.map((perk) => (
             <li key={perk.title} className="flex items-start gap-2.5 text-[14.5px]">
@@ -96,12 +109,9 @@ export function Pricing({ industry }: { industry: IndustryId }) {
           onClick={startBooking}
           className={cn(amberCta, "mt-7 w-full")}
         >
-          {showBooking ? "Continue booking" : "Reserve a founding seat"}
+          {showBooking ? "Continue booking" : `Pay ${PRICE_FOUNDING} to lock it`}
           <ArrowRight aria-hidden="true" className="size-4" />
         </button>
-        <p className="mt-3 text-center text-[13px] text-white/60">
-          Pay {PRICE_FOUNDING} to lock it · cancel anytime · we set it up
-        </p>
         <Countdown
           label={`${FOUNDING_SEATS} seats still open`}
           align="center"
