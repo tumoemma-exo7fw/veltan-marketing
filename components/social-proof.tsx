@@ -1,4 +1,8 @@
 import { TESTIMONIALS } from "@/lib/content";
+import {
+  FOUNDING_SEATS_CLAIMED,
+  FOUNDING_SEATS_TOTAL,
+} from "@/lib/site";
 import { glassPanel } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
@@ -18,11 +22,12 @@ export function SocialProof() {
       {TESTIMONIALS.length === 0 ? (
         <div className={cn(glassPanel, "mx-auto mt-8 max-w-xl px-6 py-8")}>
           <p className="text-[15px] font-semibold">
-            12 founding seats for Kampala businesses. No invented quotes.
+            {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} founding seats
+            claimed. No invented quotes.
           </p>
           <p className="mt-1.5 text-[13.5px] leading-[1.55] text-white/70">
-            No borrowed logos, no invented quotes — real customer stories will
-            appear here as the Founding 12 go live.
+            The first six are already in. Real customer stories will appear here
+            as they go live — no borrowed logos, no invented quotes.
           </p>
         </div>
       ) : (

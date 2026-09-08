@@ -29,7 +29,16 @@ export const LAUNCH_DATE_LABEL = "September 30, 2026";
 export const LAUNCH_DATE_SHORT = "30 Sep 2026";
 export const LAUNCH_DATE_ISO = "2026-09-30";
 
-export const FOUNDING_SEATS = 12;
+/** Total Founding 12 seats. Claimed/remaining is the honest live count — do not invent a tighter number. */
+export const FOUNDING_SEATS_TOTAL = 12;
+export const FOUNDING_SEATS_CLAIMED = 6;
+export const FOUNDING_SEATS_REMAINING =
+  FOUNDING_SEATS_TOTAL - FOUNDING_SEATS_CLAIMED;
+export const FOUNDING_SEATS_CLAIMED_PERCENT = Math.round(
+  (FOUNDING_SEATS_CLAIMED / FOUNDING_SEATS_TOTAL) * 100,
+);
+/** Alias for the Founding 12 total. Prefer TOTAL / CLAIMED / REMAINING in new copy. */
+export const FOUNDING_SEATS = FOUNDING_SEATS_TOTAL;
 
 export const PRICE_ORIGINAL_AMOUNT = 100_000;
 export const PRICE_FOUNDING_AMOUNT = 70_000;
@@ -75,7 +84,7 @@ export type CtaLocation =
  * which section of the page converted, straight from the WhatsApp thread.
  */
 export const WA_MESSAGES: Record<CtaLocation, string> = {
-  header: `Hi Veltan, I want to know more about the missed-call service — ${FOUNDING_SEATS} founding seats.`,
+  header: `Hi Veltan, I want to know more about the missed-call service — ${FOUNDING_SEATS_REMAINING} of ${FOUNDING_SEATS_TOTAL} founding seats remaining.`,
   hero: `Hi Veltan, I want to reserve a founding seat. I'll pay ${PRICE_FOUNDING} to lock it.`,
   pricing: `Hi Veltan, I want to reserve a founding seat. I'll pay ${PRICE_FOUNDING} to lock the first month.`,
   // The booking wizard composes its own structured message from form fields.

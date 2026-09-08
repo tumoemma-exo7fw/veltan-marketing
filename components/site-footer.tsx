@@ -2,7 +2,8 @@
 
 import {
   DISCOUNT_MONTHS,
-  FOUNDING_SEATS,
+  FOUNDING_SEATS_CLAIMED,
+  FOUNDING_SEATS_TOTAL,
   PRICE_FOUNDING,
   PRICE_ORIGINAL,
   WA_MESSAGES,
@@ -21,9 +22,10 @@ export function SiteFooter({ industry }: { industry: string }) {
             <h2 className="sr-only">Contact</h2>
             <Wordmark variant="dark" />
             <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-white/70">
-              Missed-call text-back for Kampala businesses. {FOUNDING_SEATS}{" "}
-              founding seats. {PRICE_FOUNDING} / month for {DISCOUNT_MONTHS}{" "}
-              months, then {PRICE_ORIGINAL}. Cancel anytime.
+              Missed-call text-back for Kampala businesses.{" "}
+              {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} founding seats
+              claimed. {PRICE_FOUNDING} / month for {DISCOUNT_MONTHS} months,
+              then {PRICE_ORIGINAL}. Cancel anytime.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2 sm:items-end">

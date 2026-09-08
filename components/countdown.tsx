@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-import { FOUNDING_SEATS, LAUNCH_AT_UTC_MS, LAUNCH_DATE_LABEL } from "@/lib/site";
+import {
+  FOUNDING_SEATS,
+  FOUNDING_SEATS_REMAINING,
+  LAUNCH_AT_UTC_MS,
+  LAUNCH_DATE_LABEL,
+} from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 interface TimeLeft {
@@ -41,7 +46,7 @@ interface CountdownProps {
 }
 
 export function Countdown({
-  label = `${FOUNDING_SEATS} seats still open`,
+  label = `${FOUNDING_SEATS_REMAINING} remaining`,
   align = "start",
   className,
 }: CountdownProps) {

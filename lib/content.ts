@@ -2,6 +2,8 @@ import {
   DISCOUNT_LABEL,
   DISCOUNT_MONTHS,
   FOUNDING_SEATS,
+  FOUNDING_SEATS_CLAIMED,
+  FOUNDING_SEATS_REMAINING,
   LAUNCH_DATE_LABEL,
   PRICE_FOUNDING,
   PRICE_ORIGINAL,
@@ -170,7 +172,7 @@ export const FAQS: FaqEntry[] = [
   },
   {
     question: `Why only 12 seats if the date is ${LAUNCH_DATE_LABEL}?`,
-    answer: `There are ${FOUNDING_SEATS} founding seats. That is the limit that matters. The window cannot run past ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time — but the seats can fill first. When 12 are taken, the founding rate and privileges close.`,
+    answer: `There are ${FOUNDING_SEATS} founding seats. ${FOUNDING_SEATS_CLAIMED} are already claimed; ${FOUNDING_SEATS_REMAINING} remain. That is the limit that matters. The window cannot run past ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time — but the remaining seats can fill first. When 12 are taken, the founding rate and privileges close.`,
   },
   {
     question: "What happens to my existing phone number?",

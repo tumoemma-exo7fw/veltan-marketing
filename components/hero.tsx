@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryContent, IndustryId } from "@/lib/content";
-import { FOUNDING_SEATS, PRICE_FOUNDING } from "@/lib/site";
+import { FOUNDING_SEATS_REMAINING, PRICE_FOUNDING } from "@/lib/site";
 import { amberCta, kicker, mutedBody } from "@/lib/ui";
 
 import { Countdown } from "@/components/countdown";
@@ -49,8 +49,8 @@ export function Hero({ industry, content, onIndustryChange }: HeroProps) {
               <ArrowRight aria-hidden="true" className="size-4" />
             </a>
             <p className="text-[13px] text-white/55">
-              Pay {PRICE_FOUNDING} to lock it · {FOUNDING_SEATS} seats · cancel
-              anytime
+              Pay {PRICE_FOUNDING} to lock it · {FOUNDING_SEATS_REMAINING} seats
+              left · cancel anytime
             </p>
           </div>
           <Countdown className="mt-8" />

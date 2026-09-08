@@ -8,7 +8,11 @@ import { FOUNDING_PERKS, type IndustryId } from "@/lib/content";
 import {
   DISCOUNT_LABEL,
   DISCOUNT_MONTHS,
-  FOUNDING_SEATS,
+  FOUNDING_SEATS_CLAIMED,
+  FOUNDING_SEATS_CLAIMED_PERCENT,
+  FOUNDING_SEATS_REMAINING,
+  FOUNDING_SEATS_TOTAL,
+  LAUNCH_DATE_SHORT,
   PRICE_FOUNDING,
   PRICE_ORIGINAL,
 } from "@/lib/site";
@@ -43,19 +47,47 @@ export function Pricing({ industry }: { industry: IndustryId }) {
     >
       <SectionHeading
         align="center"
-        kicker={`${FOUNDING_SEATS} seats · Kampala`}
+        kicker={`${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} claimed · Kampala`}
         kickerClassName="tracking-[0.16em]"
         title="Founding 12"
-        subtitle={`${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months — ${PRICE_FOUNDING}, then ${PRICE_ORIGINAL}. The seats go first.`}
+        subtitle={`The first ${FOUNDING_SEATS_CLAIMED} are already in. ${FOUNDING_SEATS_REMAINING} remain — founding pricing stops when ${FOUNDING_SEATS_TOTAL} are full, or on ${LAUNCH_DATE_SHORT}.`}
       />
-      <div className={cn(glassPanel, "mx-auto mt-10 max-w-lg p-6 sm:p-8")}>
+      <div className={cn(glassPanel, "mx-auto mt-10 max-w-lg overflow-x-clip p-6 sm:p-8")}>
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
           <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-hero-cyan">
-            {FOUNDING_SEATS} founding seats
+            {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} claimed
           </span>
           <span className="text-[12px] font-medium text-white/55">
             Client Follow-Up System
           </span>
+        </div>
+        <div className="mt-5">
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[12.5px]">
+            <span className="font-medium text-white/80">
+              {FOUNDING_SEATS_CLAIMED} claimed
+            </span>
+            <span className="font-medium text-hero-cyan">
+              {FOUNDING_SEATS_REMAINING} left
+            </span>
+          </div>
+          <div className="flex min-w-0 items-center gap-3">
+            <div
+              className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-[#071c1e]"
+              role="meter"
+              aria-valuemin={0}
+              aria-valuemax={FOUNDING_SEATS_TOTAL}
+              aria-valuenow={FOUNDING_SEATS_CLAIMED}
+              aria-label={`${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats claimed`}
+            >
+              <div
+                className="h-full rounded-full bg-hero-cyan"
+                style={{ width: `${FOUNDING_SEATS_CLAIMED_PERCENT}%` }}
+              />
+            </div>
+            <span className="shrink-0 font-mono text-[12px] font-semibold tabular-nums text-hero-cyan">
+              {FOUNDING_SEATS_CLAIMED}/{FOUNDING_SEATS_TOTAL}
+            </span>
+          </div>
         </div>
         <p className="mt-6 text-[40px] font-extrabold leading-none tracking-[-0.02em] text-accent">
           {PRICE_FOUNDING}
@@ -113,13 +145,13 @@ export function Pricing({ industry }: { industry: IndustryId }) {
           <ArrowRight aria-hidden="true" className="size-4" />
         </button>
         <Countdown
-          label={`${FOUNDING_SEATS} seats still open`}
+          label={`${FOUNDING_SEATS_REMAINING} remaining`}
           align="center"
           className="mt-7"
         />
         <p className="mt-3 text-center text-[12px] leading-snug text-white/45">
-          The window cannot run past the date on the clock. The{" "}
-          {FOUNDING_SEATS} seats can fill first.
+          The window cannot run past the date on the clock. Once{" "}
+          {FOUNDING_SEATS_TOTAL} are full, founding pricing stops.
         </p>
       </div>
 

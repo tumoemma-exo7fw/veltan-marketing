@@ -6,6 +6,9 @@ import {
   DISCOUNT_LABEL,
   DISCOUNT_MONTHS,
   FOUNDING_SEATS,
+  FOUNDING_SEATS_CLAIMED,
+  FOUNDING_SEATS_REMAINING,
+  FOUNDING_SEATS_TOTAL,
   GOOGLE_SITE_VERIFICATION,
   LAUNCH_DATE_ISO,
   LAUNCH_DATE_LABEL,
@@ -33,7 +36,7 @@ const genos = Genos({
 const TITLE = "Veltan — Never lose a client to a missed call | Kampala";
 // Industry-neutral on purpose: an OG preview can't know which pill the
 // recipient will land on.
-const DESCRIPTION = `Veltan texts missed callers back in seconds, in your business's name — for Kampala dental clinics, trades, and real estate. ${FOUNDING_SEATS} founding seats: ${PRICE_FOUNDING}/month for ${DISCOUNT_MONTHS} months (${DISCOUNT_LABEL}), then ${PRICE_ORIGINAL}.`;
+const DESCRIPTION = `Veltan texts missed callers back in seconds, in your business's name — for Kampala dental clinics, trades, and real estate. ${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats claimed (${FOUNDING_SEATS_REMAINING} remaining): ${PRICE_FOUNDING}/month for ${DISCOUNT_MONTHS} months (${DISCOUNT_LABEL}), then ${PRICE_ORIGINAL}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -106,7 +109,7 @@ const JSON_LD = {
           priceCurrency: "UGX",
           availability: "https://schema.org/LimitedAvailability",
           priceValidUntil: LAUNCH_DATE_ISO,
-          description: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months only (${PRICE_FOUNDING}/month), then ${PRICE_ORIGINAL}/month. Window closes ${LAUNCH_DATE_LABEL} or when ${FOUNDING_SEATS} seats are taken.`,
+          description: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months only (${PRICE_FOUNDING}/month), then ${PRICE_ORIGINAL}/month. ${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats claimed. Window closes ${LAUNCH_DATE_LABEL} or when the remaining ${FOUNDING_SEATS_REMAINING} seats are taken.`,
         },
         {
           "@type": "Offer",
