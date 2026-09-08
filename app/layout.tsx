@@ -7,6 +7,7 @@ import {
   DISCOUNT_MONTHS,
   FOUNDING_SEATS,
   GOOGLE_SITE_VERIFICATION,
+  LAUNCH_DATE_ISO,
   LAUNCH_DATE_LABEL,
   PRICE_FOUNDING,
   PRICE_FOUNDING_AMOUNT,
@@ -104,7 +105,7 @@ const JSON_LD = {
           price: String(PRICE_FOUNDING_AMOUNT),
           priceCurrency: "UGX",
           availability: "https://schema.org/LimitedAvailability",
-          priceValidUntil: "2027-08-31",
+          priceValidUntil: LAUNCH_DATE_ISO,
           description: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months only (${PRICE_FOUNDING}/month), then ${PRICE_ORIGINAL}/month. Window closes ${LAUNCH_DATE_LABEL} or when ${FOUNDING_SEATS} seats are taken.`,
         },
         {

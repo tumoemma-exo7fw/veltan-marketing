@@ -4,8 +4,8 @@ Single-page conversion site for **Veltan's Client Follow-Up System**: when a
 business misses an incoming call, Veltan automatically texts the caller back
 within seconds, in the business's name, so the lead isn't lost to a
 competitor. The page's only job is to convert visitors into a WhatsApp
-conversation or a "Founding 12" commitment before launch on
-**September 1, 2026**.
+conversation or a "Founding 12" commitment before the window closes on
+**September 30, 2026**.
 
 Built from the full spec in [`docs/build-spec.md`](docs/build-spec.md).
 
@@ -60,8 +60,10 @@ dashboard after deploying):
 
 All three live in `lib/site.ts`:
 
-1. **Countdown target** — September 1, 2026, 00:00 East Africa Time (UTC+3,
-   explicit offset, correct in any visitor timezone).
+1. **Countdown target** — September 30, 2026, 23:59:59 East Africa Time
+   (UTC+3, explicit offset, correct in any visitor timezone). Last day of
+   September — not a 6-month window. The 30% founding rate still lasts
+   6 months after signup.
 2. **Domain** — assumed site root at `captbdger.website` (`SITE_URL`).
 3. **WhatsApp number** — `+256 777 968 947`. An earlier planning note said
    `0777978947`; these do not match. **A wrong number silently breaks the

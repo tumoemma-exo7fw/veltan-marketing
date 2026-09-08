@@ -9,7 +9,7 @@ Veltan is an intelligent-systems company selling operational software to local a
 
 This landing page's **only job** is to convert a visitor into either (a) a WhatsApp conversation that leads to a paid signup, or (b) a "founding customer" commitment before the discount window closes. Every design and copy decision should be judged against that, not against generic landing-page conventions.
 
-**Target launch: September 1, 2026.** A countdown and a limited "Founding 12" discount both count down to this date.
+**Founding 12 window closes: September 30, 2026, 23:59:59 East Africa Time.** A countdown and the limited "Founding 12" offer both count down to this date (last day of September — not a 6-month signup window). The 30% founding rate still lasts 6 months after signup.
 
 **Primary vertical (default, and the one to sell hardest): dental clinics in Kampala** — the founder already has active leads here. **Secondary verticals, shown but not primary: general trades (plumbing/electrical) and real estate agents.** The page must support switching between these three without feeling like three separate products bolted together — same mechanism, same trust logic, different pain-point language.
 
@@ -162,7 +162,7 @@ Render as 3 pills at the top of the hero: **Dental (default/pre-selected) · Tra
 
 ## 8. Countdown + pricing
 
-- **Countdown target:** September 1, 2026, 00:00:00 East Africa Time (UTC+3) — implement with an explicit UTC+3 offset so the countdown is correct regardless of visitor timezone. *(Confirm this date with the founder before build — flagged as an assumption.)*
+- **Countdown target:** September 30, 2026, 23:59:59 East Africa Time (UTC+3) — implement with an explicit UTC+3 offset so the countdown is correct regardless of visitor timezone. Last day of September 2026, not August 2027 and not a 6-month countdown.
 - **Countdown display:** days / hours / minutes / seconds, shown as a compact strip directly under the hero CTA, and repeated near the pricing section.
 - **Pricing card:**
   - Original price struck through: **UGX 89,000**

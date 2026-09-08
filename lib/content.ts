@@ -169,7 +169,7 @@ export const FAQS: FaqEntry[] = [
     answer: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months, maintenance included for those six months, first access to new updates, priority support, a free setup call, skip-the-queue onboarding, WhatsApp to the founder for six months, first in line for the AI Assistant add-on, SMS copy in your business's name, cancel anytime with no setup fee, one pause month in year one, and Original Twelve status. We do not promise paid ads, unlimited SMS, or lifetime pricing.`,
   },
   {
-    question: "Why only 12 seats if the date is August 2027?",
+    question: `Why only 12 seats if the date is ${LAUNCH_DATE_LABEL}?`,
     answer: `There are ${FOUNDING_SEATS} founding seats. That is the limit that matters. The window cannot run past ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time — but the seats can fill first. When 12 are taken, the founding rate and privileges close.`,
   },
   {

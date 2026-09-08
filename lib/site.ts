@@ -18,14 +18,16 @@ export const GOOGLE_SITE_VERIFICATION =
   "KuULV7rI7HRtB_4X4nqKyT-KNKbDLva666mHVy6mhNA";
 
 /**
- * Founding 12 window closes 31 August 2027, 23:59:59 East Africa Time
- * (UTC+3). Same UTC-minus-offset pattern as the original launch constant
- * so the countdown is correct in every visitor timezone.
+ * Founding 12 window closes 30 September 2026, 23:59:59 East Africa Time
+ * (UTC+3). Date.UTC(...) is treated as UTC, then we subtract the +3h EAT
+ * offset so the countdown is correct in every visitor timezone.
+ * 30 Sep 2026 23:59:59 EAT = 30 Sep 2026 20:59:59 UTC.
  */
 export const LAUNCH_AT_UTC_MS =
-  Date.UTC(2027, 7, 31, 23, 59, 59) - 3 * 60 * 60 * 1000;
-export const LAUNCH_DATE_LABEL = "31 August 2027";
-export const LAUNCH_DATE_SHORT = "31 Aug 2027";
+  Date.UTC(2026, 8, 30, 23, 59, 59) - 3 * 60 * 60 * 1000;
+export const LAUNCH_DATE_LABEL = "September 30, 2026";
+export const LAUNCH_DATE_SHORT = "30 Sep 2026";
+export const LAUNCH_DATE_ISO = "2026-09-30";
 
 export const FOUNDING_SEATS = 12;
 
