@@ -46,7 +46,7 @@ export const MOMO_ACCOUNT_NAME = "MARTIN EMMANUEL HEGENY";
  * `tel:` encodes `*` and `#` so the handset opens with the code filled in.
  */
 export const MTN_MOMO_USSD = `*165*1*1*${MOMO_NUMBER_DIGITS}*${PRICE_FOUNDING_AMOUNT}#`;
-export const MTN_MOMO_TEL_HREF = `tel:${encodeURIComponent(MTN_MOMO_USSD)}`;
+export const MTN_MOMO_TEL_HREF = `tel:${MTN_MOMO_USSD.replace(/\*/g, "%2A").replace(/#/g, "%23")}`;
 
 /**
  * Stripe Payment Link (https://buy.stripe.com/...) for the Founding 12
