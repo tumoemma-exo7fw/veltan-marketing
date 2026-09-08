@@ -16,24 +16,31 @@ export function whatsappApiUrl(message: string): string {
 }
 
 export async function copyText(value: string): Promise<boolean> {
-  try {
-    await navigator.clipboard.writeText(value);
-    return true;
-  } catch {
+  if (navigator.clipboard?.writeText) {
     try {
-      const field = document.createElement("textarea");
-      field.value = value;
-      field.setAttribute("readonly", "");
-      field.style.position = "fixed";
-      field.style.left = "-9999px";
-      document.body.appendChild(field);
-      field.select();
-      const ok = document.execCommand("copy");
-      document.body.removeChild(field);
-      return ok;
+      await navigator.clipboard.writeText(value);
+      return true;
     } catch {
-      return false;
+      // Secure-context clipboard can still fail (permissions, HTTP iframe).
     }
+  }
+
+  try {
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.setAttribute("readonly", "");
+    field.setAttribute("aria-hidden", "true");
+    field.style.cssText =
+      "position:fixed;top:0;left:0;width:2px;height:2px;padding:0;border:0;opacity:0;";
+    document.body.appendChild(field);
+    field.focus();
+    field.select();
+    field.setSelectionRange(0, field.value.length);
+    const ok = document.execCommand("copy");
+    document.body.removeChild(field);
+    return ok;
+  } catch {
+    return false;
   }
 }
 

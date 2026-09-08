@@ -64,10 +64,21 @@ export function WhatsAppNextSteps({
   headingId = "whatsapp-next-steps-title",
 }: WhatsAppNextStepsProps) {
   const [copied, setCopied] = useState<"message" | "number" | null>(null);
+  const [copyHint, setCopyHint] = useState<string | null>(null);
+  const [revealMessage, setRevealMessage] = useState(false);
 
   const onCopy = async (key: "message" | "number", value: string) => {
     const ok = await copyText(value);
-    if (!ok) return;
+    if (!ok) {
+      setCopyHint(
+        key === "message"
+          ? "Copy failed — the message is below. Select it and copy."
+          : `Copy failed — select the number ${WHATSAPP_DISPLAY} and copy it.`,
+      );
+      if (key === "message") setRevealMessage(true);
+      return;
+    }
+    setCopyHint(null);
     setCopied(key);
     window.setTimeout(() => {
       setCopied((current) => (current === key ? null : current));
@@ -132,8 +143,19 @@ export function WhatsAppNextSteps({
         />
       </div>
       <p className="mt-2 text-[12.5px] text-white/55">
-        Number: <span className="font-semibold text-white/80">{WHATSAPP_DISPLAY}</span>
+        Number:{" "}
+        <span className="font-semibold text-white/80">{WHATSAPP_DISPLAY}</span>
       </p>
+      {copyHint ? (
+        <p aria-live="polite" className="mt-2 text-[13px] font-semibold text-accent">
+          {copyHint}
+        </p>
+      ) : null}
+      {revealMessage ? (
+        <pre className="mt-3 max-h-40 overflow-auto whitespace-pre-wrap break-words rounded-xl border border-white/12 bg-[#071416] p-3 text-[12.5px] leading-[1.5] text-white/85">
+          {message}
+        </pre>
+      ) : null}
 
       <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13.5px] leading-[1.55] text-white/80">
         {STEPS.map((step) => (
