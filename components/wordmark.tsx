@@ -6,11 +6,14 @@ interface WordmarkProps {
   className?: string;
   /** Full-color mark for light surfaces, lifted-color mark for dark surfaces. */
   variant?: "light" | "dark";
+  /** Preload the mark — use on the header lockup only. */
+  preload?: boolean;
 }
 
 export function Wordmark({
   className,
   variant = "light",
+  preload = false,
 }: WordmarkProps) {
   return (
     <span
@@ -29,7 +32,7 @@ export function Wordmark({
         alt=""
         width={735}
         height={500}
-        priority
+        preload={preload}
         className="h-auto w-11 shrink-0 object-contain sm:w-14"
       />
       <span

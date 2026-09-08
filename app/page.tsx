@@ -8,6 +8,7 @@ import { INDUSTRIES, type IndustryId } from "@/lib/content";
 import { AiAssistantSection } from "@/components/ai-assistant-section";
 import { FaqSection } from "@/components/faq-section";
 import { Hero } from "@/components/hero";
+import { HomeHero } from "@/components/home-hero";
 import { HowItWorks } from "@/components/how-it-works";
 import { Objection } from "@/components/objection";
 import { Pricing } from "@/components/pricing";
@@ -27,6 +28,7 @@ export default function Home() {
     <>
       <SiteHeader industry={industry} />
       <main className="flex-1">
+        <HomeHero industry={industry} />
         <Hero
           industry={industry}
           content={content}

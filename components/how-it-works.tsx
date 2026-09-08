@@ -4,7 +4,7 @@ export function HowItWorks({ content }: { content: IndustryContent }) {
   return (
     <section
       id="how-it-works"
-      className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 lg:py-20"
+      className="mx-auto w-full max-w-6xl scroll-mt-32 px-5 py-14 sm:px-8 lg:scroll-mt-20 lg:py-20"
     >
       <div className="max-w-xl">
         <h2 className="text-[24px] font-extrabold tracking-[-0.01em] sm:text-[29px]">

@@ -21,7 +21,7 @@ interface WhatsAppCtaProps {
   location: CtaLocation;
   message: string;
   industry: string;
-  size?: "sm" | "lg";
+  size?: "sm" | "lg" | "icon";
   /** "whatsapp" renders official WhatsApp green instead of brand amber. */
   variant?: "amber" | "whatsapp";
   className?: string;
@@ -53,12 +53,14 @@ export function WhatsAppCta({
         variant === "whatsapp"
           ? "rounded-full bg-[#25d366] text-text hover:bg-[#20bf5c]"
           : "rounded-bubble bg-accent text-white hover:bg-[#b56f18]",
-        size === "lg" ? "px-6 py-3 text-[15px]" : "px-4 py-2 text-[13.5px]",
+        size === "lg" && "px-6 py-3 text-[15px]",
+        size === "sm" && "px-4 py-2 text-[13.5px]",
+        size === "icon" && "size-11 shrink-0 gap-0 px-0",
         className,
       )}
     >
       <WhatsAppIcon className={size === "lg" ? "size-5" : "size-4"} />
-      <span>{children}</span>
+      {size !== "icon" ? <span>{children}</span> : null}
     </a>
   );
 }

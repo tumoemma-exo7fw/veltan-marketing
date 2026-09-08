@@ -61,6 +61,8 @@
   --color-accent: #c97c1e; /* deepened Amber Glow — RESERVED for conversion actions */
   --color-secondary: #1a4645; /* Deep Teal — AI badge & non-CTA emphasis */
   --color-line: rgb(18 41 43 / 0.1); /* hairline borders/dividers */
+  /* Hero-only cyan highlight (cinematic homepage band). Do not use on CTAs. */
+  --color-hero-cyan: #2ee6e0;
 
   --radius-card: 18px; /* spec --radius */
   --radius-bubble: 12px; /* spec --radius-sm */

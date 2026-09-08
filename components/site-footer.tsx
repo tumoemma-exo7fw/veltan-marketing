@@ -7,10 +7,11 @@ import { Wordmark } from "@/components/wordmark";
 
 export function SiteFooter({ industry }: { industry: string }) {
   return (
-    <footer className="bg-text text-bg">
+    <footer id="contact" className="scroll-mt-32 bg-text text-bg lg:scroll-mt-20">
       <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
+            <h2 className="sr-only">Contact</h2>
             <Wordmark variant="dark" />
             <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-bg/65">
               Missed-call follow-up for Kampala businesses.

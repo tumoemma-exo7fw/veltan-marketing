@@ -41,7 +41,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
   return (
     <section
       id="pricing"
-      className="scroll-mt-16 border-y border-line bg-surface px-5 py-14 sm:px-8 lg:py-20"
+      className="scroll-mt-32 border-y border-line bg-surface px-5 py-14 sm:px-8 lg:scroll-mt-20 lg:py-20"
     >
       <div className="mx-auto max-w-xl text-center">
         <p className="text-[12px] font-semibold tracking-[0.08em] text-secondary">

@@ -29,7 +29,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="mx-auto w-full max-w-3xl px-5 py-14 sm:px-8 lg:py-20"
+      className="mx-auto w-full max-w-3xl scroll-mt-32 px-5 py-14 sm:px-8 lg:scroll-mt-20 lg:py-20"
     >
       <h2 className="text-[24px] font-extrabold tracking-[-0.01em] sm:text-[29px]">
         Common questions
