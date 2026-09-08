@@ -9,10 +9,13 @@ import {
   WHATSAPP_DISPLAY,
 } from "@/lib/site";
 
+import { SectionNav, useSectionHash } from "@/components/section-nav";
 import { WhatsAppCta } from "@/components/whatsapp-cta";
 import { Wordmark } from "@/components/wordmark";
 
 export function SiteFooter({ industry }: { industry: string }) {
+  const hash = useSectionHash();
+
   return (
     <footer id="contact" className="scroll-mt-32 border-t border-white/10 bg-bg lg:scroll-mt-20">
       <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
@@ -39,9 +42,16 @@ export function SiteFooter({ industry }: { industry: string }) {
             <p className="text-[12px] text-white/55">{WHATSAPP_DISPLAY}</p>
           </div>
         </div>
-        <div className="mt-8 flex flex-col gap-1 border-t border-white/10 pt-5 text-[12px] text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Veltan · Kampala, Uganda</p>
-          <p>Built to answer when you can&apos;t.</p>
+        <div className="mt-8 border-t border-white/10 pt-5">
+          <SectionNav
+            label="Footer"
+            hash={hash}
+            className="-mx-2 flex flex-wrap items-center"
+          />
+          <div className="mt-3 flex flex-col gap-1 text-[12px] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Veltan · Kampala, Uganda</p>
+            <p>Built to answer when you can&apos;t.</p>
+          </div>
         </div>
       </div>
     </footer>
