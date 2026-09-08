@@ -51,7 +51,7 @@ export function WhatsAppCta({
       className={cn(
         "inline-flex min-h-11 items-center justify-center gap-2 font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
         variant === "whatsapp"
-          ? "rounded-full bg-[#25d366] text-text hover:bg-[#20bf5c]"
+          ? "rounded-full bg-[#25d366] text-white hover:bg-[#20bf5c]"
           : "rounded-bubble bg-accent text-white hover:bg-[#b56f18]",
         size === "lg" && "px-6 py-3 text-[15px]",
         size === "sm" && "px-4 py-2 text-[13.5px]",

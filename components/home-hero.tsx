@@ -200,20 +200,20 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
           >
             <div className="lg:hidden">
               <FollowUpTimeline />
-              <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="mt-3 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2">
                 <RetentionWidget />
                 <FollowUpsWidget />
               </div>
             </div>
 
             <div className="relative hidden min-h-[420px] lg:block">
-              <div className="absolute left-0 top-10 z-10 w-[min(100%,22rem)]">
+              <div className="absolute left-0 top-12 z-10 w-[min(100%,20rem)]">
                 <FollowUpTimeline />
               </div>
-              <div className="absolute right-0 top-0 z-20 w-48">
+              <div className="absolute right-0 top-0 z-20 w-[11.5rem]">
                 <RetentionWidget />
               </div>
-              <div className="absolute bottom-6 right-2 z-20 w-56">
+              <div className="absolute bottom-8 right-0 z-20 w-52">
                 <FollowUpsWidget />
               </div>
             </div>

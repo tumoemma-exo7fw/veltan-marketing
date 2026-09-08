@@ -30,9 +30,8 @@ export function Hero({ industry, content, onIndustryChange }: HeroProps) {
             See it catch the missed call
           </h2>
           <p className="mt-2 max-w-[52ch] text-[15px] leading-[1.55] text-muted">
-            The cinematic homepage is dental-first. Switch the industry below
-            to hear the same product in your words — and watch the recorded
-            demo.
+            Same product, your industry&apos;s words. Switch Dental, Trades, or
+            Real Estate and watch the recorded missed-call demo.
           </p>
           <div className="mt-6">
             <IndustryPills value={industry} onChange={onIndustryChange} />
