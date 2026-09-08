@@ -56,6 +56,7 @@ export const MTN_MOMO_TEL_HREF = `tel:${MTN_MOMO_USSD.replace(/\*/g, "%2A").repl
  */
 export const STRIPE_PAYMENT_LINK = "";
 
+/** HTTPS fallback (`wa.me`). Interactive CTAs prefer `whatsapp://` via `lib/whatsapp.ts`. */
 export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }

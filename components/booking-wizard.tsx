@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Copy } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
@@ -15,10 +15,12 @@ import {
   PRICE_FOUNDING,
   PRICE_FOUNDING_AMOUNT,
   STRIPE_PAYMENT_LINK,
-  whatsappLink,
 } from "@/lib/site";
 import { amberCta, glassPanel } from "@/lib/ui";
 import { cn } from "@/lib/utils";
+import { openWhatsApp, whatsappAppUrl } from "@/lib/whatsapp";
+
+import { WhatsAppNextSteps } from "@/components/whatsapp-next-steps";
 
 type PayMethod = "card" | "momo" | "later";
 type MomoNetwork = "mtn" | "airtel";
@@ -92,7 +94,12 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
   const [momoNetwork, setMomoNetwork] = useState<MomoNetwork>("mtn");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [showWhatsAppHelp, setShowWhatsAppHelp] = useState(false);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const helpRef = useRef<HTMLDivElement>(null);
+  const cancelWhatsAppRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => () => cancelWhatsAppRef.current?.(), []);
 
   const businessType = chosenType ?? INDUSTRY_TO_TYPE[industry];
   const phoneForMessage = phone.trim();
@@ -172,7 +179,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
     .join("\n");
 
   return (
-    <div className={cn(glassPanel, "mx-auto mt-8 max-w-lg p-6 text-left sm:p-8")}>
+    <div className={cn(glassPanel, "mx-auto mt-8 max-w-lg min-w-0 overflow-x-clip p-6 text-left sm:p-8")}>
       <h3 className="text-[20px] font-extrabold tracking-[-0.01em]">
         Pay {PRICE_FOUNDING} to lock it
       </h3>
@@ -540,43 +547,65 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
         </p>
       )}
 
-      <div className="mt-5 flex items-center justify-between gap-3">
+      <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
         {step > 0 ? (
           <button
             type="button"
             onClick={back}
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+            className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan sm:justify-start"
           >
             <ArrowLeft aria-hidden="true" className="size-4" />
             Back
           </button>
         ) : (
-          <span />
+          <span className="hidden sm:block" />
         )}
 
         {step < 2 ? (
           <button
             type="button"
             onClick={next}
-            className={cn(amberCta, "min-h-11 px-5 py-2.5 text-[14px]")}
+            className={cn(amberCta, "min-h-11 w-full px-5 py-2.5 text-[14px] sm:w-auto")}
           >
             Next
             <ArrowRight aria-hidden="true" className="size-4" />
           </button>
         ) : (
           <a
-            href={whatsappLink(message)}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={whatsappAppUrl(message)}
             aria-label="Send your booking details to Veltan on WhatsApp"
-            onClick={() => analytics.ctaClicked("booking", industry)}
-            className={cn(amberCta, "min-h-11 px-5 py-2.5 text-[14px]")}
+            onClick={(event) => {
+              event.preventDefault();
+              analytics.ctaClicked("booking", industry);
+              setShowWhatsAppHelp(true);
+              const reduced = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+              ).matches;
+              requestAnimationFrame(() => {
+                helpRef.current?.scrollIntoView({
+                  behavior: reduced ? "auto" : "smooth",
+                  block: "nearest",
+                });
+              });
+              cancelWhatsAppRef.current?.();
+              cancelWhatsAppRef.current = openWhatsApp({
+                message,
+                onNeedHelp: () => setShowWhatsAppHelp(true),
+              });
+            }}
+            className={cn(amberCta, "min-h-11 w-full px-5 py-2.5 text-[14px] sm:w-auto")}
           >
             <Check aria-hidden="true" className="size-4" />
             Send booking on WhatsApp
           </a>
         )}
       </div>
+
+      {step === 2 && showWhatsAppHelp ? (
+        <div ref={helpRef} className="mt-5" aria-live="polite">
+          <WhatsAppNextSteps message={message} />
+        </div>
+      ) : null}
     </div>
   );
 }

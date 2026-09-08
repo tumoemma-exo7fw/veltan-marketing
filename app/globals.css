@@ -141,7 +141,7 @@
     color-scheme: dark;
   }
   body {
-    @apply bg-bg font-sans text-text antialiased;
+    @apply overflow-x-clip bg-bg font-sans text-text antialiased;
   }
   ::selection {
     background: rgb(46 230 224 / 0.22);

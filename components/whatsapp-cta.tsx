@@ -1,8 +1,13 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 import { analytics } from "@/lib/analytics";
-import { whatsappLink, type CtaLocation } from "@/lib/site";
+import { type CtaLocation } from "@/lib/site";
+import { openWhatsApp, whatsappAppUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
+
+import { useWhatsAppHelp } from "@/components/whatsapp-help";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -31,6 +36,7 @@ interface WhatsAppCtaProps {
 /**
  * Every conversion action on the page is one of these: an amber WhatsApp
  * deep link with a per-section pre-filled message and an analytics event.
+ * JS tries the installed app first, then web + an in-page next-steps sheet.
  */
 export function WhatsAppCta({
   location,
@@ -41,13 +47,24 @@ export function WhatsAppCta({
   className,
   children,
 }: WhatsAppCtaProps) {
+  const { showHelp } = useWhatsAppHelp();
+  const cancelRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => () => cancelRef.current?.(), []);
+
   return (
     <a
-      href={whatsappLink(message)}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={whatsappAppUrl(message)}
       aria-label="Message Veltan on WhatsApp"
-      onClick={() => analytics.ctaClicked(location, industry)}
+      onClick={(event) => {
+        event.preventDefault();
+        analytics.ctaClicked(location, industry);
+        cancelRef.current?.();
+        cancelRef.current = openWhatsApp({
+          message,
+          onNeedHelp: () => showHelp(message),
+        });
+      }}
       className={cn(
         "inline-flex min-h-11 items-center justify-center gap-2 font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
         variant === "whatsapp"

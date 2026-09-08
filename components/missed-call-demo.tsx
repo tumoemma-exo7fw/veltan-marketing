@@ -28,9 +28,9 @@ export function MissedCallDemo({ content }: { content: IndustryContent }) {
       ariaLabel="Recorded demo: a phone call is missed, and within seconds Veltan automatically texts the caller back in the business's name."
       className="mx-auto w-full max-w-[350px]"
     >
-      <div className="px-6 py-7 sm:px-8">
-        <div className="mx-auto w-[240px] rounded-[2.4rem] border border-white/12 bg-[#102628] p-[6px] sm:w-[260px]">
-          <div className="relative h-[430px] overflow-hidden rounded-[2rem] bg-[#0a1f21]">
+      <div className="px-3 py-6 sm:px-8 sm:py-7">
+        <div className="mx-auto w-full max-w-[240px] rounded-[2.4rem] border border-white/12 bg-[#102628] p-[6px] sm:max-w-[260px]">
+          <div className="relative h-[min(430px,70svh)] min-h-[360px] overflow-hidden rounded-[2rem] bg-[#0a1f21]">
             <div className="absolute left-1/2 top-2 z-10 h-4 w-16 -translate-x-1/2 rounded-full bg-[#071416]" />
 
             {phase !== "sms" ? (

@@ -14,6 +14,7 @@ import { Objection } from "@/components/objection";
 import { Pricing } from "@/components/pricing";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { WhatsAppHelpProvider } from "@/components/whatsapp-help";
 
 export default function Home() {
   const [industry, setIndustry] = useState<IndustryId>("dental");
@@ -25,9 +26,9 @@ export default function Home() {
   };
 
   return (
-    <>
+    <WhatsAppHelpProvider>
       <SiteHeader industry={industry} />
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-clip">
         <HomeHero industry={industry} />
         <Hero
           industry={industry}
@@ -41,6 +42,6 @@ export default function Home() {
         <FaqSection />
       </main>
       <SiteFooter industry={industry} />
-    </>
+    </WhatsAppHelpProvider>
   );
 }
