@@ -36,7 +36,9 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
       id="home"
       className="relative isolate overflow-x-clip bg-[#071c1e] text-white"
     >
-      <h1 className="sr-only">Let Your Clinic Never Miss a Lead</h1>
+      <h1 className="sr-only">
+        Let Your Clinic Never Miss a Lead — Veltan clinic follow-up
+      </h1>
 
       {/*
         Mobile: sit the 16:9 still below the two-row header so baked copy
