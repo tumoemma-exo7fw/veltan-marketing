@@ -10,7 +10,7 @@ export function HowItWorks({ content }: { content: IndustryContent }) {
     >
       <SectionHeading
         title="How it works"
-        subtitle="Same phone, same number. Veltan just catches what you can't."
+        subtitle="Same Kampala number. Text back in seconds. You call first."
       />
       <ol className="mt-12 grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-3 lg:gap-12">
         {content.steps.map((step, i) => (

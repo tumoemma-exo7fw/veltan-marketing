@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryContent, IndustryId } from "@/lib/content";
+import { FOUNDING_SEATS, PRICE_FOUNDING } from "@/lib/site";
 import { amberCta, kicker, mutedBody } from "@/lib/ui";
 
 import { Countdown } from "@/components/countdown";
@@ -28,7 +29,7 @@ export function Hero({ industry, content, onIndustryChange }: HeroProps) {
           <SectionHeading
             kicker="Features"
             title="See it catch the missed call"
-            subtitle="Same product, your industry's words. Switch Dental, Trades, or Real Estate and watch the recorded missed-call demo."
+            subtitle="Same product, your industry's words. Switch Dental, Trades, or Real Estate — a missed call is a lost patient, job, or listing."
           />
           <div className="mt-7">
             <IndustryPills value={industry} onChange={onIndustryChange} />
@@ -44,11 +45,12 @@ export function Hero({ industry, content, onIndustryChange }: HeroProps) {
               onClick={() => analytics.ctaClicked("hero", industry)}
               className={amberCta}
             >
-              Reserve a founding spot
+              Reserve a founding seat
               <ArrowRight aria-hidden="true" className="size-4" />
             </a>
             <p className="text-[13px] text-white/55">
-              30% founding rate · No setup fee · Cancel anytime
+              Pay {PRICE_FOUNDING} to lock it · {FOUNDING_SEATS} seats · cancel
+              anytime
             </p>
           </div>
           <Countdown className="mt-8" />

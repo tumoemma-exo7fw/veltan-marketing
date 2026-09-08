@@ -7,7 +7,7 @@ export function Objection({ content }: { content: IndustryContent }) {
       <div className="max-w-3xl border-l-2 border-hero-cyan/50 py-2 pl-6 sm:pl-8">
         <p className={kicker}>The difference</p>
         <h2 className="mt-3 text-[24px] font-extrabold leading-snug tracking-[-0.02em] sm:text-[30px]">
-          Knowing who called isn&apos;t the same as keeping the lead.
+          A missed call is a lost patient, job, or listing.
         </h2>
         <p className={`${mutedBody} mt-4 max-w-[62ch]`}>{content.objection}</p>
       </div>

@@ -14,7 +14,7 @@ export function AiAssistantSection({ content }: { content: IndustryContent }) {
         <SectionHeading
           kicker="Coming next · Optional"
           title="An assistant for the questions that come next"
-          subtitle="The upcoming AI Assistant can answer simple questions and take details after the text-back. It's a separate add-on—not part of what you pay for at launch."
+          subtitle="The upcoming AI Assistant can answer simple questions and take details after the text-back. It's a separate add-on — not in the monthly price. Founding 12 are first in line when it launches."
         />
         <div className="mx-auto w-full max-w-sm lg:justify-self-end">
           <AiDemo content={content} />

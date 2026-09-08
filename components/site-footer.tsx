@@ -1,6 +1,13 @@
 "use client";
 
-import { WA_MESSAGES, WHATSAPP_DISPLAY } from "@/lib/site";
+import {
+  DISCOUNT_MONTHS,
+  FOUNDING_SEATS,
+  PRICE_FOUNDING,
+  PRICE_ORIGINAL,
+  WA_MESSAGES,
+  WHATSAPP_DISPLAY,
+} from "@/lib/site";
 
 import { WhatsAppCta } from "@/components/whatsapp-cta";
 import { Wordmark } from "@/components/wordmark";
@@ -14,7 +21,9 @@ export function SiteFooter({ industry }: { industry: string }) {
             <h2 className="sr-only">Contact</h2>
             <Wordmark variant="dark" />
             <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-white/70">
-              Missed-call follow-up for Kampala businesses.
+              Missed-call text-back for Kampala businesses. {FOUNDING_SEATS}{" "}
+              founding seats. {PRICE_FOUNDING} / month for {DISCOUNT_MONTHS}{" "}
+              months, then {PRICE_ORIGINAL}. Cancel anytime.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2 sm:items-end">

@@ -18,7 +18,7 @@ export function SocialProof() {
       {TESTIMONIALS.length === 0 ? (
         <div className={cn(glassPanel, "mx-auto mt-8 max-w-xl px-6 py-8")}>
           <p className="text-[15px] font-semibold">
-            Now onboarding our first 12 founding businesses.
+            12 founding seats for Kampala businesses. No invented quotes.
           </p>
           <p className="mt-1.5 text-[13.5px] leading-[1.55] text-white/70">
             No borrowed logos, no invented quotes — real customer stories will

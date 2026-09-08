@@ -34,7 +34,7 @@ export function FaqSection() {
     >
       <SectionHeading
         title="Common questions"
-        subtitle="The practical details before you decide."
+        subtitle="Price, seats, cancel, and how Mobile Money works — no fine print surprises."
       />
       <Accordion
         multiple={false}

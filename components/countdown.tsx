@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { LAUNCH_AT_UTC_MS, LAUNCH_DATE_LABEL } from "@/lib/site";
+import { FOUNDING_SEATS, LAUNCH_AT_UTC_MS, LAUNCH_DATE_LABEL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 interface TimeLeft {
@@ -41,7 +41,7 @@ interface CountdownProps {
 }
 
 export function Countdown({
-  label = "Founding 12 offer ends in",
+  label = `${FOUNDING_SEATS} seats still open`,
   align = "start",
   className,
 }: CountdownProps) {
@@ -65,7 +65,7 @@ export function Countdown({
         role="status"
         className={cn("text-[13px] font-semibold text-white/70", className)}
       >
-        The Founding 12 offer has ended.
+        The Founding {FOUNDING_SEATS} window has closed.
       </p>
     );
   }
@@ -73,7 +73,7 @@ export function Countdown({
   return (
     <div
       role="timer"
-      aria-label={`${label} — offer closes ${LAUNCH_DATE_LABEL}, midnight East Africa Time`}
+      aria-label={`${label} — window closes ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time`}
       className={cn(
         "flex flex-col gap-2.5",
         align === "center" && "items-center",

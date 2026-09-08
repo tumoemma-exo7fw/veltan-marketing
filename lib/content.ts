@@ -1,3 +1,12 @@
+import {
+  DISCOUNT_LABEL,
+  DISCOUNT_MONTHS,
+  FOUNDING_SEATS,
+  LAUNCH_DATE_LABEL,
+  PRICE_FOUNDING,
+  PRICE_ORIGINAL,
+} from "@/lib/site";
+
 export type IndustryId = "dental" | "trades" | "realestate";
 
 export interface AiExchange {
@@ -33,9 +42,9 @@ export const INDUSTRIES: Record<IndustryId, IndustryContent> = {
     kicker: "Dental clinics — Kampala",
     headline: "Miss the call. Not the patient.",
     subline:
-      "You're busy doing the actual work. Veltan texts your patient back the moment you can't answer — so they don't book with the clinic down the road.",
+      "A missed call in Kampala is a patient booking the clinic down the road. Veltan texts them back in your name — in seconds — so you call first.",
     objection:
-      "Your missed-call log tells you who called. Veltan tells your patient you saw it and you'll fit them in — while they're still deciding which clinic to call next.",
+      "Your missed-call log tells you who rang. It does not keep the patient. Every unanswered ring is someone deciding whether to wait — or walk into the next clinic.",
     steps: [
       {
         title: "Call missed",
@@ -43,11 +52,11 @@ export const INDUSTRIES: Record<IndustryId, IndustryContent> = {
       },
       {
         title: "They get a text, in your name",
-        body: "Within 10 seconds, a message from your clinic, not a generic bot line.",
+        body: "Within seconds, a message from your clinic — not a generic bot line.",
       },
       {
         title: "You call back first",
-        body: "Before they've called another clinic.",
+        body: "Before they've booked the clinic down the road.",
       },
     ],
     demoSms: [
@@ -65,9 +74,9 @@ export const INDUSTRIES: Record<IndustryId, IndustryContent> = {
     kicker: "Plumbing, electrical & other trades — Kampala",
     headline: "Miss the call. Not the job.",
     subline:
-      "You're busy doing the actual work. Veltan texts your customer back the moment you can't answer — so they don't call the next guy on the list.",
+      "A missed call is a leaking tap going to the next plumber on the list. Veltan texts them back in your name — in seconds — so you get the job.",
     objection:
-      "Your missed-call alert tells you who called. Veltan tells your customer you saw it and you're coming — while they're still deciding who to call next.",
+      "Your missed-call alert tells you who rang. It does not win the job. Every unanswered ring is someone scrolling to the next tradesperson.",
     steps: [
       {
         title: "Call missed",
@@ -75,11 +84,11 @@ export const INDUSTRIES: Record<IndustryId, IndustryContent> = {
       },
       {
         title: "They get a text, in your name",
-        body: "Within 10 seconds, a message from your business, not a generic bot line.",
+        body: "Within seconds, a message from your business — not a generic bot line.",
       },
       {
         title: "You call back first",
-        body: "Before they've dialed anyone else.",
+        body: "Before they've dialed the next number on the list.",
       },
     ],
     demoSms: [
@@ -97,11 +106,11 @@ export const INDUSTRIES: Record<IndustryId, IndustryContent> = {
     id: "realestate",
     label: "Real Estate",
     kicker: "Real estate agents — Kampala",
-    headline: "Miss the call. Not the client.",
+    headline: "Miss the call. Not the listing.",
     subline:
-      "You're busy showing another property. Veltan texts your caller back the moment you can't answer — so they don't call another agent.",
+      "A missed call is a buyer ringing another agent about the same listing. Veltan texts them back in your name — in seconds — so you keep the viewing.",
     objection:
-      "Your missed-call alert tells you who called. Veltan tells your caller you saw it and you'll follow up — while they're still deciding which agent to call next.",
+      "Your missed-call alert tells you who rang. It does not hold the listing. Every unanswered ring is a buyer calling the next agent on the portal.",
     steps: [
       {
         title: "Call missed",
@@ -109,11 +118,11 @@ export const INDUSTRIES: Record<IndustryId, IndustryContent> = {
       },
       {
         title: "They get a text, in your name",
-        body: "Within 10 seconds, a message from you directly, not a generic bot line.",
+        body: "Within seconds, a message from you — not a generic bot line.",
       },
       {
         title: "You call back first",
-        body: "Before they've called another agent.",
+        body: "Before they've booked a viewing with another agent.",
       },
     ],
     demoSms: [
@@ -132,15 +141,55 @@ export interface FaqEntry {
   answer: string;
 }
 
+export const FOUNDING_PERKS: { title: string; detail?: string }[] = [
+  {
+    title: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months`,
+    detail: `${PRICE_FOUNDING} / month, then the regular ${PRICE_ORIGINAL}`,
+  },
+  { title: `${DISCOUNT_MONTHS} months maintenance included` },
+  { title: "First access to new updates & features" },
+  { title: "Priority maintenance & support" },
+  { title: "Free setup call — we set it up with you" },
+  { title: "Skip-the-queue onboarding (Founding 12)" },
+  { title: "Direct WhatsApp to the founder for 6 months" },
+  { title: "First in line for the AI Assistant add-on" },
+  { title: "SMS copy written in your business's name" },
+  { title: "Cancel anytime · no setup fee" },
+  { title: "One pause month in the first year" },
+  { title: "Original Twelve status — yours, no extra cost" },
+];
+
 export const FAQS: FaqEntry[] = [
+  {
+    question: "How much does it cost?",
+    answer: `Regular price is ${PRICE_ORIGINAL} per month. Founding 12 pay ${PRICE_FOUNDING} per month for the first ${DISCOUNT_MONTHS} months (${DISCOUNT_LABEL}), then ${PRICE_ORIGINAL}. That is not a lifetime lock — six months, then the regular rate.`,
+  },
+  {
+    question: "What do the Founding 12 get?",
+    answer: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months, maintenance included for those six months, first access to new updates, priority support, a free setup call, skip-the-queue onboarding, WhatsApp to the founder for six months, first in line for the AI Assistant add-on, SMS copy in your business's name, cancel anytime with no setup fee, one pause month in year one, and Original Twelve status. We do not promise paid ads, unlimited SMS, or lifetime pricing.`,
+  },
+  {
+    question: "Why only 12 seats if the date is August 2027?",
+    answer: `There are ${FOUNDING_SEATS} founding seats. That is the limit that matters. The window cannot run past ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time — but the seats can fill first. When 12 are taken, the founding rate and privileges close.`,
+  },
   {
     question: "What happens to my existing phone number?",
     answer:
       "Nothing changes about your number — Veltan works alongside it. You keep using your phone exactly as before.",
   },
   {
-    question: "What if I want to cancel?",
-    answer: "Cancel anytime, no lock-in contract.",
+    question: "What if I want to cancel or pause?",
+    answer:
+      "Cancel anytime. No setup fee, no lock-in contract. Founding 12 also get one pause month in the first year if you need to stop billing without losing the seat.",
+  },
+  {
+    question: "How do I pay?",
+    answer: `Pay ${PRICE_FOUNDING} by MTN Mobile Money to lock the first month — on a phone, one tap opens the dialer with the USSD filled in; you confirm and enter your PIN. Airtel Money: copy the number and amount, then send in the Airtel Money app. We still ask you to send the booking on WhatsApp so we can match the payment and set you up.`,
+  },
+  {
+    question: "How long does setup take?",
+    answer:
+      "Most Kampala businesses are live the same day. We set it up with you on a call — including SMS copy in your business's name. No setup fee.",
   },
   {
     question: "Is my customer data private?",
@@ -148,19 +197,13 @@ export const FAQS: FaqEntry[] = [
       "Yes — call and message data is only used to run your follow-up service, never sold or shared.",
   },
   {
-    question: "How long does setup take?",
-    answer:
-      "Most businesses are live the same day, set up together over a WhatsApp or phone call.",
-  },
-  {
     question: "Does this work if I already use WhatsApp Business?",
     answer:
       "Yes — Veltan handles the missed phone call specifically; it works alongside however you already use WhatsApp.",
   },
   {
-    question: "What happens after the Founding 12 spots are gone?",
-    answer:
-      "Standard pricing applies for new signups after the offer window closes; founding customers keep their locked-in rate.",
+    question: "What happens after the 12 seats are gone?",
+    answer: `New signups pay the regular ${PRICE_ORIGINAL} per month and do not get Founding 12 privileges. Founding customers keep the ${DISCOUNT_MONTHS}-month ${PRICE_FOUNDING} window they already started, then move to ${PRICE_ORIGINAL} like everyone else.`,
   },
 ];
 

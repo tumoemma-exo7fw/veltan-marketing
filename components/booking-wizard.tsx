@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, Copy } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryId } from "@/lib/content";
+import { applyUgPhoneInput, isValidBusinessPhone, phoneDigits } from "@/lib/phone";
 import {
   MOMO_ACCOUNT_NAME,
+  MOMO_NUMBER_DIGITS,
   MOMO_NUMBER_DISPLAY,
+  MTN_MOMO_TEL_HREF,
+  MTN_MOMO_USSD,
   PRICE_FOUNDING,
+  PRICE_FOUNDING_AMOUNT,
   STRIPE_PAYMENT_LINK,
   whatsappLink,
 } from "@/lib/site";
@@ -16,10 +21,11 @@ import { amberCta, glassPanel } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
 type PayMethod = "card" | "momo" | "later";
+type MomoNetwork = "mtn" | "airtel";
 
 const PAYMENT_LINES: Record<PayMethod, string | null> = {
   card: "Payment: I'm paying by card via Stripe.",
-  momo: `Payment: I'm sending ${PRICE_FOUNDING} upfront by Mobile Money to lock my seat.`,
+  momo: `Payment: I'm sending ${PRICE_FOUNDING} (${PRICE_FOUNDING_AMOUNT}) by Mobile Money to ${MOMO_NUMBER_DISPLAY} (${MOMO_ACCOUNT_NAME}) to lock my seat.`,
   later: "Payment: I'll pay after setup.",
 };
 
@@ -36,10 +42,36 @@ const INDUSTRY_TO_TYPE: Record<IndustryId, (typeof BUSINESS_TYPES)[number]> = {
   realestate: "Real estate",
 };
 
-const STEP_TITLES = ["About your business", "How we reach you", "Check & send"];
+const STEP_TITLES = ["About your business", "How we reach you", "Pay & send"];
 
 const inputClass =
   "w-full rounded-xl border border-white/12 bg-[#071c1e]/70 px-3.5 py-3 text-[16px] text-text outline-none transition-colors placeholder:text-white/40 focus:border-hero-cyan focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-hero-cyan";
+
+function CopyChip({
+  label,
+  value,
+  copiedKey,
+  copied,
+  onCopy,
+}: {
+  label: string;
+  value: string;
+  copiedKey: string;
+  copied: string | null;
+  onCopy: (key: string, value: string) => void;
+}) {
+  const isCopied = copied === copiedKey;
+  return (
+    <button
+      type="button"
+      onClick={() => onCopy(copiedKey, value)}
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/15 px-3.5 text-[13px] font-semibold text-white/85 transition-colors hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+    >
+      <Copy aria-hidden="true" className="size-3.5" />
+      {isCopied ? "Copied" : label}
+    </button>
+  );
+}
 
 /**
  * Guided three-step booking for a Founding 12 seat. No backend: the answers
@@ -57,11 +89,31 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
   const [payMethod, setPayMethod] = useState<PayMethod>(
     STRIPE_PAYMENT_LINK ? "card" : "momo",
   );
+  const [momoNetwork, setMomoNetwork] = useState<MomoNetwork>("mtn");
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   const businessType = chosenType ?? INDUSTRY_TO_TYPE[industry];
+  const phoneForMessage = phone.trim();
 
   const clearError = () => setError(null);
+
+  const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const el = e.target;
+    const next = applyUgPhoneInput(
+      phone,
+      el.value,
+      el.selectionStart ?? el.value.length,
+    );
+    setPhone(next.value);
+    clearError();
+    requestAnimationFrame(() => {
+      const field = phoneRef.current;
+      if (!field) return;
+      field.setSelectionRange(next.caret, next.caret);
+    });
+  };
 
   const next = () => {
     if (step === 0) {
@@ -75,7 +127,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
       }
     }
     if (step === 1) {
-      if (phone.trim().replace(/\D/g, "").length < 9) {
+      if (!isValidBusinessPhone(phone)) {
         setError("Please enter the phone number you use for your business.");
         return;
       }
@@ -93,13 +145,28 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
     setStep((s) => Math.max(s - 1, 0));
   };
 
+  const copyValue = async (key: string, value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(key);
+      window.setTimeout(() => {
+        setCopied((current) => (current === key ? null : current));
+      }, 1800);
+    } catch {
+      setError("Copy failed — select the number and copy it manually.");
+    }
+  };
+
   const message = [
-    "Hi Veltan, I'd like to book a Founding 12 spot.",
+    "Hi Veltan, I'd like to reserve a Founding 12 seat.",
     `Name: ${name.trim()}`,
     `Business: ${business.trim()} (${businessType})`,
-    `Phone: ${phone.trim()}`,
+    `Phone: ${phoneForMessage}`,
     email.trim() ? `Email: ${email.trim()}` : null,
     PAYMENT_LINES[payMethod],
+    payMethod === "momo"
+      ? `Network: ${momoNetwork === "mtn" ? "MTN Mobile Money" : "Airtel Money"}. Sending from the business number above (${phoneDigits(phone) || phoneForMessage}).`
+      : null,
   ]
     .filter(Boolean)
     .join("\n");
@@ -107,11 +174,11 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
   return (
     <div className={cn(glassPanel, "mx-auto mt-8 max-w-lg p-6 text-left sm:p-8")}>
       <h3 className="text-[20px] font-extrabold tracking-[-0.01em]">
-        Reserve your spot
+        Pay {PRICE_FOUNDING} to lock it
       </h3>
       <p className="mt-1.5 text-[14px] leading-[1.55] text-muted">
-        Three short steps. Your answers arrive in our WhatsApp and we take it
-        from there.
+        Three short steps. Amount is already {PRICE_FOUNDING} — you do not type
+        it. We still need the WhatsApp booking so we can match your payment.
       </p>
 
       <div className="mt-5 flex gap-1.5" aria-hidden="true">
@@ -141,7 +208,9 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             <input
               id="bk-name"
               type="text"
+              name="name"
               autoComplete="name"
+              autoCapitalize="words"
               placeholder="e.g. Sarah Namuli"
               value={name}
               onChange={(e) => {
@@ -158,7 +227,9 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             <input
               id="bk-business"
               type="text"
+              name="organization"
               autoComplete="organization"
+              autoCapitalize="words"
               placeholder="e.g. Namuli Dental Clinic"
               value={business}
               onChange={(e) => {
@@ -180,7 +251,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                     aria-pressed={active}
                     onClick={() => setChosenType(type)}
                     className={cn(
-                      "rounded-full border px-3 py-1.5 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
+                      "min-h-11 rounded-full border px-3.5 py-2 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
                       active
                         ? "border-hero-cyan/40 bg-hero-cyan/15 text-hero-cyan"
                         : "border-white/12 text-white/70 hover:bg-white/5 hover:text-white",
@@ -202,18 +273,23 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
               Phone number (the one that receives your business calls)
             </label>
             <input
+              ref={phoneRef}
               id="bk-phone"
               type="tel"
+              name="tel"
               inputMode="tel"
               autoComplete="tel"
-              placeholder="e.g. 0772 123 456"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              placeholder="0750 123 456 or +256 750 123 456"
               value={phone}
-              onChange={(e) => {
-                setPhone(e.target.value);
-                clearError();
-              }}
+              onChange={onPhoneChange}
               className={cn(inputClass, "mt-1.5")}
             />
+            <p className="mt-1.5 text-[12.5px] text-white/50">
+              Spaces as you type. We use the digits for WhatsApp.
+            </p>
           </div>
           <div>
             <label htmlFor="bk-email" className="text-[13px] font-semibold">
@@ -222,8 +298,11 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             <input
               id="bk-email"
               type="email"
+              name="email"
               inputMode="email"
               autoComplete="email"
+              autoCapitalize="none"
+              spellCheck={false}
               placeholder="e.g. sarah@clinic.co.ug"
               value={email}
               onChange={(e) => {
@@ -254,7 +333,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             </div>
             <div className="flex justify-between gap-4">
               <dt className="shrink-0 text-muted">Phone</dt>
-              <dd className="text-right font-semibold">{phone.trim()}</dd>
+              <dd className="text-right font-semibold">{phoneForMessage}</dd>
             </div>
             {email.trim() && (
               <div className="flex justify-between gap-4">
@@ -266,13 +345,25 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
             )}
           </dl>
 
+          <div className="rounded-xl border border-hero-cyan/25 bg-hero-cyan/8 px-4 py-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-hero-cyan">
+              Amount to send
+            </p>
+            <p className="mt-1 text-[28px] font-extrabold leading-none tracking-[-0.02em] text-accent">
+              {PRICE_FOUNDING}
+            </p>
+            <p className="mt-1.5 text-[12.5px] text-white/60">
+              First month at the founding rate. Already filled — do not type it.
+            </p>
+          </div>
+
           <fieldset className="border-b border-white/10 pb-4">
             <legend className="float-left mb-2 text-[13.5px] font-semibold">
               How would you like to pay?
             </legend>
             <div className="clear-both space-y-2.5">
               {STRIPE_PAYMENT_LINK && (
-                <label className="flex items-start gap-2.5 text-[13.5px] font-medium">
+                <label className="flex min-h-11 items-start gap-2.5 text-[13.5px] font-medium">
                   <input
                     type="radio"
                     name="bk-pay"
@@ -294,12 +385,12 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => analytics.stripeOpened(industry)}
-                  className="ml-6 inline-flex items-center justify-center rounded-full border border-hero-cyan px-4 py-2 text-[13.5px] font-bold text-white transition-colors hover:bg-hero-cyan/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+                  className="ml-6 inline-flex min-h-11 items-center justify-center rounded-full border border-hero-cyan px-4 py-2 text-[13.5px] font-bold text-white transition-colors hover:bg-hero-cyan/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
                 >
                   Open secure card payment
                 </a>
               )}
-              <label className="flex items-start gap-2.5 text-[13.5px] font-medium">
+              <label className="flex min-h-11 items-start gap-2.5 text-[13.5px] font-medium">
                 <input
                   type="radio"
                   name="bk-pay"
@@ -307,22 +398,9 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   onChange={() => setPayMethod("momo")}
                   className="mt-0.5 size-4 accent-[#2ee6e0]"
                 />
-                <span>
-                  Pay {PRICE_FOUNDING} now by Mobile Money
-                  {payMethod === "momo" && (
-                    <span className="block text-[12.5px] font-normal leading-[1.55] text-muted">
-                      Send to{" "}
-                      <strong className="whitespace-nowrap text-text">
-                        {MOMO_NUMBER_DISPLAY}
-                      </strong>{" "}
-                      — check the registered name shows{" "}
-                      <strong className="text-text">{MOMO_ACCOUNT_NAME}</strong>{" "}
-                      before you confirm.
-                    </span>
-                  )}
-                </span>
+                <span>Pay {PRICE_FOUNDING} now by Mobile Money</span>
               </label>
-              <label className="flex items-start gap-2.5 text-[13.5px] font-medium">
+              <label className="flex min-h-11 items-start gap-2.5 text-[13.5px] font-medium">
                 <input
                   type="radio"
                   name="bk-pay"
@@ -342,6 +420,117 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
               </label>
             </div>
           </fieldset>
+
+          {payMethod === "momo" && (
+            <div className="space-y-3">
+              <div className="rounded-xl border border-white/12 px-4 py-3 text-[13.5px] leading-[1.55]">
+                <p>
+                  Send to{" "}
+                  <strong className="whitespace-nowrap">{MOMO_NUMBER_DISPLAY}</strong>
+                </p>
+                <p className="mt-1">
+                  Registered name must read{" "}
+                  <strong>{MOMO_ACCOUNT_NAME}</strong> before you confirm.
+                </p>
+                <p className="mt-1 text-white/60">
+                  Amount {PRICE_FOUNDING} ({PRICE_FOUNDING_AMOUNT}).
+                </p>
+              </div>
+
+              {phoneForMessage ? (
+                <p className="text-[13px] leading-[1.55] text-white/70">
+                  Paying from {phoneForMessage} — the number you already
+                  entered. No need to type it again.
+                </p>
+              ) : null}
+
+              <div
+                role="group"
+                aria-label="Mobile Money network"
+                className="flex flex-wrap gap-2"
+              >
+                <button
+                  type="button"
+                  aria-pressed={momoNetwork === "mtn"}
+                  onClick={() => setMomoNetwork("mtn")}
+                  className={cn(
+                    "min-h-11 rounded-full border px-3.5 text-[13px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
+                    momoNetwork === "mtn"
+                      ? "border-hero-cyan/40 bg-hero-cyan/15 text-hero-cyan"
+                      : "border-white/12 text-white/70",
+                  )}
+                >
+                  MTN Mobile Money
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={momoNetwork === "airtel"}
+                  onClick={() => setMomoNetwork("airtel")}
+                  className={cn(
+                    "min-h-11 rounded-full border px-3.5 text-[13px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
+                    momoNetwork === "airtel"
+                      ? "border-hero-cyan/40 bg-hero-cyan/15 text-hero-cyan"
+                      : "border-white/12 text-white/70",
+                  )}
+                >
+                  Airtel Money
+                </button>
+              </div>
+
+              {momoNetwork === "mtn" ? (
+                <div className="space-y-3">
+                  <a
+                    href={MTN_MOMO_TEL_HREF}
+                    className={cn(amberCta, "w-full text-center")}
+                  >
+                    Open MTN MoMo — confirm &amp; enter PIN
+                  </a>
+                  <p className="text-[12.5px] leading-[1.55] text-white/55">
+                    On a phone, this opens the dialer with the USSD already
+                    filled in. You confirm and enter your PIN. We cannot enter
+                    the PIN for you.
+                  </p>
+                  <p className="break-all font-mono text-[12px] text-white/50">
+                    {MTN_MOMO_USSD}
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <p className="text-[13.5px] leading-[1.55] text-white/75">
+                    Open the Airtel Money app and send {PRICE_FOUNDING} to{" "}
+                    {MOMO_NUMBER_DISPLAY}. Check the name shows{" "}
+                    {MOMO_ACCOUNT_NAME}. We do not invent an Airtel USSD code.
+                  </p>
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-2">
+                <CopyChip
+                  label="Copy number"
+                  value={MOMO_NUMBER_DIGITS}
+                  copiedKey="number"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <CopyChip
+                  label="Copy amount"
+                  value={String(PRICE_FOUNDING_AMOUNT)}
+                  copiedKey="amount"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                {momoNetwork === "mtn" ? (
+                  <CopyChip
+                    label="Copy USSD"
+                    value={MTN_MOMO_USSD}
+                    copiedKey="ussd"
+                    copied={copied}
+                    onCopy={copyValue}
+                  />
+                ) : null}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -356,7 +545,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
           <button
             type="button"
             onClick={back}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-[13.5px] font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
           >
             <ArrowLeft aria-hidden="true" className="size-4" />
             Back

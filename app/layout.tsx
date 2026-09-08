@@ -3,8 +3,15 @@ import { Genos, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import {
+  DISCOUNT_LABEL,
+  DISCOUNT_MONTHS,
+  FOUNDING_SEATS,
   GOOGLE_SITE_VERIFICATION,
+  LAUNCH_DATE_LABEL,
   PRICE_FOUNDING,
+  PRICE_FOUNDING_AMOUNT,
+  PRICE_ORIGINAL,
+  PRICE_ORIGINAL_AMOUNT,
   SITE_URL,
   WHATSAPP_DISPLAY,
 } from "@/lib/site";
@@ -25,8 +32,7 @@ const genos = Genos({
 const TITLE = "Veltan — Never lose a client to a missed call | Kampala";
 // Industry-neutral on purpose: an OG preview can't know which pill the
 // recipient will land on.
-const DESCRIPTION =
-  "Veltan is a missed-call text-back service for Kampala businesses — dental clinics, trades, and real estate agents. When you can't answer, Veltan texts the caller back within seconds, in your business's name.";
+const DESCRIPTION = `Veltan texts missed callers back in seconds, in your business's name — for Kampala dental clinics, trades, and real estate. ${FOUNDING_SEATS} founding seats: ${PRICE_FOUNDING}/month for ${DISCOUNT_MONTHS} months (${DISCOUNT_LABEL}), then ${PRICE_ORIGINAL}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -91,11 +97,24 @@ const JSON_LD = {
       areaServed: "Kampala, Uganda",
       description:
         "When a business misses an incoming phone call, Veltan automatically texts the caller back within seconds so the lead is not lost to a competitor.",
-      offers: {
-        "@type": "Offer",
-        price: PRICE_FOUNDING.replace(/[^\d]/g, ""),
-        priceCurrency: "UGX",
-      },
+      offers: [
+        {
+          "@type": "Offer",
+          name: `Founding ${FOUNDING_SEATS} — first ${DISCOUNT_MONTHS} months`,
+          price: String(PRICE_FOUNDING_AMOUNT),
+          priceCurrency: "UGX",
+          availability: "https://schema.org/LimitedAvailability",
+          priceValidUntil: "2027-08-31",
+          description: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months only (${PRICE_FOUNDING}/month), then ${PRICE_ORIGINAL}/month. Window closes ${LAUNCH_DATE_LABEL} or when ${FOUNDING_SEATS} seats are taken.`,
+        },
+        {
+          "@type": "Offer",
+          name: "Regular monthly",
+          price: String(PRICE_ORIGINAL_AMOUNT),
+          priceCurrency: "UGX",
+          description: `Standard rate after the ${DISCOUNT_MONTHS}-month founding discount.`,
+        },
+      ],
     },
   ],
 };

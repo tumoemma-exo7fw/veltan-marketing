@@ -1,6 +1,6 @@
 /**
- * Single source of truth for the values flagged as "confirm with founder"
- * in docs/build-spec.md §15. Change them here and nowhere else.
+ * Single source of truth for offer, price, and Mobile Money values.
+ * Change them here and nowhere else.
  */
 
 /** §15.3 — confirm: an earlier planning number (0777978947) does not match. */
@@ -18,21 +18,35 @@ export const GOOGLE_SITE_VERIFICATION =
   "KuULV7rI7HRtB_4X4nqKyT-KNKbDLva666mHVy6mhNA";
 
 /**
- * §15.1 — launch + offer deadline: September 1, 2026, 00:00:00 East Africa
- * Time. Expressed as UTC minus the explicit +3h offset so the countdown is
- * correct in every visitor timezone.
+ * Founding 12 window closes 31 August 2027, 23:59:59 East Africa Time
+ * (UTC+3). Same UTC-minus-offset pattern as the original launch constant
+ * so the countdown is correct in every visitor timezone.
  */
 export const LAUNCH_AT_UTC_MS =
-  Date.UTC(2026, 8, 1, 0, 0, 0) - 3 * 60 * 60 * 1000;
-export const LAUNCH_DATE_LABEL = "September 1, 2026";
+  Date.UTC(2027, 7, 31, 23, 59, 59) - 3 * 60 * 60 * 1000;
+export const LAUNCH_DATE_LABEL = "31 August 2027";
+export const LAUNCH_DATE_SHORT = "31 Aug 2027";
 
-export const PRICE_ORIGINAL = "UGX 89,000";
-export const PRICE_FOUNDING = "UGX 62,300";
+export const FOUNDING_SEATS = 12;
+
+export const PRICE_ORIGINAL_AMOUNT = 100_000;
+export const PRICE_FOUNDING_AMOUNT = 70_000;
+export const PRICE_ORIGINAL = "UGX 100,000";
+export const PRICE_FOUNDING = "UGX 70,000";
 export const DISCOUNT_LABEL = "30% off";
+export const DISCOUNT_MONTHS = 6;
 
-/** Mobile Money details for paying a founding spot upfront. */
+/** Mobile Money details for paying a founding seat upfront. */
 export const MOMO_NUMBER_DISPLAY = "0777 968 947";
+export const MOMO_NUMBER_DIGITS = "0777968947";
 export const MOMO_ACCOUNT_NAME = "MARTIN EMMANUEL HEGENY";
+
+/**
+ * MTN Uganda send-money USSD (confirm + PIN in the dialer).
+ * `tel:` encodes `*` and `#` so the handset opens with the code filled in.
+ */
+export const MTN_MOMO_USSD = `*165*1*1*${MOMO_NUMBER_DIGITS}*${PRICE_FOUNDING_AMOUNT}#`;
+export const MTN_MOMO_TEL_HREF = `tel:${encodeURIComponent(MTN_MOMO_USSD)}`;
 
 /**
  * Stripe Payment Link (https://buy.stripe.com/...) for the Founding 12
@@ -58,10 +72,10 @@ export type CtaLocation =
  * which section of the page converted, straight from the WhatsApp thread.
  */
 export const WA_MESSAGES: Record<CtaLocation, string> = {
-  header: "Hi Veltan, can you tell me more about the missed-call service?",
-  hero: "Hi Veltan, I'd like to know more about the missed-call service.",
-  pricing: "Hi Veltan, I'd like to claim a founding spot.",
+  header: `Hi Veltan, I want to know more about the missed-call service — ${FOUNDING_SEATS} founding seats.`,
+  hero: `Hi Veltan, I want to reserve a founding seat. I'll pay ${PRICE_FOUNDING} to lock it.`,
+  pricing: `Hi Veltan, I want to reserve a founding seat. I'll pay ${PRICE_FOUNDING} to lock the first month.`,
   // The booking wizard composes its own structured message from form fields.
   booking: "",
-  footer: "Hi Veltan, I have a few questions about the missed-call service.",
+  footer: "Hi Veltan, I have a few questions before I reserve a founding seat.",
 };
