@@ -60,13 +60,38 @@ export async function copyText(value: string): Promise<boolean> {
   }
 }
 
+function isMobileUa(): boolean {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
 /**
  * Open the installed WhatsApp app via the custom protocol. Prefer this over
  * `window.open` — pop-up blockers ignore same-tab protocol navigations, and
  * Desktop/mobile apps register `whatsapp://`.
+ *
+ * `navigate` assigns `window.location.href` (most reliable for a user tap).
+ * `probe` is the automatic first try: iframe on desktop so a missing handler
+ * cannot unload this page (and kill the next-steps timer). Mobile still
+ * assigns location — that is what opens the installed app.
  */
-export function openWhatsAppApp(message: string): void {
-  window.location.href = whatsappAppUrl(message);
+export function openWhatsAppApp(
+  message: string,
+  mode: "navigate" | "probe" = "navigate",
+): void {
+  const url = whatsappAppUrl(message);
+
+  if (mode === "navigate" || isMobileUa()) {
+    window.location.href = url;
+    return;
+  }
+
+  const frame = document.createElement("iframe");
+  frame.src = url;
+  frame.setAttribute("aria-hidden", "true");
+  frame.style.cssText =
+    "position:fixed;width:0;height:0;border:0;opacity:0;pointer-events:none;";
+  document.body.appendChild(frame);
+  window.setTimeout(() => frame.remove(), 2500);
 }
 
 /**
@@ -144,8 +169,6 @@ export function openWhatsApp(options: OpenWhatsAppOptions): () => void {
   window.addEventListener("pagehide", onLeave);
   document.addEventListener("visibilitychange", onVisibility);
 
-  openWhatsAppApp(message);
-
   timer = window.setTimeout(() => {
     if (settled) return;
 
@@ -169,6 +192,8 @@ export function openWhatsApp(options: OpenWhatsAppOptions): () => void {
 
     finish();
   }, waitMs);
+
+  openWhatsAppApp(message, "probe");
 
   return finish;
 }
