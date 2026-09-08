@@ -59,6 +59,7 @@ export function WhatsAppCta({
       onClick={(event) => {
         event.preventDefault();
         analytics.ctaClicked(location, industry);
+        showHelp(message);
         cancelRef.current?.();
         cancelRef.current = openWhatsApp({
           message,
