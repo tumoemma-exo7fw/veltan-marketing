@@ -23,6 +23,12 @@ const TIMELINE = [
   { title: "Next Visit Scheduled", day: "Day 7" },
 ] as const;
 
+const heroGlass =
+  "rounded-2xl border border-white/15 bg-[rgb(12_42_45/0.9)] shadow-[0_16px_48px_rgb(0_0_0/0.4)] backdrop-blur-md";
+
+const HERO_BLUR =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDnYoJC2ApNa2lLNbymRhgD1ptp96rzf6k/WtOhhbU//9k=";
+
 const HIGHLIGHTS = [
   { icon: CalendarCheck, label: "Automated Follow-Ups" },
   { icon: Users, label: "Better Patient Retention" },
@@ -43,7 +49,7 @@ function DemoTag() {
 
 function FollowUpTimeline() {
   return (
-    <div className="rounded-2xl border border-white/15 bg-[rgb(12_42_45/0.66)] p-4 shadow-[0_12px_40px_rgb(0_0_0/0.28)] backdrop-blur-md sm:p-5">
+    <div className={`${heroGlass} p-4 sm:p-5`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-hero-cyan/15 text-hero-cyan">
@@ -82,7 +88,7 @@ function RetentionWidget() {
   const offset = circ * (1 - value / 100);
 
   return (
-    <div className="rounded-2xl border border-white/15 bg-[rgb(12_42_45/0.66)] px-4 py-3 shadow-[0_12px_40px_rgb(0_0_0/0.28)] backdrop-blur-md">
+    <div className={`${heroGlass} px-4 py-3`}>
       <div className="mb-1 flex items-center justify-between gap-2">
         <p className="text-[12px] font-medium text-white/80">Patient Retention</p>
         <DemoTag />
@@ -125,7 +131,7 @@ function RetentionWidget() {
 
 function FollowUpsWidget() {
   return (
-    <div className="rounded-2xl border border-white/15 bg-[rgb(12_42_45/0.66)] px-4 py-3 shadow-[0_12px_40px_rgb(0_0_0/0.28)] backdrop-blur-md">
+    <div className={`${heroGlass} px-4 py-3`}>
       <div className="mb-1 flex items-center justify-between gap-2">
         <p className="flex items-center gap-1.5 text-[12px] font-medium text-white/80">
           <CalendarDays className="size-3.5 text-hero-cyan" aria-hidden="true" />
@@ -155,16 +161,19 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
           alt="Modern dental clinic treatment room with a teal chair and city skyline"
           fill
           preload
+          quality={90}
+          placeholder="blur"
+          blurDataURL={HERO_BLUR}
           sizes="100vw"
-          className="object-cover object-[68%_center] lg:object-[center_40%]"
+          className="object-cover object-[72%_center] lg:object-[center_45%]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgb(8_28_30)_0%,rgb(8_28_30/0.96)_30%,rgb(8_28_30/0.72)_46%,rgb(8_28_30/0.28)_64%,rgb(8_28_30/0.12)_100%)] max-lg:bg-[linear-gradient(180deg,rgb(8_28_30/0.88)_0%,rgb(8_28_30/0.78)_42%,rgb(8_28_30/0.55)_70%,rgb(8_28_30/0.82)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgb(8_28_30)_0%,rgb(8_28_30/0.97)_28%,rgb(8_28_30/0.9)_42%,rgb(8_28_30/0.7)_54%,rgb(8_28_30/0.36)_66%,rgb(8_28_30/0.14)_78%,rgb(8_28_30/0.08)_100%)] max-lg:bg-[linear-gradient(180deg,rgb(8_28_30/0.94)_0%,rgb(8_28_30/0.88)_36%,rgb(8_28_30/0.72)_62%,rgb(8_28_30/0.9)_100%)]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgb(8_28_30/0.45)_0%,transparent_22%,transparent_70%,rgb(8_28_30/0.72)_100%)] max-lg:hidden"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgb(8_28_30/0.5)_0%,transparent_20%,transparent_72%,rgb(8_28_30/0.78)_100%)] max-lg:hidden"
         />
       </div>
 
@@ -208,13 +217,17 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
             </div>
 
             <div className="relative hidden min-h-[420px] lg:block">
-              <div className="absolute left-0 top-12 z-10 w-[min(100%,20rem)]">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-8 rounded-[2.5rem] bg-[radial-gradient(ellipse_at_center,rgb(8_28_30/0.5)_0%,rgb(8_28_30/0.18)_58%,transparent_76%)]"
+              />
+              <div className="absolute left-0 top-10 z-10 w-[min(100%,20rem)]">
                 <FollowUpTimeline />
               </div>
               <div className="absolute right-0 top-0 z-20 w-[11.5rem]">
                 <RetentionWidget />
               </div>
-              <div className="absolute bottom-8 right-0 z-20 w-52">
+              <div className="absolute bottom-6 right-0 z-20 w-52">
                 <FollowUpsWidget />
               </div>
             </div>
