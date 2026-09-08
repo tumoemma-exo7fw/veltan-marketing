@@ -155,8 +155,8 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
       id="home"
       className="relative isolate overflow-x-clip bg-[#071c1e] text-white"
     >
-      <div className="grid">
-        <div className="relative col-start-1 row-start-1 aspect-[16/9] w-full self-start bg-[#071c1e]">
+      <div className="grid pt-[7.75rem] lg:pt-16">
+        <div className="relative aspect-[16/9] w-full self-start bg-[#071c1e] lg:col-start-1 lg:row-start-1">
           <Image
             src="/brand/hero-dental-clinic.jpg"
             alt="Modern dental clinic treatment room with a teal chair and city skyline"
@@ -170,16 +170,16 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(90deg,rgb(8_28_30)_0%,rgb(8_28_30/0.97)_28%,rgb(8_28_30/0.9)_42%,rgb(8_28_30/0.7)_54%,rgb(8_28_30/0.36)_66%,rgb(8_28_30/0.14)_78%,rgb(8_28_30/0.08)_100%)] max-lg:bg-[linear-gradient(180deg,rgb(8_28_30/0.94)_0%,rgb(8_28_30/0.88)_36%,rgb(8_28_30/0.72)_62%,rgb(8_28_30/0.9)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgb(7_28_30)_100%)] lg:bg-[linear-gradient(90deg,rgb(8_28_30)_0%,rgb(8_28_30/0.97)_28%,rgb(8_28_30/0.9)_42%,rgb(8_28_30/0.7)_54%,rgb(8_28_30/0.36)_66%,rgb(8_28_30/0.14)_78%,rgb(8_28_30/0.08)_100%)]"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgb(8_28_30/0.5)_0%,transparent_20%,transparent_72%,rgb(8_28_30/0.78)_100%)] max-lg:hidden"
+            className="absolute inset-0 hidden bg-[linear-gradient(180deg,rgb(8_28_30/0.5)_0%,transparent_20%,transparent_72%,rgb(8_28_30/0.78)_100%)] lg:block"
           />
         </div>
 
-        <div className="relative z-10 col-start-1 row-start-1 flex min-h-full w-full flex-col">
-          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-1 flex-col px-5 pb-6 pt-[7.75rem] sm:px-8 lg:pt-24">
+        <div className="relative z-10 flex min-h-full w-full flex-col lg:col-start-1 lg:row-start-1">
+          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-1 flex-col px-5 pb-6 pt-6 sm:px-8 lg:pt-10">
             <div className="grid flex-1 items-center gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-10">
               <div className="max-w-xl">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
