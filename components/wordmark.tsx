@@ -51,7 +51,7 @@ export function Wordmark({
           variant === "dark" ? "text-white" : "text-[#12292b]",
         )}
       >
-        Veltan
+        VELTAN
       </span>
     </span>
   );

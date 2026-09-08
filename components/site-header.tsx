@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
 import { WA_MESSAGES } from "@/lib/site";
+import { amberCta } from "@/lib/ui";
+import { cn } from "@/lib/utils";
 
 import { WhatsAppCta } from "@/components/whatsapp-cta";
 import { Wordmark } from "@/components/wordmark";
@@ -82,7 +84,10 @@ export function SiteHeader({ industry }: { industry: string }) {
             <a
               href="#pricing"
               onClick={() => analytics.ctaClicked("header", industry)}
-              className="inline-flex min-h-11 items-center justify-center gap-1 whitespace-nowrap rounded-full border border-hero-cyan px-3 text-[13px] font-semibold text-white transition-colors hover:bg-hero-cyan/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan sm:gap-1.5 sm:px-4 sm:text-[13.5px]"
+              className={cn(
+                amberCta,
+                "min-h-11 gap-1 whitespace-nowrap px-3 py-2 text-[13px] sm:min-h-12 sm:gap-1.5 sm:px-4 sm:text-[13.5px]",
+              )}
             >
               Get Started
               <ArrowRight aria-hidden="true" className="size-4" />
