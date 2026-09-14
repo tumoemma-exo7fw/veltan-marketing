@@ -11,6 +11,15 @@ export const WHATSAPP_DISPLAY = "+256 777 968 947";
 export const SITE_URL = "https://www.captbdger.website";
 
 /**
+ * Product app (Veltan `app` branch). Marketing signs people in, then hands
+ * them here with `?sso=`. Override with NEXT_PUBLIC_FOLLOWUP_APP_URL.
+ */
+export const FOLLOWUP_APP_URL = (
+  process.env.NEXT_PUBLIC_FOLLOWUP_APP_URL?.trim() ||
+  "https://veltan-app.vercel.app/"
+).replace(/\/?$/, "/");
+
+/**
  * Google Search Console verification code — the content value of the
  * <meta name="google-site-verification"> tag. Empty = tag not rendered.
  */

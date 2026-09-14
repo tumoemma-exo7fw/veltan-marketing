@@ -7,3 +7,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# Veltan marketing (blueprint)
+
+This repo is the **public marketing site**. The product app is a **separate repo** (`emma-tumo/Veltan`, branch `app`, live at https://veltan-app.vercel.app). Read `docs/two-repos.md` and `docs/phase-1-auth.md` before changing auth, login, or anything that hands users to the app.
+
+Phase 1 accounts: **Supabase Auth**. Google create-or-login. Do not reintroduce Better Auth social providers.
+

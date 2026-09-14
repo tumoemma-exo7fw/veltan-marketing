@@ -18,4 +18,13 @@ export const analytics = {
   faqOpened(question: string) {
     track("faq_open", { question });
   },
+  authSignedIn() {
+    track("auth_signed_in");
+  },
+  authSignedUp() {
+    track("auth_signed_up");
+  },
+  onboardingCompleted() {
+    track("onboarding_completed");
+  },
 };

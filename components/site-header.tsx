@@ -71,6 +71,12 @@ export function SiteHeader({ industry }: { industry: string }) {
             />
 
             <div className="flex items-center justify-end gap-2">
+              <Link
+                href="/login"
+                className="inline-flex min-h-11 items-center px-2.5 text-[13px] font-medium text-white/90 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan sm:text-[13.5px]"
+              >
+                Log in
+              </Link>
               <WhatsAppCta
                 location="header"
                 message={WA_MESSAGES.header}

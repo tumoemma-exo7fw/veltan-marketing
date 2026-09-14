@@ -15,17 +15,26 @@ Built from the full spec in [`docs/build-spec.md`](docs/build-spec.md).
 - Tailwind CSS v4 — cinematic dark tokens in `app/globals.css` (teal surfaces, cyan highlights, amber reserved for conversion)
 - shadcn/ui (Base UI) for the FAQ accordion
 - Vercel Analytics with custom conversion events
+- **Supabase Auth** on `/login` (Google create-or-login, then SSO to the product app)
 - Fonts: Inter (everything) and Genos (wordmark only), via `next/font`
 
 ## Run locally
 
 ```bash
 npm install
+cp .env.example .env.local   # add your Supabase URL + anon key
 npm run dev
 ```
 
-Then open http://localhost:3000. `npm run build` produces the production
+Open http://localhost:3000. `npm run build` produces the production
 build Vercel deploys.
+
+Login lives at `/login`. **Continue with Google** creates a Supabase
+account if the person is new, or signs them in if they already have one,
+then sends them to the product app (`https://veltan-app.vercel.app`).
+Google itself is enabled in the Supabase dashboard (not as Next.js
+`GOOGLE_CLIENT_*` vars). See [`docs/phase-1-auth.md`](docs/phase-1-auth.md)
+and [`docs/two-repos.md`](docs/two-repos.md).
 
 ## Where things live
 
@@ -76,6 +85,7 @@ recorded demo reads as the product actually working. Change them in
 
 ## Deploying
 
-Push to the connected repo and deploy on Vercel — no environment variables or
-server dependencies needed. After deploying, send the link to yourself on
-WhatsApp to confirm the Open Graph preview renders correctly (spec §11).
+Push to the connected repo and deploy on Vercel. Add the Supabase URL and
+anon key (see `.env.example`) so Google sign-in can create or resume
+accounts. After deploying, send the link to yourself on WhatsApp to confirm
+the Open Graph preview renders correctly (spec §11).
