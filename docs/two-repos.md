@@ -21,11 +21,13 @@ Do **not** overwrite Veltan’s `app` branch with the landing page. Do **not** t
 
 1. **Supabase is the account backend** for both surfaces. Google and email go through Supabase Auth. A first Google press **creates** the user; a returning Google press **signs in**. Same email is one account.
 2. Marketing implements the public `/login` and `/signup` screens and the OAuth callback.
-3. After onboarding, marketing redirects to:
+3. After sign-in, marketing redirects to:
 
    `https://veltan-app.vercel.app/?sso=<JWT>`
 
    JWT is HS256, issuer `veltan-marketing`, audience `veltan-app`, 5 minute TTL, claims `sub` + `email`. Shared secret: `VELTAN_SSO_SECRET`.
+
+   People who only want to look around use **Preview the app**, which opens `https://veltan-app.vercel.app/?guest=1` with no account. The product can later treat `guest=1` as a limited session.
 4. The app verifies that JWT (or, once wired, a Supabase session) and opens the product. Until the app is built, the live app page is the Phase 0 placeholder (“Foundational rails”). That is expected.
 5. Google OAuth is configured **in the Supabase dashboard** (Google provider), not as Better Auth env vars. Redirect URI in Google Cloud is `https://<project-ref>.supabase.co/auth/v1/callback`. Site redirect allow-list in Supabase must include `https://www.captbdger.website/**` and local `http://127.0.0.1:<port>/**`.
 

@@ -19,6 +19,13 @@ export const FOLLOWUP_APP_URL = (
   "https://veltan-app.vercel.app/"
 ).replace(/\/?$/, "/");
 
+/** Open the live product without an account. The app can later limit this with `guest=1`. */
+export function guestAppHref(): string {
+  const url = new URL(FOLLOWUP_APP_URL);
+  url.searchParams.set("guest", "1");
+  return url.toString();
+}
+
 /**
  * Google Search Console verification code — the content value of the
  * <meta name="google-site-verification"> tag. Empty = tag not rendered.

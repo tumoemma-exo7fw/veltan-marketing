@@ -16,16 +16,18 @@ The RSC payload also had `googleConfigured: false`. Google was never registered 
 
 | Action | Result |
 |---|---|
-| New person presses **Continue with Google** | Supabase creates the user, then `/onboarding`, then the app |
-| Returning person presses **Continue with Google** | Supabase signs them in, skips onboarding, then the app |
-| Email + password | Same create-or-sign-in split (`/signup` vs `/login`) |
+| New person presses **Continue with Google** | Supabase creates the user, then `/continue` hands them to the live app |
+| Returning person presses **Continue with Google** | Same — straight to the app |
+| Email + password | Same create-or-sign-in split (`/signup` vs `/login`), then the app |
+| **Preview the app** | No account. Opens the live product with `?guest=1` |
 
 Implementation in this repo:
 
 - `lib/supabase/*` — browser + server clients, session refresh in `proxy.ts`
 - `app/auth/callback/route.ts` — PKCE code exchange
 - `app/(auth)/login` `/signup` `/onboarding` `/continue`
-- `/continue` mints `?sso=` for https://veltan-app.vercel.app/
+- `/continue` mints `?sso=` for https://veltan-app.vercel.app/ and always goes there (onboarding is not a gate while the product is still a placeholder)
+- `/login` and `/signup` offer a quiet **Preview the app** link for people who want to look around without signing in
 
 ## Env (marketing Vercel + `.env.local`)
 

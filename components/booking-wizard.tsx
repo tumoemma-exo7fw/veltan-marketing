@@ -602,7 +602,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
       </div>
 
       {step === 2 && showWhatsAppHelp ? (
-        <div ref={helpRef} className="mt-5 scroll-mt-32" aria-live="polite">
+        <div ref={helpRef} className="mt-5 scroll-mt-20" aria-live="polite">
           <WhatsAppNextSteps message={message} />
         </div>
       ) : null}

@@ -27,4 +27,7 @@ export const analytics = {
   onboardingCompleted() {
     track("onboarding_completed");
   },
+  guestPreviewed() {
+    track("guest_preview");
+  },
 };

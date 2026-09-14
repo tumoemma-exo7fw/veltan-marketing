@@ -25,6 +25,14 @@ export default async function OnboardingPage() {
         defaultName={String(user.user_metadata?.full_name ?? user.user_metadata?.name ?? "")}
         defaultOrganization={String(user.user_metadata?.organizationName ?? "")}
       />
+      <p className="mt-6 text-center">
+        <a
+          href="/continue"
+          className="text-[13px] text-white/40 underline-offset-4 hover:text-white/70 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+        >
+          Skip for now
+        </a>
+      </p>
     </AuthShell>
   );
 }

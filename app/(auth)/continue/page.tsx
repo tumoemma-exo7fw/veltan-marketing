@@ -7,9 +7,8 @@ import { createSsoToken } from "@/lib/sso";
 export const dynamic = "force-dynamic";
 
 export default async function ContinuePage() {
-  const { user, onboardingCompleted } = await getAuthState();
+  const { user } = await getAuthState();
   if (!user) redirect("/login");
-  if (!onboardingCompleted) redirect("/onboarding");
 
   const appUrl = new URL(FOLLOWUP_APP_URL);
   try {

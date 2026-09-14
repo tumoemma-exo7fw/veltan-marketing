@@ -30,7 +30,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="mx-auto w-full max-w-3xl scroll-mt-32 px-5 py-20 sm:px-8 lg:scroll-mt-20 lg:py-24"
+      className="mx-auto w-full max-w-3xl scroll-mt-20 px-5 py-20 sm:px-8 lg:py-24"
     >
       <SectionHeading
         title="Common questions"

@@ -64,6 +64,7 @@ dashboard after deploying):
 - `cta_click` — `{ location: header | hero | pricing | booking | footer, industry }`
 - `booking_started` — `{ industry }` (visitor began the booking wizard)
 - `faq_open` — `{ question }`
+- `guest_preview` — visitor opened the live product without signing in
 
 ## Open assumptions to confirm before launch (spec §15)
 

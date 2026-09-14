@@ -69,7 +69,7 @@ export function SignUpForm({
         password,
         options: {
           data: { full_name: name.trim() },
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/continue`,
         },
       });
       if (error) {
@@ -80,7 +80,7 @@ export function SignUpForm({
       }
       analytics.authSignedUp();
       if (data.session) {
-        router.push("/onboarding");
+        router.push("/continue");
         router.refresh();
         return;
       }
@@ -165,7 +165,6 @@ export function SignUpForm({
       <AuthDivider />
       <GoogleButton
         disabled={pending}
-        next="/onboarding"
         onError={(message) => setFormError(message || null)}
       />
     </form>

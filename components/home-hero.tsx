@@ -197,11 +197,11 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
     >
       <h1 className="sr-only">Let Your Clinic Never Miss a Lead</h1>
       {/*
-        Mobile: 16:9 clinic plate under the two-row header, then the same
+        Mobile: 16:9 clinic plate under the single-row header, then the same
         HTML stack (kicker through Get Started). Desktop: full-bleed 16:9
         with live copy on the teal wall.
       */}
-      <div className="pt-[7.75rem] lg:pt-0">
+      <div className="pt-16 lg:pt-0">
         <div className="relative aspect-[16/9] w-full bg-[#071c1e]">
           <Image
             src="/brand/hero-dental-clinic.jpg"

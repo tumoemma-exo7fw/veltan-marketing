@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AuthSwitch } from "@/components/auth/fields";
+import { GuestPreviewLink } from "@/components/auth/guest-preview";
 import { AuthShell } from "@/components/auth/shell";
 import { SignInForm } from "@/components/auth/sign-in-form";
 import { AUTH_GOOGLE_UNAVAILABLE, AUTH_NETWORK_ERROR } from "@/lib/auth-validation";
@@ -36,6 +37,7 @@ export default async function LoginPage({
           href="/signup"
           action="Get started"
         />
+        <GuestPreviewLink />
       </div>
     </AuthShell>
   );

@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 
-import {
-  hasCompletedOnboarding,
-  isNewSupabaseUser,
-  safeNextPath,
-} from "@/lib/auth-validation";
+import { safeNextPath } from "@/lib/auth-validation";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 
@@ -42,10 +38,5 @@ export async function GET(request: Request) {
     return NextResponse.redirect(login);
   }
 
-  const destination =
-    !hasCompletedOnboarding(data.user) || isNewSupabaseUser(data.user)
-      ? "/onboarding"
-      : next;
-
-  return redirectWithCookies(new URL(destination, requestUrl.origin), supabase);
+  return redirectWithCookies(new URL(next, requestUrl.origin), supabase);
 }

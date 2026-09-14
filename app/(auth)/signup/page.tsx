@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AuthSwitch } from "@/components/auth/fields";
+import { GuestPreviewLink } from "@/components/auth/guest-preview";
 import { AuthShell } from "@/components/auth/shell";
 import { SignUpForm } from "@/components/auth/sign-up-form";
 import { AUTH_GOOGLE_UNAVAILABLE } from "@/lib/auth-validation";
@@ -25,6 +26,7 @@ export default async function SignupPage({
       <SignUpForm initialEmail={params.email ?? ""} initialError={initialError} />
       <div className="mt-8 text-center">
         <AuthSwitch prompt="Already have an account?" href="/login" action="Sign in" />
+        <GuestPreviewLink />
       </div>
     </AuthShell>
   );

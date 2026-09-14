@@ -6,7 +6,7 @@ export function HowItWorks({ content }: { content: IndustryContent }) {
   return (
     <section
       id="how-it-works"
-      className="mx-auto w-full max-w-6xl scroll-mt-32 px-5 py-20 sm:px-8 lg:scroll-mt-20 lg:py-24"
+      className="mx-auto w-full max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8 lg:py-24"
     >
       <SectionHeading
         title="How it works"
