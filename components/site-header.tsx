@@ -16,8 +16,8 @@ const NAV = [
   { href: "#contact", label: "Contact" },
 ] as const;
 
-const loginCtaClass =
-  "inline-flex min-h-11 items-center justify-center rounded-full border border-white/25 px-3 text-[12.5px] font-semibold text-white transition-colors hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan sm:px-4 sm:text-[13.5px]";
+const loginHeaderClass =
+  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-hero-cyan/35 px-3.5 text-[13px] font-semibold text-white/90 transition-colors hover:border-hero-cyan/55 hover:bg-white/[0.04] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan";
 
 function NavLinks({
   className,
@@ -121,7 +121,7 @@ export function SiteHeader({ industry }: { industry: string }) {
             />
 
             <div className="flex items-center justify-end gap-1.5 sm:gap-2">
-              <Link href="/login" onClick={closeMenu} className={loginCtaClass}>
+              <Link href="/login" onClick={closeMenu} className={loginHeaderClass}>
                 Log in
               </Link>
               <a

@@ -136,6 +136,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <link rel="preconnect" href="https://app.cal.com" />
         <link rel="dns-prefetch" href="https://cal.com" />
+        <link
+          rel="preload"
+          href="https://app.cal.com/embed/embed.js"
+          as="script"
+        />
       </head>
       <body className="flex min-h-full flex-col">
         <script

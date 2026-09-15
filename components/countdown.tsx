@@ -58,10 +58,10 @@ export function Countdown({
     left.mins === 0 &&
     left.secs === 0;
   const cells: { value: number | undefined; unit: string }[] = [
-    { value: left?.days, unit: "days" },
-    { value: left?.hours, unit: "hours" },
-    { value: left?.mins, unit: "min" },
     { value: left?.secs, unit: "sec" },
+    { value: left?.mins, unit: "min" },
+    { value: left?.hours, unit: "hours" },
+    { value: left?.days, unit: "days" },
   ];
 
   if (expired) {

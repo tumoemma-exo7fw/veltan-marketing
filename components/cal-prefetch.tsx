@@ -43,10 +43,12 @@ function BookNowButton({
   failed,
   onReveal,
   expanded,
+  opening,
 }: {
   failed: boolean;
   onReveal: () => void;
   expanded: boolean;
+  opening: boolean;
 }) {
   if (failed) {
     return (
@@ -67,9 +69,10 @@ function BookNowButton({
       onClick={onReveal}
       aria-expanded={expanded}
       aria-controls="demo-calendar"
+      aria-busy={opening || undefined}
       className={cyanCta}
     >
-      Book now
+      {opening ? "Opening times…" : "Book now"}
     </button>
   );
 }
@@ -82,6 +85,7 @@ export function CalPrefetch({ industry }: { industry: string }) {
   const isMobile = useMobileBooker();
   const [status, setStatus] = useState<CalBookerStatus>("loading");
   const [revealed, setRevealed] = useState(false);
+  const [pendingReveal, setPendingReveal] = useState(false);
   const [embedKey, setEmbedKey] = useState(0);
   const [mountEmbed, setMountEmbed] = useState(false);
 
@@ -97,13 +101,26 @@ export function CalPrefetch({ industry }: { industry: string }) {
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
+  const bookerReady = status === "ready" || status === "fallback";
+
+  useEffect(() => {
+    if (!pendingReveal) return;
+    if (bookerReady || status === "error") {
+      setRevealed(true);
+      setPendingReveal(false);
+    }
+  }, [pendingReveal, bookerReady, status]);
+
   const calendarVisible =
-    revealed ||
-    (isMobile === true && (status === "ready" || status === "fallback"));
+    revealed || (isMobile === true && bookerReady);
 
   const reveal = () => {
-    setRevealed(true);
     analytics.ctaClicked("demo", industry);
+    if (bookerReady || status === "error") {
+      setRevealed(true);
+      return;
+    }
+    setPendingReveal(true);
   };
 
   return (
@@ -113,6 +130,7 @@ export function CalPrefetch({ industry }: { industry: string }) {
           failed={status === "error"}
           onReveal={reveal}
           expanded={false}
+          opening={pendingReveal}
         />
       ) : null}
 

@@ -26,7 +26,7 @@ type PayMethod = "card" | "momo" | "later";
 type MomoNetwork = "mtn" | "airtel";
 
 const PAYMENT_LINES: Record<PayMethod, string | null> = {
-  card: "Payment: I'm paying by card via Stripe.",
+  card: "Payment: I'm paying by card.",
   momo: `Payment: I'm sending ${PRICE_FOUNDING} (${PRICE_FOUNDING_AMOUNT}) by Mobile Money to ${MOMO_NUMBER_DISPLAY} (${MOMO_ACCOUNT_NAME}) to lock my seat.`,
   later: "Payment: I'll pay after setup.",
 };
@@ -381,7 +381,7 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   <span>
                     Pay {PRICE_FOUNDING} now by card
                     <span className="block text-[12.5px] font-normal text-muted">
-                      Secure checkout powered by Stripe.
+                      Secure card checkout.
                     </span>
                   </span>
                 </label>

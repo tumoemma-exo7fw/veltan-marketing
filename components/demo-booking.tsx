@@ -38,7 +38,8 @@ export function DemoBooking({ industry }: { industry: string }) {
         </div>
 
         <p className="mt-4 text-[13.5px] leading-[1.55] text-white/70">
-          You&apos;ll get a confirmation by email, with a calendar invite.
+          You&apos;ll get an email with a calendar invite for Google, Outlook,
+          or Apple.
         </p>
 
         <div className="mt-5 flex flex-col items-start gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
