@@ -87,7 +87,25 @@ recorded demo reads as the product actually working. Change them in
 
 ## Deploying
 
-Push to the connected repo and deploy on Vercel. Add the Supabase URL and
-anon key (see `.env.example`) so Google sign-in can create or resume
-accounts. After deploying, send the link to yourself on WhatsApp to confirm
-the Open Graph preview renders correctly (spec §11).
+Vercel Hobby (project `veltan-marketing`) deploys from GitHub
+`tumoemma-exo7fw/veltan-marketing` on **`main`**. Push there for a
+production build. Add the Supabase URL and anon key (see `.env.example`)
+so Google sign-in can create or resume accounts. After deploying, send
+the link to yourself on WhatsApp to confirm the Open Graph preview
+renders correctly (spec §11).
+
+## Keep your PC in sync with cloud work
+
+Cloud agents commit and push this marketing repo. On your Windows PC,
+open **Git Bash** in the clone and pull **`main`** so the files match.
+Full notes: [`docs/local-sync.md`](docs/local-sync.md).
+
+If you cloned GitHub `veltan-marketing` (`origin` is GitHub):
+
+```bash
+git checkout main
+git pull origin main
+```
+
+Internal history of cloud-chat restores lives in `docs/CLOUD_CHANGELOG.md`
+(filled by the restore pass).
