@@ -45,3 +45,24 @@ git push origin main
 ```
 
 (Use `git push github main` if that is the GitHub remote name on that clone.)
+
+## GitHub push from the cloud machine
+
+This cloud workspace can push Origin. It **cannot** log in to GitHub
+(`could not read Username for 'https://github.com'`). So after you have
+the latest `main` on your PC (from pulling this marketing repo), push
+GitHub yourself in Git Bash:
+
+```bash
+git checkout main
+git remote add github https://github.com/tumoemma-exo7fw/veltan-marketing.git
+git push github main
+```
+
+If `git remote add` says the remote already exists, skip that line and run:
+
+```bash
+git checkout main
+git pull origin main
+git push github main
+```

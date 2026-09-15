@@ -107,5 +107,17 @@ git checkout main
 git pull origin main
 ```
 
+This cloud machine cannot push GitHub (no GitHub login). From a PC clone
+that already has the latest `main`, run this in Git Bash so Vercel Hobby
+sees the commits:
+
+```bash
+git checkout main
+git remote add github https://github.com/tumoemma-exo7fw/veltan-marketing.git
+git push github main
+```
+
+If `github` already exists, skip `remote add` and run `git push github main`.
+
 Internal history of cloud-chat restores lives in `docs/CLOUD_CHANGELOG.md`
 (filled by the restore pass).
