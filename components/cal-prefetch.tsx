@@ -103,16 +103,10 @@ export function CalPrefetch({ industry }: { industry: string }) {
 
   const bookerReady = status === "ready" || status === "fallback";
 
-  useEffect(() => {
-    if (!pendingReveal) return;
-    if (bookerReady || status === "error") {
-      setRevealed(true);
-      setPendingReveal(false);
-    }
-  }, [pendingReveal, bookerReady, status]);
-
   const calendarVisible =
-    revealed || (isMobile === true && bookerReady);
+    revealed ||
+    (pendingReveal && (bookerReady || status === "error")) ||
+    (isMobile === true && bookerReady);
 
   const reveal = () => {
     analytics.ctaClicked("demo", industry);
@@ -130,7 +124,7 @@ export function CalPrefetch({ industry }: { industry: string }) {
           failed={status === "error"}
           onReveal={reveal}
           expanded={false}
-          opening={pendingReveal}
+          opening={pendingReveal && !calendarVisible}
         />
       ) : null}
 
