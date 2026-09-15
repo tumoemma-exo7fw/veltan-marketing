@@ -119,5 +119,5 @@ git push github main
 
 If `github` already exists, skip `remote add` and run `git push github main`.
 
-Internal history of cloud-chat restores lives in `docs/CLOUD_CHANGELOG.md`
-(filled by the restore pass).
+Internal history of cloud-chat restores lives in
+[`docs/CLOUD_CHANGELOG.md`](docs/CLOUD_CHANGELOG.md).
