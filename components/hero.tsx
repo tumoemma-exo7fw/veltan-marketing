@@ -22,7 +22,7 @@ export function Hero({ industry, content, onIndustryChange }: HeroProps) {
   return (
     <section
       id="features"
-      className="scroll-mt-32 border-t border-white/10 bg-bg lg:scroll-mt-20"
+      className="scroll-mt-20 border-t border-white/10 bg-bg"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 pb-20 pt-16 sm:px-8 lg:grid-cols-[11fr_9fr] lg:items-center lg:gap-16 lg:pb-24 lg:pt-20">
         <div>

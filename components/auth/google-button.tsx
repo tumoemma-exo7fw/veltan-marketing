@@ -79,7 +79,7 @@ export function GoogleButton({
           setPending(false);
         }
       }}
-      className="h-12 w-full rounded-full border-[#2a5d66] bg-transparent text-[15px] font-medium text-white hover:bg-white/[0.04] hover:text-white dark:bg-transparent dark:hover:bg-white/[0.04]"
+      className="h-12 min-h-12 w-full rounded-full border-[#2a5d66] bg-transparent text-[15px] font-medium text-white hover:bg-white/[0.04] hover:text-white dark:bg-transparent dark:hover:bg-white/[0.04]"
     >
       <GoogleMark className="size-5" />
       {pending ? "Continue with Google…" : "Continue with Google"}

@@ -33,11 +33,12 @@ export default async function LoginPage({
       <SignInForm initialEmail={params.email ?? ""} initialError={initialError} />
       <div className="mt-8 text-center">
         <AuthSwitch
+          cta
           prompt="Don't have an account?"
           href="/signup"
           action="Get started"
         />
-        <GuestPreviewLink />
+        <GuestPreviewLink cta />
       </div>
     </AuthShell>
   );

@@ -15,7 +15,7 @@ export function DemoBooking({ industry }: { industry: string }) {
     <section
       id="demo"
       aria-labelledby="demo-heading"
-      className="scroll-mt-32 mx-auto mt-10 min-w-0 max-w-3xl lg:scroll-mt-20"
+      className="scroll-mt-20 mx-auto mt-10 min-w-0 max-w-3xl"
     >
       <div className={cn(glassPanel, "min-w-0 overflow-x-clip p-6 sm:p-8")}>
         <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-hero-cyan">

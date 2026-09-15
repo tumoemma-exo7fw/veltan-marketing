@@ -4,7 +4,7 @@ export const authInputClass =
   "h-12 w-full min-w-0 rounded-full border border-[#1a4e58] bg-[#071416]/70 px-4 pl-12 text-[15px] text-white outline-none placeholder:text-white/40 focus-visible:border-[#2ee6e0]/70 focus-visible:ring-3 focus-visible:ring-[#2ee6e0]/15";
 
 export const authPrimaryClass =
-  "mt-1 h-12 w-full rounded-full border-transparent bg-[#007a8c] text-[15px] font-semibold text-white hover:bg-[#0896ab] disabled:opacity-70";
+  "mt-1 h-12 min-h-12 w-full rounded-full border-transparent bg-[#007a8c] text-[15px] font-semibold text-white hover:bg-[#0896ab] disabled:opacity-70";
 
 export function authAlertClass(kind: "error" | "info" = "error") {
   return cn(
@@ -71,11 +71,27 @@ export function AuthSwitch({
   prompt,
   href,
   action,
+  cta = false,
 }: {
   prompt: string;
   href: string;
   action: string;
+  cta?: boolean;
 }) {
+  if (cta) {
+    return (
+      <div className="space-y-3">
+        <p className="text-[14px] text-white/55">{prompt}</p>
+        <a
+          href={href}
+          className="inline-flex h-12 w-full items-center justify-center rounded-full border border-hero-cyan px-4 text-[15px] font-semibold text-white transition-colors hover:bg-hero-cyan/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+        >
+          {action}
+        </a>
+      </div>
+    );
+  }
+
   return (
     <p className="text-[14px] text-white/55">
       {prompt}{" "}

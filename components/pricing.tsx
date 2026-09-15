@@ -55,7 +55,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
   return (
     <section
       id="pricing"
-      className="scroll-mt-32 px-5 py-20 sm:px-8 lg:scroll-mt-20 lg:py-24"
+      className="scroll-mt-20 px-5 py-20 sm:px-8 lg:py-24"
     >
       <SectionHeading
         align="center"
@@ -171,7 +171,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
       <div
         id="founding"
         ref={bookingRef}
-        className="scroll-mt-32 lg:scroll-mt-20"
+        className="scroll-mt-20"
       >
         {showBooking ? (
           <div className="animate-fade-in">
