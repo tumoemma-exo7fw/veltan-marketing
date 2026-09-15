@@ -162,7 +162,7 @@ export function SiteHeader({ industry }: { industry: string }) {
           className="fixed inset-0 top-16 z-40 bg-[#071c1e]/15 backdrop-blur-[6px]"
           onClick={closeMenu}
         />
-        <div className="absolute inset-x-0 top-full z-50 max-h-[min(32rem,calc(100dvh-4rem))] overflow-y-auto border-b border-white/10 bg-[#071c1e]/96 shadow-lg backdrop-blur-md">
+        <div className="absolute inset-x-0 top-full z-50 max-h-[min(32rem,calc(100dvh-4rem))] overflow-y-auto border-b border-white/10 bg-[#071c1e] shadow-lg">
           <NavLinks
             label="Page sections"
             stacked
