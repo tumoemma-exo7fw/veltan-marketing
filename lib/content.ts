@@ -172,7 +172,7 @@ export const FAQS: FaqEntry[] = [
   },
   {
     question: `Why only 12 seats if the date is ${LAUNCH_DATE_LABEL}?`,
-    answer: `There are ${FOUNDING_SEATS} founding seats. ${FOUNDING_SEATS_CLAIMED} are already claimed; ${FOUNDING_SEATS_REMAINING} remain. That is the limit that matters. The window cannot run past ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time — but the remaining seats can fill first. When 12 are taken, the founding rate and privileges close.`,
+    answer: `There are ${FOUNDING_SEATS} founding seats. ${FOUNDING_SEATS_CLAIMED} are already taken; ${FOUNDING_SEATS_REMAINING} remain. That is the limit that matters. The window cannot run past ${LAUNCH_DATE_LABEL}, 23:59 East Africa Time — but the remaining seats can fill first. When 12 are taken, the founding rate and privileges close.`,
   },
   {
     question: "What happens to my existing phone number?",
@@ -186,7 +186,12 @@ export const FAQS: FaqEntry[] = [
   },
   {
     question: "How do I pay?",
-    answer: `Pay ${PRICE_FOUNDING} by MTN Mobile Money to lock the first month — on a phone, one tap opens the dialer with the USSD filled in; you confirm and enter your PIN. Airtel Money: copy the number and amount, then send in the Airtel Money app. We still ask you to send the booking on WhatsApp so we can match the payment and set you up.`,
+    answer: `Pay ${PRICE_FOUNDING} with MTN or Airtel Money to lock the first month — on a phone, one tap opens the dialer with the USSD filled in; you confirm and enter your PIN. Airtel Money: copy the number and amount, then send in the Airtel Money app. We still ask you to send the booking on WhatsApp so we can match the payment and set you up.`,
+  },
+  {
+    question: "Can I see it before I pay?",
+    answer:
+      "Yes. Under the Founding 12 offer, tap Book now and pick a time — it's free and does not hold a seat. If you're ready to lock a founding seat, pay the first month with MTN or Airtel Money above.",
   },
   {
     question: "How long does setup take?",

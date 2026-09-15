@@ -15,7 +15,7 @@ import { Wordmark } from "@/components/wordmark";
 
 export function SiteFooter({ industry }: { industry: string }) {
   return (
-    <footer id="contact" className="scroll-mt-20 border-t border-white/10 bg-bg">
+    <footer id="contact" className="scroll-mt-32 border-t border-white/10 bg-bg lg:scroll-mt-20">
       <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
@@ -24,7 +24,7 @@ export function SiteFooter({ industry }: { industry: string }) {
             <p className="mt-4 max-w-sm text-[14px] leading-[1.6] text-white/70">
               Missed-call text-back for Kampala businesses.{" "}
               {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} founding seats
-              claimed. {PRICE_FOUNDING} / month for {DISCOUNT_MONTHS} months,
+              taken. {PRICE_FOUNDING} / month for {DISCOUNT_MONTHS} months,
               then {PRICE_ORIGINAL}. Cancel anytime.
             </p>
           </div>

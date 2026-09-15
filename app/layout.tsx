@@ -36,7 +36,7 @@ const genos = Genos({
 const TITLE = "Veltan — Never lose a client to a missed call | Kampala";
 // Industry-neutral on purpose: an OG preview can't know which pill the
 // recipient will land on.
-const DESCRIPTION = `Veltan texts missed callers back in seconds, in your business's name — for Kampala dental clinics, trades, and real estate. ${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats claimed (${FOUNDING_SEATS_REMAINING} remaining): ${PRICE_FOUNDING}/month for ${DISCOUNT_MONTHS} months (${DISCOUNT_LABEL}), then ${PRICE_ORIGINAL}.`;
+const DESCRIPTION = `Veltan texts missed callers back in seconds, in your business's name — for Kampala dental clinics, trades, and real estate. ${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats taken (${FOUNDING_SEATS_REMAINING} remaining): ${PRICE_FOUNDING}/month for ${DISCOUNT_MONTHS} months (${DISCOUNT_LABEL}), then ${PRICE_ORIGINAL}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -109,7 +109,7 @@ const JSON_LD = {
           priceCurrency: "UGX",
           availability: "https://schema.org/LimitedAvailability",
           priceValidUntil: LAUNCH_DATE_ISO,
-          description: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months only (${PRICE_FOUNDING}/month), then ${PRICE_ORIGINAL}/month. ${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats claimed. Window closes ${LAUNCH_DATE_LABEL} or when the remaining ${FOUNDING_SEATS_REMAINING} seats are taken.`,
+          description: `${DISCOUNT_LABEL} for ${DISCOUNT_MONTHS} months only (${PRICE_FOUNDING}/month), then ${PRICE_ORIGINAL}/month. ${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats taken. Window closes ${LAUNCH_DATE_LABEL} or when the remaining ${FOUNDING_SEATS_REMAINING} seats are taken.`,
         },
         {
           "@type": "Offer",
@@ -133,6 +133,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${inter.variable} ${genos.variable} dark h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://app.cal.com" />
+        <link rel="dns-prefetch" href="https://cal.com" />
+      </head>
       <body className="flex min-h-full flex-col">
         <script
           type="application/ld+json"

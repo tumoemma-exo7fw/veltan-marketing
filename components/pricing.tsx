@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 
 import { analytics } from "@/lib/analytics";
@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 
 import { BookingWizard } from "@/components/booking-wizard";
 import { Countdown } from "@/components/countdown";
+import { DemoBooking } from "@/components/demo-booking";
 import { SectionHeading } from "@/components/section-heading";
 
 export function Pricing({ industry }: { industry: IndustryId }) {
@@ -40,22 +41,33 @@ export function Pricing({ industry }: { industry: IndustryId }) {
     });
   };
 
+  useEffect(() => {
+    const applyHash = () => {
+      if (window.location.hash === "#founding") {
+        setShowBooking(true);
+      }
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
   return (
     <section
       id="pricing"
-      className="scroll-mt-20 px-5 py-20 sm:px-8 lg:py-24"
+      className="scroll-mt-32 px-5 py-20 sm:px-8 lg:scroll-mt-20 lg:py-24"
     >
       <SectionHeading
         align="center"
-        kicker={`${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} claimed · Kampala`}
+        kicker={`${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} taken · Kampala`}
         kickerClassName="tracking-[0.16em]"
         title="Founding 12"
-        subtitle={`The first ${FOUNDING_SEATS_CLAIMED} are already in. ${FOUNDING_SEATS_REMAINING} remain — founding pricing stops when ${FOUNDING_SEATS_TOTAL} are full, or on ${LAUNCH_DATE_SHORT}.`}
+        subtitle={`The first ${FOUNDING_SEATS_CLAIMED} are already in. ${FOUNDING_SEATS_REMAINING} seats left — this price ends when all ${FOUNDING_SEATS_TOTAL} are taken, or on ${LAUNCH_DATE_SHORT}.`}
       />
       <div className={cn(glassPanel, "mx-auto mt-10 max-w-lg overflow-x-clip p-6 sm:p-8")}>
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
           <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-hero-cyan">
-            {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} claimed
+            {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} taken
           </span>
           <span className="text-[12px] font-medium text-white/55">
             Client Follow-Up System
@@ -64,7 +76,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
         <div className="mt-5">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[12.5px]">
             <span className="font-medium text-white/80">
-              {FOUNDING_SEATS_CLAIMED} claimed
+              {FOUNDING_SEATS_CLAIMED} taken
             </span>
             <span className="font-medium text-hero-cyan">
               {FOUNDING_SEATS_REMAINING} left
@@ -77,7 +89,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
               aria-valuemin={0}
               aria-valuemax={FOUNDING_SEATS_TOTAL}
               aria-valuenow={FOUNDING_SEATS_CLAIMED}
-              aria-label={`${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats claimed`}
+              aria-label={`${FOUNDING_SEATS_CLAIMED} of ${FOUNDING_SEATS_TOTAL} founding seats taken`}
             >
               <div
                 className="h-full rounded-full bg-hero-cyan"
@@ -106,7 +118,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
         <button
           type="button"
           aria-expanded={showBooking}
-          aria-controls="booking-flow"
+          aria-controls="founding"
           onClick={startBooking}
           className={cn(amberCta, "mt-6 w-full")}
         >
@@ -114,7 +126,8 @@ export function Pricing({ industry }: { industry: IndustryId }) {
           <ArrowRight aria-hidden="true" className="size-4" />
         </button>
         <p className="mt-3 text-center text-[13px] text-white/60">
-          Pay {PRICE_FOUNDING} to lock it · cancel anytime · we set it up
+          Pay {PRICE_FOUNDING} to lock it · {FOUNDING_SEATS_REMAINING} seats left
+          · cancel anytime
         </p>
         <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-5 text-left">
           {FOUNDING_PERKS.map((perk) => (
@@ -137,7 +150,7 @@ export function Pricing({ industry }: { industry: IndustryId }) {
         <button
           type="button"
           aria-expanded={showBooking}
-          aria-controls="booking-flow"
+          aria-controls="founding"
           onClick={startBooking}
           className={cn(amberCta, "mt-7 w-full")}
         >
@@ -151,19 +164,23 @@ export function Pricing({ industry }: { industry: IndustryId }) {
         />
         <p className="mt-3 text-center text-[12px] leading-snug text-white/45">
           The window cannot run past the date on the clock. Once{" "}
-          {FOUNDING_SEATS_TOTAL} are full, founding pricing stops.
+          {FOUNDING_SEATS_TOTAL} are taken, founding pricing stops.
         </p>
       </div>
 
-      {showBooking && (
-        <div
-          id="booking-flow"
-          ref={bookingRef}
-          className="scroll-mt-20 animate-fade-in"
-        >
-          <BookingWizard industry={industry} />
-        </div>
-      )}
+      <div
+        id="founding"
+        ref={bookingRef}
+        className="scroll-mt-32 lg:scroll-mt-20"
+      >
+        {showBooking ? (
+          <div className="animate-fade-in">
+            <BookingWizard industry={industry} />
+          </div>
+        ) : null}
+      </div>
+
+      <DemoBooking industry={industry} />
     </section>
   );
 }

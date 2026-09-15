@@ -6,6 +6,7 @@ import { analytics } from "@/lib/analytics";
 import { INDUSTRIES, type IndustryId } from "@/lib/content";
 
 import { AiAssistantSection } from "@/components/ai-assistant-section";
+import { CalPrefetchRoot } from "@/components/cal-prefetch";
 import { FaqSection } from "@/components/faq-section";
 import { Hero } from "@/components/hero";
 import { HomeHero } from "@/components/home-hero";
@@ -27,6 +28,7 @@ export default function Home() {
 
   return (
     <WhatsAppHelpProvider>
+      <CalPrefetchRoot />
       <SiteHeader industry={industry} />
       <main className="flex-1 overflow-x-clip">
         <HomeHero industry={industry} />

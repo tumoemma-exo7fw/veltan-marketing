@@ -8,4 +8,8 @@ export const kicker =
 export const amberCta =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-7 py-3 text-[15px] font-bold text-white transition-colors hover:bg-[#b56f18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan";
 
+/** Compact calendar CTA — cyan outline, not the amber pay button. */
+export const cyanCta =
+  "inline-flex min-h-11 items-center justify-center rounded-full border border-hero-cyan px-6 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-hero-cyan/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan";
+
 export const mutedBody = "text-[15px] leading-[1.6] text-white/70 sm:text-[16px]";

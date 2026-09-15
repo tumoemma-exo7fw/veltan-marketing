@@ -45,11 +45,10 @@ export const LAUNCH_DATE_LABEL = "September 30, 2026";
 export const LAUNCH_DATE_SHORT = "30 Sep 2026";
 export const LAUNCH_DATE_ISO = "2026-09-30";
 
-/** Total Founding 12 seats. Claimed/remaining is the honest live count — do not invent a tighter number. */
+/** Total Founding 12 seats. 7 taken leaves 5. */
 export const FOUNDING_SEATS_TOTAL = 12;
-export const FOUNDING_SEATS_CLAIMED = 6;
-export const FOUNDING_SEATS_REMAINING =
-  FOUNDING_SEATS_TOTAL - FOUNDING_SEATS_CLAIMED;
+export const FOUNDING_SEATS_CLAIMED = 7;
+export const FOUNDING_SEATS_REMAINING = 5;
 export const FOUNDING_SEATS_CLAIMED_PERCENT = Math.round(
   (FOUNDING_SEATS_CLAIMED / FOUNDING_SEATS_TOTAL) * 100,
 );
@@ -83,6 +82,14 @@ export const MTN_MOMO_TEL_HREF = `tel:${MTN_MOMO_USSD.replace(/\*/g, "%2A").repl
  */
 export const STRIPE_PAYMENT_LINK = "";
 
+/**
+ * Public demo event. Hours, Google Calendar, and guest email + calendar
+ * invites are set in the booking dashboard — this repo only embeds the link.
+ */
+export const CAL_LINK = "capt.badger-veltan/veltan-client-follow-up-system";
+export const CAL_TIMEZONE = "Africa/Nairobi";
+export const CAL_BOOKING_URL = `https://cal.com/${CAL_LINK}`;
+
 /** HTTPS fallback (`wa.me`). Interactive CTAs prefer `whatsapp://` via `lib/whatsapp.ts`. */
 export function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -93,6 +100,7 @@ export type CtaLocation =
   | "hero"
   | "pricing"
   | "booking"
+  | "demo"
   | "footer";
 
 /**
@@ -105,5 +113,6 @@ export const WA_MESSAGES: Record<CtaLocation, string> = {
   pricing: `Hi Veltan, I want to reserve a founding seat. I'll pay ${PRICE_FOUNDING} to lock the first month.`,
   // The booking wizard composes its own structured message from form fields.
   booking: "",
+  demo: "Hi Veltan, I'd like to chat instead of booking a time.",
   footer: "Hi Veltan, I have a few questions before I reserve a founding seat.",
 };

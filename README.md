@@ -46,6 +46,7 @@ and [`docs/two-repos.md`](docs/two-repos.md).
 | Logo exports and usage guide | `public/brand/`, `docs/brand-assets.md` |
 | Recorded-demo chrome + the two demo animations | `components/demo-frame.tsx`, `components/missed-call-demo.tsx`, `components/ai-demo.tsx` |
 | Page assembly + industry switching | `app/page.tsx` |
+| Demo walkthrough (Book now calendar) | `components/demo-booking.tsx`, `components/cal-prefetch.tsx`, `components/cal-embed.tsx` |
 | Open Graph share image | `app/opengraph-image.tsx` |
 
 ### Adding the first testimonials
@@ -61,7 +62,7 @@ Tracked via Vercel Analytics (enable Analytics for the project in the Vercel
 dashboard after deploying):
 
 - `industry_selected` — `{ industry }`
-- `cta_click` — `{ location: header | hero | pricing | booking | footer, industry }`
+- `cta_click` — `{ location: header | hero | pricing | booking | demo | footer, industry }`
 - `booking_started` — `{ industry }` (visitor began the booking wizard)
 - `faq_open` — `{ question }`
 - `guest_preview` — visitor opened the live product without signing in

@@ -23,11 +23,11 @@ export function SocialProof() {
         <div className={cn(glassPanel, "mx-auto mt-8 max-w-xl px-6 py-8")}>
           <p className="text-[15px] font-semibold">
             {FOUNDING_SEATS_CLAIMED} of {FOUNDING_SEATS_TOTAL} founding seats
-            claimed. No invented quotes.
+            taken.
           </p>
           <p className="mt-1.5 text-[13.5px] leading-[1.55] text-white/70">
-            The first six are already in. Real customer stories will appear here
-            as they go live — no borrowed logos, no invented quotes.
+            The first {FOUNDING_SEATS_CLAIMED} are already in. Real customer
+            stories will appear here as they go live.
           </p>
         </div>
       ) : (

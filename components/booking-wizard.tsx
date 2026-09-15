@@ -405,7 +405,14 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
                   onChange={() => setPayMethod("momo")}
                   className="mt-0.5 size-4 accent-[#2ee6e0]"
                 />
-                <span>Pay {PRICE_FOUNDING} now by Mobile Money</span>
+                <span>
+                  MTN or Airtel Money
+                  {payMethod === "momo" && (
+                    <span className="block text-[12.5px] font-normal text-muted">
+                      Send {PRICE_FOUNDING} to lock the first month.
+                    </span>
+                  )}
+                </span>
               </label>
               <label className="flex min-h-11 items-start gap-2.5 text-[13.5px] font-medium">
                 <input
@@ -601,8 +608,20 @@ export function BookingWizard({ industry }: { industry: IndustryId }) {
         )}
       </div>
 
+      {step === 2 ? (
+        <p className="mt-5 text-[13.5px] leading-[1.55] text-white/70">
+          Want a walkthrough first?{" "}
+          <a
+            href="#demo"
+            className="font-semibold text-hero-cyan underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+          >
+            Book a time below.
+          </a>
+        </p>
+      ) : null}
+
       {step === 2 && showWhatsAppHelp ? (
-        <div ref={helpRef} className="mt-5 scroll-mt-20" aria-live="polite">
+        <div ref={helpRef} className="mt-5 scroll-mt-32 lg:scroll-mt-20" aria-live="polite">
           <WhatsAppNextSteps message={message} />
         </div>
       ) : null}

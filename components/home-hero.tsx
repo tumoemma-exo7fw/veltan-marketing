@@ -12,6 +12,7 @@ import {
 
 import { analytics } from "@/lib/analytics";
 import type { IndustryId } from "@/lib/content";
+import { FOUNDING_SEATS_CLAIMED, FOUNDING_SEATS_REMAINING } from "@/lib/site";
 import { amberCta } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
@@ -168,16 +169,17 @@ function HeroCopy({
               : "text-[14.5px] leading-[1.5]",
           )}
         >
-          We&apos;re looking for{" "}
-          <span className="font-bold text-hero-cyan">12 clinics</span> to try it
-          out and validate it.
+          We&apos;re starting with{" "}
+          <span className="font-bold text-hero-cyan">12 clinics</span> in
+          Kampala.
           <span
             className={cn(
               "mt-0.5 block text-white/70",
               overlay ? "text-[11.5px] xl:text-[13px]" : "text-[13px]",
             )}
           >
-            No charge. Just your feedback.
+            {FOUNDING_SEATS_CLAIMED} already in. {FOUNDING_SEATS_REMAINING}{" "}
+            seats left.
           </span>
         </p>
       </div>
@@ -197,11 +199,11 @@ export function HomeHero({ industry }: { industry: IndustryId }) {
     >
       <h1 className="sr-only">Let Your Clinic Never Miss a Lead</h1>
       {/*
-        Mobile: 16:9 clinic plate under the single-row header, then the same
+        Mobile: 16:9 clinic plate under the two-row header, then the same
         HTML stack (kicker through Get Started). Desktop: full-bleed 16:9
         with live copy on the teal wall.
       */}
-      <div className="pt-16 lg:pt-0">
+      <div className="pt-[7.75rem] lg:pt-0">
         <div className="relative aspect-[16/9] w-full bg-[#071c1e]">
           <Image
             src="/brand/hero-dental-clinic.jpg"
