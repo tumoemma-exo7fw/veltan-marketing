@@ -143,8 +143,7 @@ function NavLinks({
   );
 }
 
-function HeaderSessionActions() {
-  const pathname = usePathname();
+function useSignedIn() {
   const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
@@ -165,16 +164,29 @@ function HeaderSessionActions() {
     };
   }, []);
 
-  if (!signedIn) return null;
+  return signedIn;
+}
+
+function SignOutForm({
+  className,
+  buttonClassName,
+  stacked = false,
+}: {
+  className?: string;
+  buttonClassName: string;
+  stacked?: boolean;
+}) {
+  const pathname = usePathname();
 
   return (
-    <form action="/auth/signout" method="POST">
+    <form action="/auth/signout" method="POST" className={className}>
       <input type="hidden" name="next" value={pathname === "/login" ? "/login" : "/"} />
-      <button
-        type="submit"
-        className="inline-flex min-h-11 items-center justify-center px-2 text-[12.5px] font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
-      >
-        Sign out
+      <button type="submit" className={buttonClassName}>
+        {stacked ? (
+          <span className="border-l-2 border-transparent pl-3">Sign out</span>
+        ) : (
+          "Sign out"
+        )}
       </button>
     </form>
   );
@@ -183,6 +195,7 @@ function HeaderSessionActions() {
 export function SiteHeader({ industry }: { industry: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const portalReady = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const signedIn = useSignedIn();
   const [current, setCurrent] = useCurrentSection();
   const menuId = useId();
   const hamburgerRef = useRef<HTMLButtonElement>(null);
@@ -297,6 +310,13 @@ export function SiteHeader({ industry }: { industry: string }) {
           onSelect={selectSection}
           className="flex flex-col py-2"
         />
+        {signedIn ? (
+          <SignOutForm
+            stacked
+            className="border-t border-white/10 py-2"
+            buttonClassName="flex min-h-12 w-full items-center px-4 text-[16px] font-medium text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+          />
+        ) : null}
       </div>
     </div>
   ) : null;
@@ -326,7 +346,12 @@ export function SiteHeader({ industry }: { industry: string }) {
             />
 
             <div className="flex items-center justify-end gap-1.5 sm:gap-2">
-              <HeaderSessionActions />
+              {signedIn ? (
+                <SignOutForm
+                  className="hidden lg:block"
+                  buttonClassName="inline-flex min-h-11 items-center justify-center px-2 text-[12.5px] font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+                />
+              ) : null}
               <Link href="/login" onClick={closeMenu} className={loginHeaderClass}>
                 Log in
               </Link>
