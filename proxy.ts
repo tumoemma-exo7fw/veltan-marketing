@@ -2,13 +2,6 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { updateSession } from "@/lib/supabase/proxy";
 
-const AUTH_PAGES = new Set([
-  "/login",
-  "/signup",
-  "/forgot-password",
-  "/reset-password",
-]);
-
 const PROTECTED_PAGES = new Set(["/continue", "/onboarding"]);
 
 export async function proxy(request: NextRequest) {
@@ -19,13 +12,6 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.searchParams.set("next", path);
-    return NextResponse.redirect(url);
-  }
-
-  if (AUTH_PAGES.has(path) && path !== "/reset-password" && user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/continue";
-    url.search = "";
     return NextResponse.redirect(url);
   }
 

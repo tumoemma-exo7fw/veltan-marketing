@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { Mail } from "lucide-react";
 
-import { AuthDivider, AuthField, AuthIconWrap, authAlertClass, authInputClass, authPrimaryClass } from "@/components/auth/fields";
+import { AuthField, AuthIconWrap, authAlertClass, authInputClass, authPrimaryClass } from "@/components/auth/fields";
 import { GoogleButton } from "@/components/auth/google-button";
 import { PasswordField } from "@/components/auth/password-field";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,11 @@ import {
 } from "@/lib/auth-validation";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/client";
+import {
+  readRememberMeFromDocument,
+  setRememberMePreference,
+  subscribeRememberMe,
+} from "@/lib/supabase/remember";
 import { cn } from "@/lib/utils";
 
 export function SignInForm({
@@ -31,7 +36,11 @@ export function SignInForm({
   const router = useRouter();
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(true);
+  const rememberMe = useSyncExternalStore(
+    subscribeRememberMe,
+    readRememberMeFromDocument,
+    () => false,
+  );
   const [emailErr, setEmailErr] = useState<string>();
   const [passwordErr, setPasswordErr] = useState<string>();
   const [formError, setFormError] = useState<string | null>(initialError);
@@ -55,6 +64,7 @@ export function SignInForm({
         setFormError(googleAuthError("SUPABASE_NOT_CONFIGURED"));
         return;
       }
+      setRememberMePreference(rememberMe);
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({
         email: normalizeEmail(email),
@@ -63,9 +73,6 @@ export function SignInForm({
       if (error) {
         setFormError(AUTH_GENERIC_ERROR);
         return;
-      }
-      if (!rememberMe) {
-        await supabase.auth.updateUser({ data: { rememberMe: false } });
       }
       analytics.authSignedIn();
       router.push("/continue");
@@ -123,7 +130,7 @@ export function SignInForm({
           <input
             type="checkbox"
             checked={rememberMe}
-            onChange={(event) => setRememberMe(event.target.checked)}
+            onChange={(event) => setRememberMePreference(event.target.checked)}
             className="size-4 rounded-[4px] border-white/30 accent-hero-cyan"
           />
           Remember me
@@ -145,11 +152,11 @@ export function SignInForm({
         </p>
       ) : null}
       <Button type="submit" disabled={pending} aria-busy={pending} className={authPrimaryClass}>
-        {pending ? "Signing in…" : "Sign In →"}
+        {pending ? "Signing in…" : "Sign in"}
       </Button>
-      <AuthDivider />
       <GoogleButton
         disabled={pending}
+        rememberMe={rememberMe}
         onError={(message) => setFormError(message || null)}
       />
     </form>

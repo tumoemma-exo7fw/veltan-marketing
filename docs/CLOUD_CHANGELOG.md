@@ -6,20 +6,22 @@ This file is the stored memory of last-refined landing work from Cursor cloud ch
 
 **How to read it:** later chat wins. When a thread stopped iterating a feature and a new agent started the next topic, that last state is the target. This document records both the last-refined state **and** what overrode it.
 
-**Current live last-refined snapshot (restore of 15 Sep 2026, plus this-thread nav):**
+**Current live last-refined snapshot (restore of 15 Sep 2026, plus later nav/login refinements):**
 
 | Surface | Last-refined rule |
 | --- | --- |
-| Nav (desktop) | Logo left; section links + **Log in** (circular, word only) + **Get Started** on the right. No WhatsApp in the header. |
-| Nav (mobile) | **Keep hamburger.** Light backdrop blur when open (page not blacked out). **Log in** + **Get Started** as real CTAs in the bar and full-width in the sheet. No WhatsApp in header or menu. Footer / demo WhatsApp can stay. |
+| Nav (desktop) | Logo left; section links + **Log in** (circular, word only) + **Get Started** on the right. No WhatsApp in the header. Hover / `:focus-visible`: ~180ms cyan underline (`scaleX` on a pseudo-element) plus a slightly brighter label. Current section keeps a persistent underline; hover is preview. Gate hover with `(hover: hover)` so tap does not stick on phones. `prefers-reduced-motion`: no tween. No bounce, no 3D. |
+| Nav (mobile) | **Keep hamburger** (lg and down). **Log in** + **Get Started** stay in the **header bar only** — do **not** duplicate them in the sheet. Sheet = section links only. Scrim + panel portal to `document.body` (outside the blurred header). Scrim: full viewport, black **~32%** (Material), optional light blur; tap scrim closes. Escape + body scroll lock. Panel ~200ms slide/fade down (`transform`/`opacity`; reduced motion = instant). `aria-modal`, focus into panel, restore to hamburger, page inert while open. Current section from hash / IntersectionObserver (`#home` `#features` `#how-it-works` `#pricing` `#contact`). No WhatsApp in header or menu. Footer / demo WhatsApp can stay. |
 | Hero | 16:9 clinic plate, `object-contain`, **live HTML** copy (not baked pixels). “7 already in. 5 seats left.” Full 16:9 image on mobile, then the same stack. Orange **Get Started** → `#pricing`. |
 | Seats | **12** founding. **7 taken / 5 remaining** (explicit user “7 taken 5 remaining”; 7+5=12). Do not go back to 6/12 or 7/3. |
 | Countdown | Closes **30 Sep 2026, 23:59:59 EAT**. Units left-to-right: **SEC → MIN → HOURS → DAYS**. |
 | Book now | Cal.com event `capt.badger-veltan/veltan-client-follow-up-system`. Prefetch on land (not `display:none`). Desktop: small **filled cyan** Book now reveals the already-loaded booker; if still warming, button says **Opening times…**. Mobile: calendar **already open** at `#demo`. No “Load calendar”, no Cal.com/PesaJet/wizard talk in visitor copy. |
 | Founding pay | Wizard **closed until** Reserve / Pay UGX 70,000. Visitor pay: **MTN USSD / Airtel Money**, not PesaJet or Stripe in visitor UI. Keep MoMo wizard. |
-| Auth | Dark standalone `/login` `/signup`. Google via **Supabase** (client ID/secret in Supabase, not Vercel). Guest **Preview the app**. After sign-in → product `?sso=`. |
+| Auth | Dark `/login`. Stack: Email → Password → Remember me · Forgot password? → **Sign in** → **Continue with Google** → `or` divider → quiet **Continue as guest**. No “Don't have an account?”, no cyan Get started pill, no “Just looking?”, no fat Preview the app button. Header **Get Started** (scrolls to `#pricing`) stays. `/signup` redirects to `/login`. Google on `/login` is the new-account path. Do not auto-create email accounts on failed password sign-in. Google via **Supabase** (secrets in Supabase, not Vercel). After sign-in → product `?sso=`. Guest → `veltan-app.vercel.app/?guest=1`. |
+| Signed-in | `proxy.ts` does **not** bounce `/login` to `/continue`. Authed `/login` still renders: **Continue as you@email** → `/continue`; **Use a different account** → POST `/auth/signout` then the form. Header keeps circular **Log in**; when a session exists also **Sign out** (POST existing route, stay on `/` or `/login`). Landing stays a client page (browser Supabase session reader). |
+| Remember me | Default **OFF**. Checked = persistent cookies. Unchecked = browser-session cookies (clear when the browser closes) via `@supabase/ssr` cookie `maxAge`/`expires` on browser + server clients. Not `updateUser({ rememberMe })`. Session-only by default for email and Google until Remember me is checked on that browser. |
 
-**This thread (nav + visitor pay — last word, do not undo):** hamburger **kept**; no WhatsApp in header or menu; **light** backdrop blur (page not blacked out); **Log in** + **Get Started** as real CTAs. Cal.com **Book now** last-refined UX (prefetch, filled cyan, Opening times…, desktop reveal / mobile already open). Seats **7 taken / 5 remaining of 12**. Countdown **SEC → MIN → HOURS → DAYS**. Circular **Log in** in the bar. Pay-to-lock wizard **closed until** the pricing CTA. Visitor copy: **MTN USSD / Airtel Money**, not PesaJet or Stripe.
+**This thread (nav + visitor pay + login — last word, do not undo):** hamburger **kept**; no WhatsApp in header or menu; hamburger scrim is **~32% black** via a **body portal** (this **overrides** the older “light blur, page not blacked out”); **Log in** + **Get Started** as real CTAs **in the bar only** (this **overrides** “full-width Log in + Get Started in the sheet”). Cal.com **Book now** last-refined UX (prefetch, filled cyan, Opening times…, desktop reveal / mobile already open). Seats **7 taken / 5 remaining of 12**. Countdown **SEC → MIN → HOURS → DAYS**. Circular **Log in** in the bar. Pay-to-lock wizard **closed until** the pricing CTA. Visitor copy: **MTN USSD / Airtel Money**, not PesaJet or Stripe. Login stack and Remember me as in the table.
 
 Parent landing thread (`bc-cc3f3433`) was **not** re-fetched in a loop; nav/pay rules above are from that thread’s last instructions. Restore run `bc-6242c463` implemented UI. This follow-up only stores that reconstruction here so nobody re-mines the transcripts.
 
@@ -364,6 +366,10 @@ Proved GitHub push from a cloud agent whose `origin` is
 `Everything up-to-date` at `3d0ea57`). **No UI redo.** `docs/local-sync.md`
 and README no longer claim every cloud machine cannot push GitHub; Origin-only
 workspaces still use the PC fallback.
+
+### Login stack, session, hamburger portal (17 Sep 2026)
+
+Approved marketing plan. **Login:** Email → Password → Remember me · Forgot password? → Sign in → Continue with Google → `or` → Continue as guest. Dropped signup switch / Get started pill / Preview the app button. `/signup` redirects to `/login`. **Session:** no silent `/login` → `/continue` bounce; signed-in panel + header Sign out; Remember me real (default off, session cookies). **Hamburger:** portal to `document.body`, ~32% black scrim, no duplicated sheet CTAs, current-section spy. **Desktop nav:** 180ms cyan `scaleX` underline. Overrides older “light blur, page not blacked out” and “full-width Log in + Get Started in the sheet”.
 
 ---
 

@@ -9,6 +9,7 @@ import {
 } from "@/lib/auth-validation";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/client";
+import { setRememberMePreference } from "@/lib/supabase/remember";
 
 function GoogleMark({ className }: { className?: string }) {
   return (
@@ -37,10 +38,12 @@ export function GoogleButton({
   disabled,
   onError,
   next = "/continue",
+  rememberMe = false,
 }: {
   disabled?: boolean;
   onError: (message: string) => void;
   next?: string;
+  rememberMe?: boolean;
 }) {
   const [pending, setPending] = useState(false);
 
@@ -59,6 +62,7 @@ export function GoogleButton({
             setPending(false);
             return;
           }
+          setRememberMePreference(rememberMe);
           const supabase = createClient();
           const redirectTo = new URL("/auth/callback", window.location.origin);
           redirectTo.searchParams.set("next", next);

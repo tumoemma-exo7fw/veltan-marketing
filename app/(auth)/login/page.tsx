@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 
-import { AuthSwitch } from "@/components/auth/fields";
+import { AuthDivider } from "@/components/auth/fields";
 import { GuestPreviewLink } from "@/components/auth/guest-preview";
 import { AuthShell } from "@/components/auth/shell";
 import { SignInForm } from "@/components/auth/sign-in-form";
+import { SignedInPanel } from "@/components/auth/signed-in-panel";
 import { AUTH_GOOGLE_UNAVAILABLE, AUTH_NETWORK_ERROR } from "@/lib/auth-validation";
+import { getAuthState } from "@/lib/session";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Sign in | Veltan",
@@ -19,6 +23,7 @@ export default async function LoginPage({
   searchParams: Promise<{ email?: string; error?: string }>;
 }) {
   const params = await searchParams;
+  const { user } = await getAuthState();
   const initialError =
     params.error === "google"
       ? AUTH_GOOGLE_UNAVAILABLE
@@ -30,16 +35,15 @@ export default async function LoginPage({
 
   return (
     <AuthShell>
-      <SignInForm initialEmail={params.email ?? ""} initialError={initialError} />
-      <div className="mt-8 text-center">
-        <AuthSwitch
-          cta
-          prompt="Don't have an account?"
-          href="/signup"
-          action="Get started"
-        />
-        <GuestPreviewLink cta />
-      </div>
+      {user ? (
+        <SignedInPanel email={user.email || "you"} />
+      ) : (
+        <>
+          <SignInForm initialEmail={params.email ?? ""} initialError={initialError} />
+          <AuthDivider />
+          <GuestPreviewLink />
+        </>
+      )}
     </AuthShell>
   );
 }
