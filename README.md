@@ -107,9 +107,13 @@ git checkout main
 git pull origin main
 ```
 
-This cloud machine cannot push GitHub (no GitHub login). From a PC clone
-that already has the latest `main`, run this in Git Bash so Vercel Hobby
-sees the commits:
+Agents started from GitHub `tumoemma-exo7fw/veltan-marketing` push with
+`git push origin main` (or `git push github main` if that remote name is
+used). That is what Vercel Hobby builds.
+
+If a cloud machine has **no** GitHub login (`could not read Username for
+'https://github.com'`), push GitHub from a PC clone that already has the
+latest `main`:
 
 ```bash
 git checkout main

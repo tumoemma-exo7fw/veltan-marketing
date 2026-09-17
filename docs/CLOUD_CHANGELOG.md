@@ -357,6 +357,14 @@ Re-applied last-refined **Book now fill**, countdown **SEC→MIN→HOURS→DAYS*
 
 Wrote `docs/CLOUD_CHANGELOG.md` from notes already extracted. **No UI redo.** Do not batch-fetch the ~59 transcripts again.
 
+### GitHub-started marketing agent (17 Sep 2026)
+
+Proved GitHub push from a cloud agent whose `origin` is
+`tumoemma-exo7fw/veltan-marketing` (`git push origin main` →
+`Everything up-to-date` at `3d0ea57`). **No UI redo.** `docs/local-sync.md`
+and README no longer claim every cloud machine cannot push GitHub; Origin-only
+workspaces still use the PC fallback.
+
 ---
 
 ## Explicitly not last-refined (do not bring back)
