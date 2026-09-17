@@ -278,6 +278,7 @@ export function SiteHeader({ industry }: { industry: string }) {
         tabIndex={-1}
         aria-label="Close menu"
         className="fixed inset-0 z-40 bg-black/32 backdrop-blur-[2px] animate-in fade-in duration-[200ms] motion-reduce:animate-none"
+        data-menu-scrim=""
         onClick={closeMenu}
       />
       <div
