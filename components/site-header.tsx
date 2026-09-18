@@ -295,9 +295,9 @@ export function SiteHeader({ industry }: { industry: string }) {
         aria-modal="true"
         aria-label="Page sections"
         onKeyDown={onPanelKeyDown}
-        className="pointer-events-none fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto animate-in fade-in duration-[200ms] motion-reduce:animate-none"
+        className="pointer-events-none fixed inset-x-0 top-16 bottom-0 z-50 flex items-center justify-center overflow-y-auto animate-in fade-in duration-[200ms] motion-reduce:animate-none"
       >
-        <div className="pointer-events-auto mx-auto flex min-h-full w-full max-w-[22.5rem] flex-col justify-center px-5 py-10 sm:max-w-[24rem] sm:px-6">
+        <div className="pointer-events-auto mx-auto w-full max-w-[22.5rem] px-5 py-10 sm:max-w-[24rem] sm:px-6">
           <NavLinks
             label="Page sections"
             stacked
