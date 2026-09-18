@@ -111,8 +111,8 @@ function NavLinks({
             className={
               stacked
                 ? cn(
-                    "flex min-h-12 items-center px-4 text-[16px] font-medium transition-colors hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
-                    isCurrent ? "text-white" : "text-white/90 hover:text-white",
+                    "flex min-h-12 items-center justify-center px-4 text-[16px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan",
+                    isCurrent ? "text-white" : "text-white/70 hover:text-white",
                   )
                 : cn(
                     "relative inline-flex min-h-11 shrink-0 items-center px-2.5 text-[13px] font-medium lg:text-[13.5px]",
@@ -128,7 +128,7 @@ function NavLinks({
               className={
                 stacked
                   ? cn(
-                      "border-l-2 pl-3",
+                      "border-b-2 pb-0.5",
                       isCurrent ? "border-hero-cyan" : "border-transparent",
                     )
                   : undefined
@@ -170,11 +170,9 @@ function useSignedIn() {
 function SignOutForm({
   className,
   buttonClassName,
-  stacked = false,
 }: {
   className?: string;
   buttonClassName: string;
-  stacked?: boolean;
 }) {
   const pathname = usePathname();
 
@@ -182,11 +180,7 @@ function SignOutForm({
     <form action="/auth/signout" method="POST" className={className}>
       <input type="hidden" name="next" value={pathname === "/login" ? "/login" : "/"} />
       <button type="submit" className={buttonClassName}>
-        {stacked ? (
-          <span className="border-l-2 border-transparent pl-3">Sign out</span>
-        ) : (
-          "Sign out"
-        )}
+        Sign out
       </button>
     </form>
   );
@@ -290,7 +284,7 @@ export function SiteHeader({ industry }: { industry: string }) {
         type="button"
         tabIndex={-1}
         aria-label="Close menu"
-        className="fixed inset-0 z-40 bg-black/32 backdrop-blur-[2px] animate-in fade-in duration-[200ms] motion-reduce:animate-none"
+        className="auth-atmosphere fixed inset-0 z-40 appearance-none border-0 p-0 animate-in fade-in duration-[200ms] motion-reduce:animate-none"
         data-menu-scrim=""
         onClick={closeMenu}
       />
@@ -301,28 +295,34 @@ export function SiteHeader({ industry }: { industry: string }) {
         aria-modal="true"
         aria-label="Page sections"
         onKeyDown={onPanelKeyDown}
-        className="fixed inset-x-0 top-16 z-50 max-h-[min(32rem,calc(100dvh-4rem))] overflow-y-auto border-b border-white/10 bg-[#071c1e] shadow-lg animate-in fade-in slide-in-from-top-2 duration-[200ms] motion-reduce:animate-none"
+        className="pointer-events-none fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto animate-in fade-in duration-[200ms] motion-reduce:animate-none"
       >
-        <NavLinks
-          label="Page sections"
-          stacked
-          current={current}
-          onSelect={selectSection}
-          className="flex flex-col py-2"
-        />
-        {signedIn ? (
-          <SignOutForm
+        <div className="pointer-events-auto mx-auto flex min-h-full w-full max-w-[22.5rem] flex-col justify-center px-5 py-10 sm:max-w-[24rem] sm:px-6">
+          <NavLinks
+            label="Page sections"
             stacked
-            className="border-t border-white/10 py-2"
-            buttonClassName="flex min-h-12 w-full items-center px-4 text-[16px] font-medium text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+            current={current}
+            onSelect={selectSection}
+            className="flex flex-col"
           />
-        ) : null}
+          {signedIn ? (
+            <SignOutForm
+              className="mt-4 border-t border-white/10 pt-2"
+              buttonClassName="flex min-h-12 w-full items-center justify-center px-4 text-[16px] font-medium text-white/55 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hero-cyan"
+            />
+          ) : null}
+        </div>
       </div>
     </div>
   ) : null;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#071c1e]/72 backdrop-blur-md">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b border-white/10",
+        menuOpen ? "bg-[#071c1e]" : "bg-[#071c1e]/72 backdrop-blur-md",
+      )}
+    >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-8">
         <div className="flex min-h-16 items-center justify-between gap-2 sm:gap-3">
           <Link

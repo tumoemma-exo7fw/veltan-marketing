@@ -11,7 +11,7 @@ This file is the stored memory of last-refined landing work from Cursor cloud ch
 | Surface | Last-refined rule |
 | --- | --- |
 | Nav (desktop) | Logo left; section links + **Log in** (circular, word only) + **Get Started** on the right. No WhatsApp in the header. Hover / `:focus-visible`: ~180ms cyan underline (`scaleX` on a pseudo-element) plus a slightly brighter label. Current section keeps a persistent underline; hover is preview. Gate hover with `(hover: hover)` so tap does not stick on phones. `prefers-reduced-motion`: no tween. No bounce, no 3D. |
-| Nav (mobile) | **Keep hamburger** (lg and down). **Log in** + **Get Started** stay in the **header bar only** — do **not** duplicate them in the sheet. Sheet = section links, then **Sign out last** when a session exists (not in the mobile bar). Scrim + panel portal to `document.body` (outside the blurred header). Scrim: full viewport, black **~32%** (Material), optional light blur; tap scrim closes. Escape + body scroll lock. Panel ~200ms slide/fade down (`transform`/`opacity`; reduced motion = instant). `aria-modal`, focus into panel, restore to hamburger, page inert while open. Current section from hash / IntersectionObserver (`#home` `#features` `#how-it-works` `#pricing` `#contact`). No WhatsApp in header or menu. Footer / demo WhatsApp can stay. |
+| Nav (mobile) | **Keep hamburger** (lg and down). **Log in** + **Get Started** stay in the **header bar only** — do **not** duplicate them in the sheet. Open menu is a **full-screen login-atmosphere page** (`auth-atmosphere`, `#071c1e`) so the landing is fully covered — not a short sheet over a still-bright hero. Header goes solid `#071c1e` while open. Centered section links (same max width as `/login`), then **Sign out last** when signed in (not in the mobile bar). Portal to `document.body`. Tap empty atmosphere / Escape / X closes. Body scroll lock. ~200ms fade (reduced motion = instant). `aria-modal`, focus into panel, restore to hamburger, page inert while open. Current section from hash / IntersectionObserver. No WhatsApp in header or menu. |
 | Hero | 16:9 clinic plate, `object-contain`, **live HTML** copy (not baked pixels). “7 already in. 5 seats left.” Full 16:9 image on mobile, then the same stack. Orange **Get Started** → `#pricing`. |
 | Seats | **12** founding. **7 taken / 5 remaining** (explicit user “7 taken 5 remaining”; 7+5=12). Do not go back to 6/12 or 7/3. |
 | Countdown | Closes **30 Sep 2026, 23:59:59 EAT**. Units left-to-right: **SEC → MIN → HOURS → DAYS**. |
@@ -21,7 +21,7 @@ This file is the stored memory of last-refined landing work from Cursor cloud ch
 | Signed-in | `proxy.ts` does **not** bounce `/login` to `/continue`. Authed `/login` still renders: **Continue as you@email** → `/continue`; **Use a different account** → POST `/auth/signout` then the form. Header keeps circular **Log in**. **Sign out** is **not** in the mobile bar — last item in the hamburger when signed in. Desktop (`lg+`) may keep Sign out in the bar. Landing stays a client page (browser Supabase session reader). |
 | Remember me | Default **OFF**. Checked = persistent cookies. Unchecked = browser-session cookies (clear when the browser closes) via `@supabase/ssr` cookie `maxAge`/`expires` on browser + server clients. Not `updateUser({ rememberMe })`. Session-only by default for email and Google until Remember me is checked on that browser. |
 
-**This thread (nav + visitor pay + login — last word, do not undo):** hamburger **kept**; no WhatsApp in header or menu; hamburger scrim is **~32% black** via a **body portal** (this **overrides** the older “light blur, page not blacked out”); **Log in** + **Get Started** as real CTAs **in the bar only** (this **overrides** “full-width Log in + Get Started in the sheet”). Cal.com **Book now** last-refined UX (prefetch, filled cyan, Opening times…, desktop reveal / mobile already open). Seats **7 taken / 5 remaining of 12**. Countdown **SEC → MIN → HOURS → DAYS**. Circular **Log in** in the bar. Pay-to-lock wizard **closed until** the pricing CTA. Visitor copy: **MTN USSD / Airtel Money**, not PesaJet or Stripe. Login stack and Remember me as in the table.
+**This thread (nav + visitor pay + login — last word, do not undo):** hamburger **kept**; no WhatsApp in header or menu; open hamburger is a **full-screen login-atmosphere page** (this **overrides** both “light blur” and the later “32% black scrim over a still-visible landing”); **Log in** + **Get Started** as real CTAs **in the bar only**. Cal.com **Book now** last-refined UX. Seats **7 taken / 5 remaining of 12**. Countdown **SEC → MIN → HOURS → DAYS**. Circular **Log in** in the bar. Pay-to-lock wizard **closed until** the pricing CTA. Visitor copy: **MTN USSD / Airtel Money**, not PesaJet or Stripe. Login stack and Remember me as in the table.
 
 Parent landing thread (`bc-cc3f3433`) was **not** re-fetched in a loop; nav/pay rules above are from that thread’s last instructions. Restore run `bc-6242c463` implemented UI. This follow-up only stores that reconstruction here so nobody re-mines the transcripts.
 
@@ -374,6 +374,10 @@ Approved marketing plan. **Login:** Email → Password → Remember me · Forgot
 ### Mobile Sign out in hamburger (later chat)
 
 **Sign out** is not in the mobile nav bar. When signed in, it is the **last** hamburger option. Desktop may keep Sign out in the bar.
+
+### Hamburger looks like login (later chat)
+
+Open hamburger is a **full-screen** `auth-atmosphere` page (same dark wash as `/login`), landing fully covered, header solid while open, centered section links. Tap empty atmosphere / X / Escape closes.
 
 ---
 
